@@ -1,0 +1,12 @@
+Functional requirements
+
+1. The system shall provide a list of the open attractions filtered by:
+	- name;
+	- distance from the user;
+	- category (Fun, Utility, Restaurants, Shop, Show);
+	- estimated waiting time of the queue,
+ordered by distance and waiting time.
+
+2. The system shall calculate the park attraction waiting time every time there is a report for the attraction.
+
+3. The system shall provide a wishlist for logged park visitors.
