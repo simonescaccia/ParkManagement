@@ -1,0 +1,9 @@
+Functional Requirements
+
+1. The system shall calculate the distance from the user to park attractions.
+
+2. The system shall provide a form when the park visitor can insert feedback that consists:
+	- the time he spent in the queue;
+	- the number of visitors in the queue before him.
+  
+3. The system shall calculate the estimated waiting time for a user queuing for an attraction that has a given number of people ahead.
