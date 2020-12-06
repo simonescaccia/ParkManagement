@@ -1,7 +1,0 @@
-User stories
-
-1. As a park visitor who has less than 150m away from the attraction, I want to report the number of visitors queuing for an open attraction, so that other visitors can know the estimated waiting time for each attraction.
-
-2. As a park visitor, I want to view the estimated waiting time of the queue for each open attraction, ordered by distance and/or estimated waiting time, so that I can save time.
-
-3. As a park visitor, I want to be notified when a report is made for an attraction that interests me, so that I can be updated on my favorite attractions.
