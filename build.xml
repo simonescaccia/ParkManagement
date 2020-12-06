@@ -3,22 +3,19 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="Hello world">
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="SpeedyFila">
     <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../../../eclipse/java-2020-09/eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="14"/>
     <property name="source" value="14"/>
-    <path id="Hello world.classpath">
+    <path id="SpeedyFila.classpath">
         <pathelement location="bin"/>
-    </path>
-    <path id="run.HelloWorld (3).classpath">
-        <path refid="Hello world.classpath"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
-                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -33,7 +30,7 @@
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
-            <classpath refid="Hello world.classpath"/>
+            <classpath refid="SpeedyFila.classpath"/>
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
@@ -49,10 +46,5 @@
     <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
-    </target>
-    <target name="HelloWorld (3)">
-        <java classname="provaSonarCloud.HelloWorld" failonerror="true" fork="yes">
-            <classpath refid="run.HelloWorld (3).classpath"/>
-        </java>
     </target>
 </project>
