@@ -9,8 +9,27 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="14"/>
     <property name="source" value="14"/>
+    <path id="JavaFX.userclasspath">
+        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.base.jar"/>
+        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.controls.jar"/>
+        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.fxml.jar"/>
+        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.graphics.jar"/>
+        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.media.jar"/>
+        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.swing.jar"/>
+        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.web.jar"/>
+        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx-swt.jar"/>
+    </path>
     <path id="SpeedyFila.classpath">
         <pathelement location="bin"/>
+        <path refid="JavaFX.userclasspath"/>
+    </path>
+    <path id="run.Home.classpath">
+        <path refid="SpeedyFila.classpath"/>
+        <path refid="JavaFX.userclasspath"/>
+    </path>
+    <path id="run.ViewAddReport.classpath">
+        <path refid="SpeedyFila.classpath"/>
+        <path refid="JavaFX.userclasspath"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
@@ -46,5 +65,17 @@
     <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
+    </target>
+    <target name="Home">
+        <java classname="view.Home" failonerror="true" fork="yes">
+            <jvmarg line="--module-path &quot;C:\Eclipse\javafx-sdk-15.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml"/>
+            <classpath refid="run.Home.classpath"/>
+        </java>
+    </target>
+    <target name="ViewAddReport">
+        <java classname="logic.view.desktop.ViewAddReport" failonerror="true" fork="yes">
+            <jvmarg line="--module-path &quot;C:\Eclipse\javafx-sdk-15.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml"/>
+            <classpath refid="run.ViewAddReport.classpath"/>
+        </java>
     </target>
 </project>
