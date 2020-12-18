@@ -23,6 +23,10 @@
         <pathelement location="bin"/>
         <path refid="JavaFX.userclasspath"/>
     </path>
+    <path id="run.BeanAddReport.classpath">
+        <path refid="SpeedyFila.classpath"/>
+        <path refid="JavaFX.userclasspath"/>
+    </path>
     <path id="run.Home.classpath">
         <path refid="SpeedyFila.classpath"/>
         <path refid="JavaFX.userclasspath"/>
@@ -65,6 +69,11 @@
     <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
+    </target>
+    <target name="BeanAddReport">
+        <java classname="logic.bean.BeanAddReport" failonerror="true" fork="yes">
+            <classpath refid="run.BeanAddReport.classpath"/>
+        </java>
     </target>
     <target name="Home">
         <java classname="view.Home" failonerror="true" fork="yes">

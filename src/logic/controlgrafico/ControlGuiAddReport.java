@@ -22,20 +22,12 @@ public class ControlGuiAddReport {
 		foo = Integer.parseInt(bAR.getQueueLen());
 		
 		//call the controller
-		boolean res = cAR.tryToUpdate(foo, bAR.getAttraction());
+		BeanMessage res = cAR.tryToUpdate(foo, bAR.getAttraction());
 		
 		//comunico l'esito
-		if(!res) {
-			//errore
-			bSM.setMessage("Errore #11");
-			bSM.setType(false);
-			bSM.showMessage();
-		} else {
-			//success
-			bSM.setMessage("Nice work!!");
-			bSM.setType(true);
-			bSM.showMessage();
-		}
+		bSM.setMessage(res.getMessage());
+		bSM.setType(res.getType());
+		bSM.showMessage();
 	}
 	
 }
