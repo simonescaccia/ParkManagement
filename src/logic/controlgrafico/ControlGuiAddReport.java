@@ -1,6 +1,7 @@
 package logic.controlgrafico;
 
 import logic.bean.*;
+import logic.controlapplicativo.Login;
 import logic.controlapplicativo.ControlAddReport;
 
 public class ControlGuiAddReport {
@@ -9,11 +10,22 @@ public class ControlGuiAddReport {
 	private ControlAddReport cAR;
 	private BeanShowMessage bSM;
 	
+	private Login login;
+	
 	public ControlGuiAddReport(BeanAddReport bAR) {
 		this.bAR = bAR;
 		cAR = new ControlAddReport();
 		bSM = new BeanShowMessage();
 		bSM.setGui(bAR.getGui());
+	}
+	
+	public ControlGuiAddReport(BeanLogin bL) {
+		bSM = new BeanShowMessage();
+		bSM.setGui(bL.getGui());
+	}
+	
+	public void login() {
+		login.validate();
 	}
 	
 	public void insertQueueLenght() {

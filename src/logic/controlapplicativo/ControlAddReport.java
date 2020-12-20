@@ -36,6 +36,12 @@ public class ControlAddReport {
 			bm.setType(false);
 		}
 		
+		//update Attraction
+		
+		
+		//logic videoAds
+		
+		
 		//ritorno l'esito al GuiController
 		bm.setMessage("Errore #150");
 		bm.setType(false);

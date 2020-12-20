@@ -1,7 +1,7 @@
 package logic.view.desktop;
 
 import logic.bean.BeanAddReport;
-
+import logic.bean.BeanLogin;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.scene.control.CheckBox;
@@ -27,6 +27,7 @@ public final class ViewAddReport extends BackgroundPage{
 
 	private Label labelMessage;
 	private BeanAddReport beanAddR;
+	private BeanLogin beanLogin;
 	private Label iconMessage;
 	
 	public ViewAddReport() throws FileNotFoundException{
@@ -146,5 +147,10 @@ public final class ViewAddReport extends BackgroundPage{
 	
 	public static void main(String[] args) {
 		launch(args);
+	}
+	
+	@Override
+	public void login() {
+		
 	}
 }
