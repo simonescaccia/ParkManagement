@@ -9,6 +9,42 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="14"/>
     <property name="source" value="14"/>
+    <path id="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath">
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/annotations-api.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-ant.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-ha.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-ssi.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-storeconfig.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-tribes.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/catalina.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/ecj-4.17.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/el-api.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/jasper-el.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/jasper.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/jaspic-api.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/jsp-api.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/servlet-api.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-api.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-coyote.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-dbcp.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-cs.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-de.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-es.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-fr.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-ja.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-ko.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-pt-BR.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-ru.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-zh-CN.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-jdbc.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-jni.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-util-scan.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-util.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-websocket.jar"/>
+        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/websocket-api.jar"/>
+    </path>
+    <path id="Web App Libraries.libraryclasspath"/>
+    <path id="EAR Libraries.libraryclasspath"/>
     <path id="JavaFX.userclasspath">
         <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.base.jar"/>
         <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.controls.jar"/>
@@ -19,44 +55,53 @@
         <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.web.jar"/>
         <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx-swt.jar"/>
     </path>
-    <path id="EAR Libraries.libraryclasspath"/>
     <path id="SpeedyFila.classpath">
-        <pathelement location="bin"/>
-        <path refid="JavaFX.userclasspath"/>
+        <pathelement location="build/classes"/>
+        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
         <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="JavaFX.userclasspath"/>
     </path>
     <path id="run.BeanAddReport.classpath">
         <path refid="SpeedyFila.classpath"/>
-        <path refid="JavaFX.userclasspath"/>
+        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
         <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="JavaFX.userclasspath"/>
     </path>
     <path id="run.Home.classpath">
         <path refid="SpeedyFila.classpath"/>
-        <path refid="JavaFX.userclasspath"/>
+        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
         <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="JavaFX.userclasspath"/>
     </path>
     <path id="run.ViewAddReport.classpath">
         <path refid="SpeedyFila.classpath"/>
-        <path refid="JavaFX.userclasspath"/>
+        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
         <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="JavaFX.userclasspath"/>
     </path>
     <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
+        <mkdir dir="build/classes"/>
+        <copy includeemptydirs="false" todir="build/classes">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
     </target>
     <target name="clean">
-        <delete dir="bin"/>
+        <delete dir="build/classes"/>
     </target>
     <target depends="clean" name="cleanall"/>
     <target depends="build-subprojects,build-project" name="build"/>
     <target name="build-subprojects"/>
     <target depends="init" name="build-project">
         <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
             <classpath refid="SpeedyFila.classpath"/>
         </javac>
