@@ -1,0 +1,11 @@
+@charset "ISO-8859-1";
+
+img.backImg {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+body {
+	margin: 0px;
+}

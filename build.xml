@@ -5,55 +5,71 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="SpeedyFila">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../../../eclipse/java-2020-09/eclipse/"/>
+    <property name="ECLIPSE_HOME" value="../../eclipse/java-2020-09/eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="14"/>
     <property name="source" value="14"/>
     <path id="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath">
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/annotations-api.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-ant.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-ha.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-ssi.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-storeconfig.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-tribes.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/catalina.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/ecj-4.17.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/el-api.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/jasper-el.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/jasper.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/jaspic-api.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/jsp-api.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/servlet-api.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-api.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-coyote.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-dbcp.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-cs.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-de.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-es.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-fr.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-ja.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-ko.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-pt-BR.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-ru.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-zh-CN.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-jdbc.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-jni.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-util-scan.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-util.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-websocket.jar"/>
-        <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/websocket-api.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/annotations-api.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-ant.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-ha.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-ssi.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-storeconfig.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/catalina-tribes.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/catalina.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/ecj-4.17.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/el-api.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/jasper-el.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/jasper.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/jaspic-api.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/jsp-api.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/servlet-api.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-api.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-coyote.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-dbcp.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-cs.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-de.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-es.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-fr.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-ja.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-ko.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-pt-BR.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-ru.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-i18n-zh-CN.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-jdbc.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-jni.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-util-scan.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-util.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-websocket.jar"/>
+        <pathelement location="../../../../Program Files/apache-tomcat-9.0.40/lib/websocket-api.jar"/>
     </path>
     <path id="Web App Libraries.libraryclasspath"/>
     <path id="EAR Libraries.libraryclasspath"/>
     <path id="JavaFX.userclasspath">
-        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.base.jar"/>
-        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.controls.jar"/>
-        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.fxml.jar"/>
-        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.graphics.jar"/>
-        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.media.jar"/>
-        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.swing.jar"/>
-        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.web.jar"/>
-        <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx-swt.jar"/>
+        <pathelement location="../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.base.jar"/>
+        <pathelement location="../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.controls.jar"/>
+        <pathelement location="../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.fxml.jar"/>
+        <pathelement location="../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.graphics.jar"/>
+        <pathelement location="../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.media.jar"/>
+        <pathelement location="../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.swing.jar"/>
+        <pathelement location="../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.web.jar"/>
+        <pathelement location="../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx-swt.jar"/>
+    </path>
+    <path id="JUnit 5.libraryclasspath">
+        <pathelement location="../../.p2/pool/plugins/org.junit.jupiter.api_5.6.0.v20200203-2009.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.jupiter.engine_5.6.0.v20200203-2009.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.jupiter.migrationsupport_5.6.0.v20200203-2009.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.jupiter.params_5.6.0.v20200203-2009.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.platform.commons_1.6.0.v20200203-2009.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.platform.engine_1.6.0.v20200203-2009.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.platform.launcher_1.6.0.v20200203-2009.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.platform.runner_1.6.0.v20200203-2009.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.platform.suite.api_1.6.0.v20200203-2009.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit.vintage.engine_5.6.0.v20200203-2009.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.opentest4j_1.2.0.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.apiguardian_1.1.0.v20190826-0900.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.junit_4.13.0.v20200204-1500.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
     </path>
     <path id="SpeedyFila.classpath">
         <pathelement location="build/classes"/>
@@ -61,13 +77,23 @@
         <path refid="Web App Libraries.libraryclasspath"/>
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
+        <path refid="JUnit 5.libraryclasspath"/>
     </path>
-    <path id="run.BeanAddReport.classpath">
+    <path id="run.AddReportBean.classpath">
         <path refid="SpeedyFila.classpath"/>
         <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
         <path refid="Web App Libraries.libraryclasspath"/>
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
+        <path refid="JUnit 5.libraryclasspath"/>
+    </path>
+    <path id="run.AddReportView.classpath">
+        <path refid="SpeedyFila.classpath"/>
+        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="JavaFX.userclasspath"/>
+        <path refid="JUnit 5.libraryclasspath"/>
     </path>
     <path id="run.Home.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -75,18 +101,14 @@
         <path refid="Web App Libraries.libraryclasspath"/>
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
-    </path>
-    <path id="run.ViewAddReport.classpath">
-        <path refid="SpeedyFila.classpath"/>
-        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
-        <path refid="Web App Libraries.libraryclasspath"/>
-        <path refid="EAR Libraries.libraryclasspath"/>
-        <path refid="JavaFX.userclasspath"/>
+        <path refid="JUnit 5.libraryclasspath"/>
     </path>
     <target name="init">
         <mkdir dir="build/classes"/>
         <copy includeemptydirs="false" todir="build/classes">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -118,21 +140,21 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="BeanAddReport">
-        <java classname="logic.bean.BeanAddReport" failonerror="true" fork="yes">
-            <classpath refid="run.BeanAddReport.classpath"/>
+    <target name="AddReportBean">
+        <java classname="logic.bean.AddReportBean" failonerror="true" fork="yes">
+            <classpath refid="run.AddReportBean.classpath"/>
+        </java>
+    </target>
+    <target name="AddReportView">
+        <java classname="logic.view.desktop.AddReportView" failonerror="true" fork="yes">
+            <jvmarg line="--module-path &quot;C:\Eclipse\javafx-sdk-15.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml"/>
+            <classpath refid="run.AddReportView.classpath"/>
         </java>
     </target>
     <target name="Home">
         <java classname="view.Home" failonerror="true" fork="yes">
             <jvmarg line="--module-path &quot;C:\Eclipse\javafx-sdk-15.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml"/>
             <classpath refid="run.Home.classpath"/>
-        </java>
-    </target>
-    <target name="ViewAddReport">
-        <java classname="logic.view.desktop.ViewAddReport" failonerror="true" fork="yes">
-            <jvmarg line="--module-path &quot;C:\Eclipse\javafx-sdk-15.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml"/>
-            <classpath refid="run.ViewAddReport.classpath"/>
         </java>
     </target>
 </project>
