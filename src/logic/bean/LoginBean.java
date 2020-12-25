@@ -1,16 +1,17 @@
 package logic.bean;
 
-import logic.controlgrafico.AddReportGuiControl;
+import logic.boundary.controlgrafico.AddReportGuiControl;
+import logic.boundary.view.AddReportView;
 
 public class LoginBean {
 
-	private Object gui;
+	private AddReportView gui;
 	
-	public void setGui(Object gui) {
+	public void setGui(AddReportView gui) {
 		this.gui = gui;
 	}
 	
-	public Object getGui() {
+	public AddReportView getGui() {
 		return gui;
 	}
 	

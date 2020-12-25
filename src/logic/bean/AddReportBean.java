@@ -3,14 +3,15 @@ package logic.bean;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import logic.controlgrafico.AddReportGuiControl;
+import logic.boundary.controlgrafico.AddReportGuiControl;
+import logic.boundary.view.AddReportView;
 
 public class AddReportBean {
 
 	private String queueLen;
 	private boolean isLast;
-	private Object gui;
 	private String attractionName;
+	private AddReportView gui;
 	
 	public void setQueueLen(String s) {
 		queueLen = s;
@@ -20,7 +21,7 @@ public class AddReportBean {
 		isLast = b;
 	}
 	
-	public void setGui(Object gui) {
+	public void setGui(AddReportView gui) {
 		this.gui = gui;
 	}
 	
@@ -40,7 +41,7 @@ public class AddReportBean {
 		return isLast;
 	}
 	
-	public Object getGui() {
+	public AddReportView getGui() {
 		return gui;
 	}
 	
