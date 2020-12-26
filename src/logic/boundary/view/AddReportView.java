@@ -98,7 +98,7 @@ public final class AddReportView extends BackgroundPage{
 		//pageButton background
 		BackgroundFill fill = new BackgroundFill(darkGreen, null, null);
 		Background backB2 = new Background(fill);
-		super.bPages[1].setBackground(backB2);
+		super.bPages[0].setBackground(backB2);
 		
 		//sideInfo
 

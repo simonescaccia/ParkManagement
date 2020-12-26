@@ -19,25 +19,23 @@
 	
   	<img class="backImg" alt="" src="<%=request.getContextPath()%>/img/backgroundImage2.jpg" width="1366">
   	
-  	    <form action="index.jsp" name="myform" method="POST">
-        <div class="row">
-            <div class="col-lg-4 form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" autocomplete="off">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 form-group">
-                <input type="submit" name="login" value="login">
-            </div>
-        </div>
-    </form>
-  	 	
+  	<ul>
+		<li class="left"><a class="left" href="#"><img src="<%=request.getContextPath()%>/img/undo2.png" alt="undo"></a></li>
+  		<li class="left"><a class="left" href="#"><img src="<%=request.getContextPath()%>/img/redo2.png" alt="redo"></a></li>
+  		<li class="center"><h4 class="font"><a class="active" href="#">Attractions</a></h4></li>
+  		<li class="left"><h4 class="font"><a href="#">Your reports</a></h4></li>
+  		<li class="left"><h4 class="font"><a href="#">Coupons</a></h4></li>
+  		<li class="left"><h4 class="font"><a href="#">Favourites</a></h4></li>
+  		<li class="right"><a class="right" href="#"><img src="<%=request.getContextPath()%>/img/login2.jpg" alt="undo"></a></li>
+  	</ul>
+  	
+  	<div class="info">
+
+  	</div>
+ 
+  	<div class="infoside">
+
+  	</div>
+
 </body>
 </html>

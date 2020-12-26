@@ -1,11 +1,90 @@
 @charset "ISO-8859-1";
 
 img.backImg {
+	position: absolute;
 	display: block;
+	top: 0;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 body {
 	margin: 0px;
+}
+
+h4.font {
+	font-family: "Comic Sans MS", Arial, sans-serif;
+    font-size: 21px;
+    margn: 0px;
+    font-weight: normal;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+ul {
+	position: relative;
+	list-style-type: none;
+	padding: 0;
+	margin-top: 9%;
+	overflow: hidden;
+	background-color: #8EE7C7;
+}
+
+li.left {	
+	float: left;
+}
+
+li.center{
+	margin-left: 200px;
+	float: left;
+}
+
+li.right {	
+	float: right;
+}
+
+li a {
+  	display: block;
+  	color: black;
+  	text-align: center;
+  	padding: 11px 50px;
+  	text-decoration: none;
+}
+
+li.left a.left {
+  	display: block;
+  	color: black;
+  	text-align: center;
+  	padding: 3px 10px;
+  	text-decoration: none;
+}
+
+li.right a.right {
+  	display: block;
+  	color: black;
+  	text-align: center;
+  	padding: 6px 15px;
+  	text-decoration: none;
+}
+
+.active {
+  	background-color: #00AA6D;
+}
+
+div.info {
+  	position: absolute;
+  	top: 27.5%;
+  	left: 0px;
+  	width: 966px;
+  	height: 453px;
+  	background-color: #FFF;
+}
+
+div.infoside {
+  	position: absolute;
+  	top: 27.5%;
+  	left: 966px;
+  	width: 400px;
+  	height: 453px;
+  	background-color: #8EE7C7;
 }
