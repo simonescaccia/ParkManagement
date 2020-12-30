@@ -1,4 +1,4 @@
-package logic.bean;
+package logic.control.bean;
 
 public class MessageBean {
 

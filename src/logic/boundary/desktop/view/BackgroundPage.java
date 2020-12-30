@@ -1,4 +1,4 @@
-package logic.boundary.view;
+package logic.boundary.desktop.view;
 
 import java.io.*;
 import javafx.application.Application;

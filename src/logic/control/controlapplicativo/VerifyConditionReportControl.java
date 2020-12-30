@@ -2,7 +2,7 @@ package logic.control.controlapplicativo;
 
 import logic.entity.model.ParkVisitor;
 import logic.entity.model.ParkAttraction;
-import logic.boundary.view.ReportGoogleMapsView;
+import logic.boundary.desktop.view.ReportGoogleMapsView;
 
 public class VerifyConditionReportControl {
 

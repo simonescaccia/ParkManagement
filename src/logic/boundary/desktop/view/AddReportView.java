@@ -1,7 +1,9 @@
-package logic.boundary.view;
+package logic.boundary.desktop.view;
 
-import logic.bean.AddReportBean;
-import logic.bean.LoginBean;
+import logic.boundary.desktop.controlgrafico.AddReportGuiControl;
+import logic.control.bean.MessageBean;
+import logic.control.bean.AddReportBean;
+import logic.control.bean.LoginBean;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.scene.control.CheckBox;
@@ -47,18 +49,18 @@ public final class AddReportView extends BackgroundPage{
 	}
 	
 	public void insertReport(String queueLen, boolean isTheLast, String attraction) {
-		beanAddR.setAttraction(attraction);
+		beanAddR.setAttractionName(attraction);
 		beanAddR.setQueueLen(queueLen);
 		beanAddR.setIsLast(isTheLast);
-		beanAddR.setGui(this);
-		beanAddR.addReport();
+		AddReportGuiControl aRGC = new AddReportGuiControl(beanAddR, this);
+		aRGC.insertQueueLenght();
 	}
 
-	public void showMessage(String message,boolean type) {
+	public void showMessage(MessageBean mB) {
 		String env = "user.dir";
 		try {
 			FileInputStream iconM;
-			if(type) {
+			if(mB.getType()) {
 				iconM = new FileInputStream(System.getProperty(env)+"\\img\\success-icon2.png");
 			} else {
 				iconM = new FileInputStream(System.getProperty(env)+"\\img\\error-flat2.png");
@@ -67,13 +69,13 @@ public final class AddReportView extends BackgroundPage{
 			ImageView imgIV = new ImageView(imgI);
 			this.iconMessage.setGraphic(imgIV);
 		} catch (FileNotFoundException e) {
-			if(type) {
+			if(mB.getType()) {
 				this.iconMessage.setText("OK!");
 			} else {
 				this.iconMessage.setText("Err");
 			}
 		}
-		labelMessage.setText(message);
+		labelMessage.setText(mB.getMessage());
 		
 	}
 	
@@ -93,7 +95,7 @@ public final class AddReportView extends BackgroundPage{
 		Border blackBorder = new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,null,null));
 		Border greenBorder = new Border(new BorderStroke((darkGreen),BorderStrokeStyle.SOLID,null,null));
 		
-		 Label labelAttraction = new Label("Nome dell'attrazione");
+		Label labelAttraction = new Label("Nome dell'attrazione");
 		
 		//pageButton background
 		BackgroundFill fill = new BackgroundFill(darkGreen, null, null);
@@ -110,7 +112,7 @@ public final class AddReportView extends BackgroundPage{
 		textAddReport.setTextFill(Color.BLACK);
 		textAddReport.setPadding(new Insets(0,10,0,10));
 		
-		CheckBox cb = new CheckBox("I'm the last in the queue");
+		CheckBox cb = new CheckBox("I'm the last of the queue");
 		cb.setIndeterminate(false);
 		cb.setFont(fontSide);
 		cb.setTextFill(Color.BLACK);

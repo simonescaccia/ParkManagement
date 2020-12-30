@@ -21,6 +21,47 @@ h4.font {
     margin-block-end: 0px;
 }
 
+h4.desc {
+	font-family: "Comic Sans MS", Arial, sans-serif;
+    font-size: 17px;
+    margin: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    font-weight: normal;
+}
+
+label.desc {
+	display: inline;
+	font-family: "Comic Sans MS", Arial, sans-serif;
+    font-size: 17px;
+    font-weight: normal;
+}
+
+input[type=checkbox].addreport {
+	margin: 0px;
+	padding: 0px;
+	height: 20px;
+	width: 20px;
+	cursor: pointer;
+}
+
+input[type=text].addreport {
+	border: 1px solid #00AA6D;
+	height: 30px;
+	width: 40px;
+}
+
+input[type=submit].addreport {
+	background-color: #00AA6D;
+	border: 1px solid #000;
+	width: 120px;
+	height: 34px;
+	cursor: pointer;
+	font-family: "Comic Sans MS", Arial, sans-serif;
+    font-size: 17px;
+    text-align: center;
+}
+
 ul {
 	position: relative;
 	list-style-type: none;
@@ -87,4 +128,58 @@ div.infoside {
   	width: 400px;
   	height: 453px;
   	background-color: #8EE7C7;
+}
+
+div.message {
+
+  	position: relative;
+  	left: 0px;
+	margin-left: 10px;
+ 	width: 380px;
+ 	height: 30px;
+  	background-color: #8EE7C7;
+  	
+}
+
+div.addreport {
+    margin-left: 10px;
+  	position: relative;
+  	left: 0px;
+  	width: 380px;
+  	height: 100px;
+}
+
+div.container1 {
+	top: 0px;
+    position: relative;
+    width: 48px;
+    height: 50px;
+}
+
+div.container2 {
+    position: absolute;
+    top: 49px;
+    left: 46px;
+    width: 100px;
+    height: 50px;
+}
+
+div.icon{
+	display: inline-block;
+	position: relative;
+	left: 0px;
+	margin: 0px;
+	height: 30px;
+	width: 40px;
+	text-aling: center;
+}
+
+div.text {
+	display: inline-block;
+	position: absolute;	
+	left: 40px;
+	margin-top: 5px;
+	height: 30px;
+	width: 350px;
+	text-aling: left;
 }

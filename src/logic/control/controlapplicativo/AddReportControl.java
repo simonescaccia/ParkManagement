@@ -1,12 +1,12 @@
 package logic.control.controlapplicativo;
 
-import logic.bean.MessageBean;
+import logic.control.bean.MessageBean;
 import logic.entity.model.ParkAttraction;
 import logic.entity.model.ParkVisitor;
 
 public class AddReportControl {
 
-	public MessageBean tryToUpdate(int queueLen, String attraction) {
+	public MessageBean tryToUpdate(int queueLen, String attraction, boolean isLast) {
 		
 		MessageBean bm = new MessageBean();
 		
@@ -14,8 +14,8 @@ public class AddReportControl {
 		LoginControl loginControl = new LoginControl();
 		String username = loginControl.validate();
 		
-		ParkVisitor parkVisitor = this.getParkVisitor(username);
-		ParkAttraction parkAttraction = this.getParkAttraction(attraction);
+		ParkVisitor parkVisitor = this.searchParkVisitor(username);
+		ParkAttraction parkAttraction = this.searchParkAttraction(attraction);
 		
 		//controlli
 		VerifyConditionReportControl vCR = new VerifyConditionReportControl();
@@ -43,17 +43,17 @@ public class AddReportControl {
 		
 		
 		//ritorno l'esito al GuiController
-		bm.setMessage("Errore #150");
-		bm.setType(false);
+		bm.setMessage("Inserimento completato");
+		bm.setType(true);
 		return bm;
 	}
 	
-	protected ParkAttraction getParkAttraction(String attraction) {
+	protected ParkAttraction searchParkAttraction(String attraction) {
 		//dummy 
 		return new ParkAttraction();
 	}
 	
-	protected ParkVisitor getParkVisitor(String username) {
+	protected ParkVisitor searchParkVisitor(String username) {
 		//dummy 
 		return new ParkVisitor();
 	}	

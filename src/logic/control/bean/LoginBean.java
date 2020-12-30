@@ -1,7 +1,7 @@
-package logic.bean;
+package logic.control.bean;
 
-import logic.boundary.controlgrafico.AddReportGuiControl;
-import logic.boundary.view.AddReportView;
+import logic.boundary.desktop.controlgrafico.AddReportGuiControl;
+import logic.boundary.desktop.view.AddReportView;
 
 public class LoginBean {
 
