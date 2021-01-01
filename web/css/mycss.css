@@ -1,14 +1,17 @@
 @charset "ISO-8859-1";
 
 img.backImg {
-	position: absolute;
+	position: relative;
 	display: block;
 	top: 0;
 	margin-left: auto;
 	margin-right: auto;
+	width: 100%
 }
 
+html,
 body {
+	height: 100%;
 	margin: 0px;
 }
 
@@ -66,7 +69,7 @@ ul {
 	position: relative;
 	list-style-type: none;
 	padding: 0;
-	margin-top: 9%;
+	margin: 0px;
 	overflow: hidden;
 	background-color: #8EE7C7;
 }
@@ -113,25 +116,16 @@ li.right a.right {
 }
 
 div.info {
-  	position: absolute;
-  	top: 27.5%;
-  	left: 0px;
-  	width: 966px;
-  	height: 453px;
   	background-color: #FFF;
+  	flex: 1 1 auto;
 }
 
 div.infoside {
-  	position: absolute;
-  	top: 27.5%;
-  	left: 966px;
-  	width: 400px;
-  	height: 453px;
   	background-color: #8EE7C7;
+  	flex: 0 1 400px;
 }
 
 div.message {
-
   	position: relative;
   	left: 0px;
 	margin-left: 10px;
@@ -147,6 +141,32 @@ div.addreport {
   	left: 0px;
   	width: 380px;
   	height: 100px;
+}
+
+div.box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+div.box .header {
+  flex: 0 1 auto;
+  /* The above is shorthand for:
+  flex-grow: 0,
+  flex-shrink: 1,
+  flex-basis: auto
+  */
+}
+
+div.box .content {
+  flex: 1 1 auto;
+}
+
+div.box2 {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
 }
 
 div.container1 {
