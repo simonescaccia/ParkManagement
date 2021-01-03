@@ -23,6 +23,10 @@
 	<title>Add Report</title>
 	
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/mycss.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script type="text/javascript" src="../js/myjs.js"></script>
+	<meta name="google-signin-client_id" content="80408227597-gnan03ov689qhrgt23eho38jmt0krs06.apps.googleusercontent.com">
 
 </head>
 <body>
@@ -30,16 +34,23 @@
 	<div class="box">
   		<div class="header">
   			
-		    <img class="backImg" alt="" src="<%=request.getContextPath()%>/img/backgroundImage2.jpg" width="1366">
+		    <img class="backImg" alt="" src="../img/backgroundImage2.jpg" width="1366">
 		  	
 		  	<ul>
-				<li class="left"><a class="left" href="#"><img src="<%=request.getContextPath()%>/img/undo2.png" alt="undo"></a></li>
-		  		<li class="left"><a class="left" href="#"><img src="<%=request.getContextPath()%>/img/redo2.png" alt="redo"></a></li>
-		  		<li class="center"><h4 class="font"><a class="active" href="#">Attractions</a></h4></li>
+				<li class="left"><a class="left" href="#"><img src="../img/undo2.png" alt="undo"></a></li>
+		  		<li class="left"><a class="left" href="#"><img src="../img/redo2.png" alt="redo"></a></li>
+		  		<li class="center"><h4 class="font"><a class="active" href="../index.jsp">Attractions</a></h4></li>
 		  		<li class="left"><h4 class="font"><a href="#">Your reports</a></h4></li>
 		  		<li class="left"><h4 class="font"><a href="#">Coupons</a></h4></li>
 		  		<li class="left"><h4 class="font"><a href="#">Favourites</a></h4></li>
-		  		<li class="right"><a class="right" href="#"><img src="<%=request.getContextPath()%>/img/login2.jpg" alt="undo"></a></li>
+		  		<li class="right">
+					<div class="googleLogin" id="signin-container">
+		  				<div class="g-signin2" data-onsuccess="onSignIn"></div>	
+		  			</div>
+					<div class="googleLogout" id="signout-container">
+		  				<h4 class="font"><a href="#" onclick="signOut();">Sign out</a></h4>
+		  			</div>
+				</li>
 			</ul>
 			
 		</div>	

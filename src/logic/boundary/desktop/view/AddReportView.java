@@ -3,7 +3,6 @@ package logic.boundary.desktop.view;
 import logic.boundary.desktop.controlgrafico.AddReportGuiControl;
 import logic.control.bean.MessageBean;
 import logic.control.bean.AddReportBean;
-import logic.control.bean.LoginBean;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.scene.control.CheckBox;
@@ -29,7 +28,6 @@ public final class AddReportView extends BackgroundPage{
 
 	private Label labelMessage;
 	private AddReportBean beanAddR;
-	private LoginBean loginBean;
 	private Label iconMessage;
 	
 	public AddReportView() throws FileNotFoundException{
@@ -151,8 +149,4 @@ public final class AddReportView extends BackgroundPage{
 		launch(args);
 	}
 	
-	@Override
-	public void login() {
-		
-	}
 }

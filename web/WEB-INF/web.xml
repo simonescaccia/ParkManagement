@@ -18,4 +18,14 @@
     	<servlet-name>AddReportGuiControlServlet</servlet-name>
     	<url-pattern>/addReportGuiControlServlet</url-pattern>
 	</servlet-mapping>
+	
+	  	<servlet>
+		<servlet-name>LoginGuiControlServlet</servlet-name>
+		<servlet-class>logic.boundary.web.controlgrafico.LoginGuiControlServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+    	<servlet-name>LoginGuiControlServlet</servlet-name>
+    	<url-pattern>/loginGuiControlServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

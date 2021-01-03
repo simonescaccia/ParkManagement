@@ -12,7 +12,9 @@ public class AddReportControl {
 		
 		//get utente
 		LoginControl loginControl = new LoginControl();
-		String username = loginControl.validate();
+		
+		// dummy dummy
+		String username = loginControl.getParkVisitor();
 		
 		ParkVisitor parkVisitor = this.searchParkVisitor(username);
 		ParkAttraction parkAttraction = this.searchParkAttraction(attraction);
@@ -27,7 +29,7 @@ public class AddReportControl {
 		b2 = vCR.verifyCountDown(parkVisitor);
 		
 		if(b1 && b2) {
-			vCR.calculateWaitingTime(parkAttraction, queueLen);
+			calculateWaitingTime(parkAttraction, queueLen);
 		} else if(!b1){
 			bm.setMessage("Non sei molto vicino all'attrazione");
 			bm.setType(false);
@@ -57,5 +59,9 @@ public class AddReportControl {
 		//dummy 
 		return new ParkVisitor();
 	}	
+	
+	protected void calculateWaitingTime(ParkAttraction attraction, int queuLEN) {
+		//dummy method
+	}
 	
 }

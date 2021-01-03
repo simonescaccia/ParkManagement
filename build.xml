@@ -43,7 +43,48 @@
         <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/tomcat-websocket.jar"/>
         <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/websocket-api.jar"/>
     </path>
-    <path id="Web App Libraries.libraryclasspath"/>
+    <path id="Web App Libraries.libraryclasspath">
+        <pathelement location="web/WEB-INF/lib/checker-compat-qual-2.5.5.jar"/>
+        <pathelement location="web/WEB-INF/lib/commons-logging-1.2.jar"/>
+        <pathelement location="web/WEB-INF/lib/error_prone_annotations-2.3.4.jar"/>
+        <pathelement location="web/WEB-INF/lib/failureaccess-1.0.1.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-api-client-1.31.1.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-api-client-android-1.31.1.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-api-client-appengine-1.31.1.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-api-client-gson-1.31.1.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-api-client-jackson2-1.31.1.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-api-client-java6-1.31.1.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-api-client-protobuf-1.31.1.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-api-client-servlet-1.31.1.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-api-client-xml-1.31.1.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-http-client-1.38.0.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-http-client-android-1.38.0.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-http-client-apache-v2-1.38.0.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-http-client-appengine-1.38.0.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-http-client-gson-1.38.0.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-http-client-jackson2-1.38.0.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-http-client-protobuf-1.38.0.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-http-client-xml-1.38.0.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-oauth-client-1.31.2.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-oauth-client-appengine-1.31.2.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-oauth-client-java6-1.31.2.jar"/>
+        <pathelement location="web/WEB-INF/lib/google-oauth-client-servlet-1.31.2.jar"/>
+        <pathelement location="web/WEB-INF/lib/grpc-context-1.22.1.jar"/>
+        <pathelement location="web/WEB-INF/lib/gson-2.8.6.jar"/>
+        <pathelement location="web/WEB-INF/lib/guava-29.0-android.jar"/>
+        <pathelement location="web/WEB-INF/lib/httpclient-4.5.13.jar"/>
+        <pathelement location="web/WEB-INF/lib/httpcore-4.4.13.jar"/>
+        <pathelement location="web/WEB-INF/lib/j2objc-annotations-1.3.jar"/>
+        <pathelement location="web/WEB-INF/lib/jackson-core-2.11.3.jar"/>
+        <pathelement location="web/WEB-INF/lib/jdo2-api-2.3-eb.jar"/>
+        <pathelement location="web/WEB-INF/lib/jsr305-3.0.2.jar"/>
+        <pathelement location="web/WEB-INF/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"/>
+        <pathelement location="web/WEB-INF/lib/opencensus-api-0.24.0.jar"/>
+        <pathelement location="web/WEB-INF/lib/opencensus-contrib-http-util-0.24.0.jar"/>
+        <pathelement location="web/WEB-INF/lib/protobuf-java-3.13.0.jar"/>
+        <pathelement location="web/WEB-INF/lib/transaction-api-1.1.jar"/>
+        <pathelement location="web/WEB-INF/lib/xpp3-1.1.4c.jar"/>
+    </path>
     <path id="EAR Libraries.libraryclasspath"/>
     <path id="JavaFX.userclasspath">
         <pathelement location="../../../../../../../Eclipse/javafx-sdk-15.0.1/lib/javafx.base.jar"/>
@@ -71,6 +112,48 @@
         <pathelement location="../../../../../.p2/pool/plugins/org.junit_4.13.0.v20200204-1500.jar"/>
         <pathelement location="../../../../../.p2/pool/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
     </path>
+    <path id="Google.userclasspath">
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/checker-compat-qual-2.5.5.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/commons-logging-1.2.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/error_prone_annotations-2.3.4.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/failureaccess-1.0.1.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-api-client-1.31.1.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-api-client-android-1.31.1.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-api-client-appengine-1.31.1.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-api-client-gson-1.31.1.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-api-client-jackson2-1.31.1.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-api-client-java6-1.31.1.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-api-client-protobuf-1.31.1.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-api-client-servlet-1.31.1.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-api-client-xml-1.31.1.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-http-client-1.38.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-http-client-android-1.38.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-http-client-apache-v2-1.38.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-http-client-appengine-1.38.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-http-client-gson-1.38.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-http-client-jackson2-1.38.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-http-client-protobuf-1.38.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-http-client-xml-1.38.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-oauth-client-1.31.2.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-oauth-client-appengine-1.31.2.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-oauth-client-java6-1.31.2.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/google-oauth-client-servlet-1.31.2.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/grpc-context-1.22.1.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/gson-2.8.6.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/guava-29.0-android.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/httpclient-4.5.13.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/httpcore-4.4.13.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/j2objc-annotations-1.3.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/jackson-core-2.11.3.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/jdo2-api-2.3-eb.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/jsr305-3.0.2.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/opencensus-api-0.24.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/opencensus-contrib-http-util-0.24.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/protobuf-java-3.13.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/transaction-api-1.1.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/xpp3-1.1.4c.jar"/>
+    </path>
     <path id="SpeedyFila.classpath">
         <pathelement location="build/classes"/>
         <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
@@ -78,6 +161,7 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <path id="run.AddReportBean.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -86,6 +170,7 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <path id="run.AddReportView.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -94,6 +179,7 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <path id="run.Home.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -102,11 +188,14 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <target name="init">
         <mkdir dir="build/classes"/>
         <copy includeemptydirs="false" todir="build/classes">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>

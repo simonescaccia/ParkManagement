@@ -151,7 +151,7 @@ public abstract class BackgroundPage extends Application{
 		
 		final Button button4 = buttonLogin;
 		buttonLogin.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
-			login()  );
+		button4.setEffect(shadow) 	);
 
 		buttonLogin.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
 			button4.setEffect(null)  );
@@ -175,7 +175,5 @@ public abstract class BackgroundPage extends Application{
 		
 		scene = new Scene(root, 1366, 700);
 	}
-	
-	public abstract void login();
 	
 }

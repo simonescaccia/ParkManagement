@@ -18,7 +18,4 @@ public class VerifyConditionReportControl {
 		return true;
 	}
 	
-	public void calculateWaitingTime(ParkAttraction attraction, int queuLEN) {
-		//dummy method
-	}
 }

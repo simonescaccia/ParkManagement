@@ -46,12 +46,12 @@ public class AddReportGuiControlServlet extends HttpServlet{
 			mB.setMessage(res.getMessage());
 			mB.setType(res.getType());
 		} catch (NumberFormatException e) {
-			//return failure
+			//comunico l'errore
 			mB.setMessage("Inserire un numero da 0 a 100");
 			mB.setType(false);
 		}
 		
-		
+		//forward
 	    request.setAttribute("mB", mB);
 	    
 	    RequestDispatcher rd = request.getRequestDispatcher("/jspPages/addReport.jsp?forward=true");

@@ -16,5 +16,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Google"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

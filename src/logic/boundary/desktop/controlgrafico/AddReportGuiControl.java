@@ -1,10 +1,8 @@
 package logic.boundary.desktop.controlgrafico;
 
 import logic.control.bean.AddReportBean;
-import logic.control.bean.LoginBean;
 import logic.control.bean.MessageBean;
 import logic.boundary.desktop.view.AddReportView;
-import logic.control.controlapplicativo.LoginControl;
 import logic.control.controlapplicativo.AddReportControl;
 
 public class AddReportGuiControl {
@@ -14,21 +12,11 @@ public class AddReportGuiControl {
 	private MessageBean mB;
 	private AddReportView aRV;
 	
-	private LoginControl loginControl;
-	
 	public AddReportGuiControl(AddReportBean aRB, AddReportView aRV) {
 		this.aRB = aRB;
 		this.aRV = aRV;
 		aRC = new AddReportControl();
 		mB = new MessageBean();
-	}
-	
-	public AddReportGuiControl(LoginBean bL) {
-		mB = new MessageBean();
-	}
-	
-	public void login() {
-		loginControl.validate();
 	}
 	
 	public void insertQueueLenght() {
