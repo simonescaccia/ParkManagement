@@ -2,7 +2,7 @@ package logic.boundary.desktop.view;
 
 import java.io.*;
 import javafx.application.Application;
-
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import logic.control.bean.MessageBean;
 
 public abstract class BackgroundPage extends Application{
 
@@ -29,12 +30,16 @@ public abstract class BackgroundPage extends Application{
 	protected HBox body;
 	protected VBox info;
 	protected VBox sideInfo;
+	protected HBox messageBox;
 	
 	protected Label labelImg;
 	
 	protected Button buttonUndo;
 	protected Button buttonRedo;
 	protected Button buttonLogin;
+	
+	protected Label iconMessage;
+	protected Label labelMessage;
 	
 	protected Font font;
 	
@@ -139,20 +144,25 @@ public abstract class BackgroundPage extends Application{
 		loginBox.setBackground(backB1);
 		loginBox.setMinSize(246, 50);
 		
-		inLoginImg = new FileInputStream(System.getProperty(env)+"\\img\\login2.jpg");
+		inLoginImg = new FileInputStream(System.getProperty(env)+"\\img\\login3.PNG");
 		Image imgL = new Image(inLoginImg);
 		ImageView imgVL = new ImageView(imgL);
 		
 		
 		buttonLogin = new Button("", imgVL);
 		buttonLogin.setBackground(backB1);
-		buttonLogin.setMaxWidth(176);
-		buttonLogin.setMaxWidth(34);
+		buttonLogin.setMaxWidth(100);
+		buttonLogin.setMaxHeight(34);
 		
 		final Button button4 = buttonLogin;
 		buttonLogin.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
-		button4.setEffect(shadow) 	);
+			button4.setStyle("-fx-cursor: hand;")
+		);
 
+		buttonLogin.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> 
+			login()
+		);
+		
 		buttonLogin.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
 			button4.setEffect(null)  );
 		
@@ -160,6 +170,7 @@ public abstract class BackgroundPage extends Application{
 		body = new HBox();
 		info = new VBox();
 		sideInfo = new VBox();
+		messageBox = new HBox();
 		
 		body.setMinSize(1366, 500);
 		
@@ -168,6 +179,19 @@ public abstract class BackgroundPage extends Application{
 		sideInfo.setBackground(this.backB1);
 		sideInfo.setMinSize(400, 500);
 		
+		iconMessage = new Label("");
+		iconMessage.setPrefSize(40, 30);
+		iconMessage.setPadding(new Insets(0,0,0,10));
+		iconMessage.setTextFill(Color.BLACK);
+		iconMessage.setFont(font);
+		
+		labelMessage = new Label();
+		labelMessage.setPrefSize(330, 30);
+		labelMessage.setPadding(new Insets(0,0,0,10));
+		labelMessage.setTextFill(Color.BLACK);
+		labelMessage.setFont(font);
+		
+		messageBox.getChildren().addAll(iconMessage, labelMessage);
 		body.getChildren().addAll(info, sideInfo);
 		loginBox.getChildren().addAll(buttonLogin);
 		lineButtons.getChildren().addAll(buttonUndo, buttonRedo,space,bPages[0],bPages[1],bPages[2],bPages[3], loginBox);
@@ -176,4 +200,7 @@ public abstract class BackgroundPage extends Application{
 		scene = new Scene(root, 1366, 700);
 	}
 	
+	public abstract void login();
+	
+	public abstract void showMessage(MessageBean mB);
 }

@@ -1,7 +1,6 @@
 package logic.boundary.web.controlgrafico;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.GeneralSecurityException;
 
 import javax.servlet.RequestDispatcher;
@@ -10,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import logic.boundary.web.view.LoginGoogleView;
 import logic.control.bean.MessageBean;
-import logic.control.controlapplicativo.LoginControl;
 
 public class LoginGuiControlServlet extends HttpServlet{
 	
@@ -25,13 +24,12 @@ public class LoginGuiControlServlet extends HttpServlet{
 	            throws ServletException, IOException
 	{
 		
-		System.out.println("qui");
 		String idToken = request.getParameter("idtoken");
 		
-		//comunico il token da validare al Controller applicativo per la verifica
-		LoginControl loginControl = new LoginControl();
+		//comunico il token da validare alla view LoginGoogleView per la verifica
+		LoginGoogleView lGV = new LoginGoogleView();
 		try {
-			loginControl.verifyToken(idToken);
+			lGV.loginWebVerifyToken(idToken);
 		} catch (GeneralSecurityException| IOException e) {
 			MessageBean mB = new MessageBean();
 			mB.setMessage("Token non sicuro");
@@ -40,7 +38,7 @@ public class LoginGuiControlServlet extends HttpServlet{
 		    try {
 		    	rd.forward(request, response);
 		    } catch (ServletException|IOException ev) {
-		    	request.setAttribute("mB", mB);
+		    	e.printStackTrace();
 		    }
 		}
 		
@@ -55,7 +53,7 @@ public class LoginGuiControlServlet extends HttpServlet{
 	    try {
 	    	rd.forward(request, response);
 	    } catch (ServletException|IOException e) {
-	    	request.setAttribute("mB", "exception");
+	    	e.printStackTrace();
 	    }
 		
 	}

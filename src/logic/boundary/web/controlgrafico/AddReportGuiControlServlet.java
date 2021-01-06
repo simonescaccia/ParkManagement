@@ -58,7 +58,7 @@ public class AddReportGuiControlServlet extends HttpServlet{
 	    try {
 	    	rd.forward(request, response);
 	    } catch (ServletException|IOException e) {
-	    	request.setAttribute("mB", mB);
+	    	e.printStackTrace();
 	    }
 	
 	}
@@ -71,7 +71,7 @@ public class AddReportGuiControlServlet extends HttpServlet{
 	    try {
 	    	rd.forward(request, response);
 	    } catch (ServletException|IOException e) {
-	    	request.setAttribute("mB", "exception");
+	    	e.printStackTrace();
 	    }
 	}
 }

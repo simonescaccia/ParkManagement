@@ -148,6 +148,7 @@
         <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/jdo2-api-2.3-eb.jar"/>
         <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/jsr305-3.0.2.jar"/>
         <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"/>
+        <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/oauth2-useragent-0.11.3.jar"/>
         <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/opencensus-api-0.24.0.jar"/>
         <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/opencensus-contrib-http-util-0.24.0.jar"/>
         <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/protobuf-java-3.13.0.jar"/>
@@ -162,15 +163,8 @@
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
         <path refid="Google.userclasspath"/>
-    </path>
-    <path id="run.AddReportBean.classpath">
-        <path refid="SpeedyFila.classpath"/>
-        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
-        <path refid="Web App Libraries.libraryclasspath"/>
-        <path refid="EAR Libraries.libraryclasspath"/>
-        <path refid="JavaFX.userclasspath"/>
-        <path refid="JUnit 5.libraryclasspath"/>
-        <path refid="Google.userclasspath"/>
+        <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
     </path>
     <path id="run.AddReportView.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -180,6 +174,8 @@
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
         <path refid="Google.userclasspath"/>
+        <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
     </path>
     <path id="run.Home.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -189,13 +185,24 @@
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
         <path refid="Google.userclasspath"/>
+        <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
+    </path>
+    <path id="run.LoginGoogleView.classpath">
+        <path refid="SpeedyFila.classpath"/>
+        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="JavaFX.userclasspath"/>
+        <path refid="JUnit 5.libraryclasspath"/>
+        <path refid="Google.userclasspath"/>
+        <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
     </path>
     <target name="init">
         <mkdir dir="build/classes"/>
         <copy includeemptydirs="false" todir="build/classes">
             <fileset dir="src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -227,14 +234,9 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="AddReportBean">
-        <java classname="logic.bean.AddReportBean" failonerror="true" fork="yes">
-            <classpath refid="run.AddReportBean.classpath"/>
-        </java>
-    </target>
     <target name="AddReportView">
         <java classname="logic.boundary.desktop.view.AddReportView" failonerror="true" fork="yes">
-            <jvmarg line="--module-path &quot;C:\Eclipse\javafx-sdk-15.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml"/>
+            <jvmarg line="--module-path &quot;C:\Eclipse\javafx-sdk-15.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml&#13;&#10;--add-modules=javafx.swing,javafx.graphics,javafx.fxml,javafx.media,javafx.web &#13;&#10;--add-reads javafx.graphics=ALL-UNNAMED &#13;&#10;--add-opens javafx.controls/com.sun.javafx.charts=ALL-UNNAMED &#13;&#10;--add-opens javafx.graphics/com.sun.javafx.iio=ALL-UNNAMED &#13;&#10;--add-opens javafx.graphics/com.sun.javafx.iio.common=ALL-UNNAMED &#13;&#10;--add-opens javafx.graphics/com.sun.javafx.css=ALL-UNNAMED &#13;&#10;--add-opens javafx.base/com.sun.javafx.runtime=ALL-UNNAMED"/>
             <classpath refid="run.AddReportView.classpath"/>
         </java>
     </target>
@@ -242,6 +244,11 @@
         <java classname="view.Home" failonerror="true" fork="yes">
             <jvmarg line="--module-path &quot;C:\Eclipse\javafx-sdk-15.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml"/>
             <classpath refid="run.Home.classpath"/>
+        </java>
+    </target>
+    <target name="LoginGoogleView">
+        <java classname="logic.boundary.attoriesterni.view.LoginGoogleView" failonerror="true" fork="yes">
+            <classpath refid="run.LoginGoogleView.classpath"/>
         </java>
     </target>
 </project>

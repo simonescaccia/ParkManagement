@@ -26,23 +26,11 @@ import javafx.geometry.Insets;
 
 public final class AddReportView extends BackgroundPage{
 
-	private Label labelMessage;
 	private AddReportBean beanAddR;
-	private Label iconMessage;
+	
 	
 	public AddReportView() throws FileNotFoundException{
-		iconMessage = new Label("");
-		iconMessage.setPrefSize(40, 30);
-		iconMessage.setPadding(new Insets(0,0,0,10));
-		iconMessage.setTextFill(Color.BLACK);
-		iconMessage.setFont(super.font);
-		
-		labelMessage = new Label();
-		labelMessage.setPrefSize(330, 30);
-		labelMessage.setPadding(new Insets(0,0,0,10));
-		labelMessage.setTextFill(Color.BLACK);
-		labelMessage.setFont(super.font);
-		
+
 		beanAddR = new AddReportBean();
 	}
 	
@@ -54,6 +42,7 @@ public final class AddReportView extends BackgroundPage{
 		aRGC.insertQueueLenght();
 	}
 
+	@Override
 	public void showMessage(MessageBean mB) {
 		String env = "user.dir";
 		try {
@@ -65,16 +54,22 @@ public final class AddReportView extends BackgroundPage{
 			}
 			Image imgI = new Image(iconM);
 			ImageView imgIV = new ImageView(imgI);
-			this.iconMessage.setGraphic(imgIV);
+			super.iconMessage.setGraphic(imgIV);
 		} catch (FileNotFoundException e) {
 			if(mB.getType()) {
-				this.iconMessage.setText("OK!");
+				super.iconMessage.setText("OK!");
 			} else {
-				this.iconMessage.setText("Err");
+				super.iconMessage.setText("Err");
 			}
 		}
-		labelMessage.setText(mB.getMessage());
+		super.labelMessage.setText(mB.getMessage());
 		
+	}
+	
+	@Override
+	public void login() {
+		LoginGoogleView lGW = new LoginGoogleView();
+		lGW.loginDesktop(this);
 	}
 	
 	@Override
@@ -84,7 +79,6 @@ public final class AddReportView extends BackgroundPage{
 		
 		VBox addReport = new VBox();
 		HBox insertReport = new HBox();
-		HBox messageBox = new HBox();
 		
 		Font fontSide = new Font("Comic Sans MS", 16);
 		Font fontSide2 = new Font("Comic Sans MS", 17);
@@ -135,10 +129,10 @@ public final class AddReportView extends BackgroundPage{
 		bAddReport.setTextFill(Color.BLACK);
 		
 		
-		messageBox.getChildren().addAll(iconMessage, labelMessage);
+		
 		insertReport.getChildren().addAll(tf,bAddReport);
 		addReport.getChildren().addAll(textAddReport,cb,insertReport);
-		super.sideInfo.getChildren().addAll(messageBox,addReport);
+		super.sideInfo.getChildren().addAll(super.messageBox,addReport);
 		super.info.getChildren().addAll(labelAttraction);
 		stage.setScene(super.scene);
 		
