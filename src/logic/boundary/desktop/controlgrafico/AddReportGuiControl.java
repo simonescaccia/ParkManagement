@@ -23,8 +23,11 @@ public class AddReportGuiControl extends GenericGuiControl{
 		aRB.setAttractionName(attractionName);
 		aRB.setIsLast(isLast);
 		
-		//convert String to int		
+			
 		try {
+			//convert queueLen String to int		
+			queueLen= Integer.parseInt(queueLenS);
+			aRB.setQueueLen(queueLen);
 			
 			//controll login
 			if(super.loginBean.getUserID() != null) {
@@ -32,10 +35,6 @@ public class AddReportGuiControl extends GenericGuiControl{
 			} else {
 				throw new NullLoginException("Add Report need a not null idUser");
 			}
-			
-			
-			queueLen= Integer.parseInt(queueLenS);
-			aRB.setQueueLen(queueLen);
 			
 			//call the controller
 			MessageBean res = aRC.tryToUpdate(aRB);

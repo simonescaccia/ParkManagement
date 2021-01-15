@@ -6,15 +6,17 @@ import java.io.FileNotFoundException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import logic.boundary.desktop.view.GenericView;
-import logic.boundary.desktop.view.LoginGoogleView;
 import logic.control.bean.LoginBean;
 import logic.control.bean.MessageBean;
-import logic.control.controlapplicativo.LoginControl;
 
 public class GenericGuiControl {
 
 	protected GenericView gV;
 	protected LoginBean loginBean;
+	
+	public GenericGuiControl() {
+		loginBean = new LoginBean();
+	}
 	
 	public void setLoginBean(LoginBean lB) {
 		loginBean = lB;
@@ -46,31 +48,14 @@ public class GenericGuiControl {
 		gV.getLabelMessage().setText(mB.getMessage());	
 	}
 	
-	public void login(GenericView bgView) {
-		this.gV = bgView;
-		LoginGoogleView lGV = new LoginGoogleView();
-		lGV.loginDesktop(this);
+	public void login(){
+		LoginGuiControl lGC = new LoginGuiControl(gV, loginBean);
+		lGC.login();
 	}
 	
-	public void logout(GenericView bgView) {
-		
-		String aT = loginBean.getAccessToken();
-		LoginGoogleView lGV = new LoginGoogleView();
-		if(lGV.revokeTokenDesktop(aT)){
-			loginBean.setAccessToken(null);
-			loginBean.setRefreshToken(null);
-			loginBean.setUserID(null);
-			bgView.loginOff();
-		}
-	}
-	
-	public void setLoginState(LoginBean lB) {
-		
-		//verificare se l'utente è già stato inserito nel database e aggiungere il Park Visitor se non presente nel database 		
-		LoginControl.validateOnDB(lB.getUserID());	
-		loginBean = lB;
-		gV.loginOn();
-		
+	public void logout(){
+		LoginGuiControl lGC = new LoginGuiControl(gV, loginBean);
+		lGC.logout();
 	}
 	
 }

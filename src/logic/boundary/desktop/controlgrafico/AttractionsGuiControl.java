@@ -4,10 +4,8 @@ import logic.boundary.desktop.view.AttractionsView;
 
 public class AttractionsGuiControl extends GenericGuiControl{
 	
-	private AttractionsView aV;
-	
 	public AttractionsGuiControl(AttractionsView aV) {
-		this.aV = aV;
+		super.gV = aV;
 	}
 	
 }

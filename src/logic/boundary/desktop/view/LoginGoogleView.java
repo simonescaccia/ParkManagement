@@ -16,7 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import logic.boundary.desktop.controlgrafico.GenericGuiControl;
+import logic.boundary.desktop.controlgrafico.LoginGuiControl;
 import logic.control.bean.LoginBean;
 
 public class LoginGoogleView {
@@ -40,23 +40,11 @@ public class LoginGoogleView {
         	String urlParams = "token=" + aT;
         	
         	byte[] postData = urlParams.getBytes(StandardCharsets.UTF_8);
-            int postDataLength = postData.length;
         	
         	URL url = new URL(googleRevokeTokenServer);
-        	
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Host", "oauth2.googleapis.com");
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            connection.setRequestProperty("Content-Length", "" + postDataLength);
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
             
-            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-            wr.write(postData);
-            wr.flush();
-            
-            int responseCode = connection.getResponseCode();
+            int responseCode = sendRequest(connection, postData);
 
             if (responseCode == HttpURLConnection.HTTP_OK) { // success
             } else {
@@ -71,7 +59,7 @@ public class LoginGoogleView {
 		return true;
 	}
 	
-	public void loginDesktop(GenericGuiControl gGC) {
+	public void loginDesktop(LoginGuiControl lGC) {
 		
 		Stage stage = new Stage();
 		stage.setTitle("Google login");
@@ -98,7 +86,6 @@ public class LoginGoogleView {
                     
                     String idToken = fullResponse.getString("id_token");
                     String accessToken = fullResponse.getString("access_token");
-                    String refreshToken = fullResponse.getString("refresh_token");
                     
                     String idUser = decodeJWT(idToken);
                     
@@ -106,10 +93,9 @@ public class LoginGoogleView {
                     //notificare i valore
                     LoginBean lB = new LoginBean();
                     lB.setAccessToken(accessToken);
-                    lB.setRefreshToken(refreshToken);
                     lB.setUserID(idUser);
                     
-                    gGC.setLoginState(lB);
+                    lGC.setLoginState(lB);
                     
                 }
                 
@@ -128,24 +114,12 @@ public class LoginGoogleView {
 
         	String urlParams = "code="+accessCode+"&client_id="+clientId+"&client_secret="+clientSecret+"&redirect_uri="+redirectUri+"&grant_type=authorization_code";
         	
-        	byte[] postData = urlParams.getBytes(StandardCharsets.UTF_8);
-            int postDataLength = postData.length;
+        	byte[] postData = urlParams.getBytes(StandardCharsets.UTF_8); 
         	
         	URL url = new URL(googleAccessTokenServer);
-        	
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Host", "oauth2.googleapis.com");
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            connection.setRequestProperty("Content-Length", "" + postDataLength);
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
             
-            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-            wr.write(postData);
-            wr.flush();
-            
-            int responseCode = connection.getResponseCode();
+            int responseCode = sendRequest(connection, postData);
 
             if (responseCode == HttpURLConnection.HTTP_OK) { // success
             } else {
@@ -173,13 +147,31 @@ public class LoginGoogleView {
         return null;
 	}
 	
+	protected int sendRequest(HttpURLConnection connection, byte[] postData) throws IOException{
+		
+		int postDataLength = postData.length;
+
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Host", "oauth2.googleapis.com");
+        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        connection.setRequestProperty("Content-Length", "" + postDataLength);
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+        
+        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+        wr.write(postData);
+        wr.flush();
+        
+        return connection.getResponseCode();
+	}
+	
     protected String decodeJWT(String idToken){
 
     	String[] splitString = idToken.split("\\.");
         String base64EncodedBody = splitString[1];
     	
         Base64 base64Url = new Base64(true);
-        String idTokenString = new String(base64Url.decode(base64EncodedBody));
+        String idTokenString = new String(base64Url.decode(base64EncodedBody), StandardCharsets.UTF_8);
         StringBuilder sub = new StringBuilder();
         
         int indexStart = idTokenString.indexOf("\"sub\":\"") + 7;

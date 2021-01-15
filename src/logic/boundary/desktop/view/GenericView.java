@@ -178,9 +178,9 @@ public abstract class GenericView extends Application{
 		Image imgL = new Image(inLoginImg);
 		imgVL = new ImageView(imgL);
 		
-		loginEvent = e-> login();
+		loginEvent = e-> gGC.login();
 		
-		logoutEvent = e-> logout();
+		logoutEvent = e-> gGC.logout();
 		
 		buttonLogin = new Button("", imgVL);
 		buttonLogin.setBackground(backB1);
@@ -228,14 +228,6 @@ public abstract class GenericView extends Application{
 		root.getChildren().addAll(labelImg, lineButtons, body);
 		
 		scene = new Scene(root, 1366, 700);
-	}
-	
-	public void login() {
-		gGC.login(this);
-	}
-	
-	public void logout() {
-		gGC.logout(this);
 	}
 	
 	public void loginOn() {
