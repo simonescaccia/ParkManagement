@@ -25,22 +25,34 @@ public class LoginGuiControlServlet extends HttpServlet{
 	{
 		
 		String idToken = request.getParameter("idtoken");
+		String pageRedirect = request.getParameter("page");
+		String param = request.getParameter("param");
 		
 		//comunico il token da validare alla view LoginGoogleView per la verifica
 		LoginGoogleView lGV = new LoginGoogleView();
 		try {
-			lGV.loginWebVerifyToken(idToken);
+			String idUser;
+			idUser = lGV.loginWebVerifyToken(idToken);
+			request.getSession().setAttribute("userID", idUser);
+			
 		} catch (GeneralSecurityException| IOException e) {
 			MessageBean mB = new MessageBean();
 			mB.setMessage("Token non sicuro");
 			mB.setType(false);
 		    RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-		    try {
+			try {
 		    	rd.forward(request, response);
 		    } catch (ServletException|IOException ev) {
-		    	e.printStackTrace();
+		    	ev.printStackTrace();
 		    }
 		}
+		
+	    RequestDispatcher rd = request.getRequestDispatcher(pageRedirect.substring(11)+"?attractionName="+param);
+		try {
+	    	rd.forward(request, response);
+	    } catch (ServletException|IOException ev) {
+	    	ev.printStackTrace();
+	    }
 		
 	}
 	

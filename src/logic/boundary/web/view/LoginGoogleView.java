@@ -14,7 +14,7 @@ import logic.control.controlapplicativo.LoginControl;
 
 public class LoginGoogleView {
 
-public void loginWebVerifyToken(String idtoken) throws IOException, GeneralSecurityException {
+public String loginWebVerifyToken(String idtoken) throws IOException, GeneralSecurityException {
 		
 		//verifica token
 		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new JacksonFactory())
@@ -34,27 +34,16 @@ public void loginWebVerifyToken(String idtoken) throws IOException, GeneralSecur
 	
 			// Print user identifier
 			String idUser = payload.getSubject();
-	
-			// Get profile information from payload
-			String email = payload.getEmail();
-			boolean emailVerified = payload.getEmailVerified();
-			String name = (String) payload.get("name");
-			String pictureUrl = (String) payload.get("picture");
-			String locale = (String) payload.get("locale");
-			String familyName = (String) payload.get("family_name");
-			String givenName = (String) payload.get("given_name");
-	
-            //chiama loginControl.validate per:
+			
 			//verificare se l'utente è già stato inserito nel database
 			//aggiungere il Park Visitor se non presente nel database
-			LoginControl lC = new LoginControl();
-            lC.validateOnDB(idUser);
+			LoginControl.validateOnDB(idUser);
+			
+			return idUser;
 
-		} else {
-			//refresh token?
-			System.out.println("Invalid ID token.");
-		}
+		}		
 		
+		return null;
 
 	}
 

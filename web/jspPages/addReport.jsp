@@ -2,19 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="logic.control.bean.MessageBean" %>
 
-<jsp:useBean id="addReportBean" scope="session" class="logic.control.bean.AddReportBean"/>
-<jsp:setProperty name="addReportBean" property="*" />
-
-<%if(request.getParameter("addReport") != null){
-		//controllo se la pagina è stata già mandata dalla servlet
-	
-	if(request.getParameter("forward") == null){
-		%>
-		<jsp:forward page="/addReportGuiControlServlet"></jsp:forward>
-		<%
-	}
-}
-%>
+<% request.getSession().setAttribute("attractionName", request.getParameter("attractionName")); %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +13,7 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/mycss.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
-	<script type="text/javascript" src="../js/myjs.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/myjs.js"></script>
 	<meta name="google-signin-client_id" content="80408227597-gnan03ov689qhrgt23eho38jmt0krs06.apps.googleusercontent.com">
 
 </head>
@@ -34,12 +22,12 @@
 	<div class="box">
   		<div class="header">
   			
-		    <img class="backImg" alt="" src="../img/backgroundImage2.jpg" width="1366">
+		    <img class="backImg" alt="" src="<%=request.getContextPath()%>/img/backgroundImage2.jpg" width="1366">
 		  	
 		  	<ul>
-				<li class="left"><a class="left" href="#"><img src="../img/undo2.png" alt="undo"></a></li>
-		  		<li class="left"><a class="left" href="#"><img src="../img/redo2.png" alt="redo"></a></li>
-		  		<li class="center"><h4 class="font"><a class="active" href="../index.jsp">Attractions</a></h4></li>
+				<li class="left"><a class="left" href="#"><img src="<%=request.getContextPath()%>/img/undo2.png" alt="undo"></a></li>
+		  		<li class="left"><a class="left" href="#"><img src="<%=request.getContextPath()%>/img/redo2.png" alt="redo"></a></li>
+		  		<li class="center"><h4 class="font"><a class="active" href="<%=request.getContextPath()%>/index.jsp">Attractions</a></h4></li>
 		  		<li class="left"><h4 class="font"><a href="#">Your reports</a></h4></li>
 		  		<li class="left"><h4 class="font"><a href="#">Coupons</a></h4></li>
 		  		<li class="left"><h4 class="font"><a href="#">Favourites</a></h4></li>
@@ -60,7 +48,7 @@
   			
   				<!-- informazioni -->
 			  	<div class="info">
-					<p><%= addReportBean.getAttractionName() %></p>
+					<p><%= request.getSession().getAttribute("attractionName") %></p>
 					
 			  	</div>
 			 
@@ -85,7 +73,7 @@
 				  	</div>
 					<div class="addreport">
 						        
-						<form action="addReport.jsp" name="myform" method="POST">
+						<form action="<%=request.getContextPath()%>/addReportGuiControlServlet" name="myform" method="POST">
 							<h4 class="desc">How many people are there in the queue?</h4>
 							<div>	
 								<input class="addreport" type="checkbox" id="isLast" name="isLast">

@@ -2,6 +2,7 @@ package logic.boundary.desktop.view;
 
 import java.io.*;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,9 +21,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import logic.control.bean.MessageBean;
+import logic.boundary.desktop.controlgrafico.GenericGuiControl;
 
-public abstract class BackgroundPage extends Application{
+public abstract class GenericView extends Application{
 
 	protected VBox root;
 	protected HBox lineButtons;
@@ -31,6 +32,8 @@ public abstract class BackgroundPage extends Application{
 	protected VBox info;
 	protected VBox sideInfo;
 	protected HBox messageBox;
+	
+	protected ImageView imgVL;
 	
 	protected Label labelImg;
 	
@@ -51,6 +54,7 @@ public abstract class BackgroundPage extends Application{
 	protected FileInputStream inLoginImg;
 	
 	protected Label space;
+	protected Label space2;
 	
 	protected int n = 4; 
 	protected Button[] bPages = new Button[n]; 
@@ -58,12 +62,25 @@ public abstract class BackgroundPage extends Application{
 	
 	protected Scene scene;
 	
+	protected EventHandler<MouseEvent> loginEvent;
+	protected EventHandler<MouseEvent> logoutEvent;
+	
+	protected GenericGuiControl gGC;
+	
+	public Label getLabelMessage() {
+		return labelMessage;
+	}
+	
+	public Label getIconMessage() {
+		return iconMessage;
+	}
+	
 	@Override
 	public void start(Stage stage) throws Exception{
 		
 	}
 	
-	protected BackgroundPage() throws FileNotFoundException {
+	protected GenericView() {
 		
 		root = new VBox();
 		lineButtons = new HBox();
@@ -71,10 +88,14 @@ public abstract class BackgroundPage extends Application{
 		font = new Font("Comic Sans MS", 20);
 		final String env= "user.dir";
 		
-		inBImg = new FileInputStream(System.getProperty(env)+"\\img\\backgroundImage.jpg");
-		inUndoImg = new FileInputStream(System.getProperty(env)+"\\img\\undo2.png");
-		inRedoImg = new FileInputStream(System.getProperty(env)+"\\img\\redo2.png");
-		
+		try {
+			inBImg = new FileInputStream(System.getProperty(env)+"\\img\\backgroundImage.jpg");
+			inUndoImg = new FileInputStream(System.getProperty(env)+"\\img\\undo2.png");
+			inRedoImg = new FileInputStream(System.getProperty(env)+"\\img\\redo2.png");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+			
 		Image imgB = new Image(inBImg);
 		Image imgU = new Image(inUndoImg);
 		Image imgR = new Image(inRedoImg);
@@ -122,6 +143,10 @@ public abstract class BackgroundPage extends Application{
 		space.setBackground(backB1);
 		space.setMinSize(200, 50);
 		
+		space2 = new Label();
+		space2.setBackground(backB1);
+		space2.setMinSize(30, 50);
+		
 		int i = 0;
 		for(; i<this.n; i++) {
 			bPages[i] = new Button(bNames[i]);
@@ -144,28 +169,33 @@ public abstract class BackgroundPage extends Application{
 		loginBox.setBackground(backB1);
 		loginBox.setMinSize(246, 50);
 		
-		inLoginImg = new FileInputStream(System.getProperty(env)+"\\img\\login3.PNG");
-		Image imgL = new Image(inLoginImg);
-		ImageView imgVL = new ImageView(imgL);
+		try {
+			inLoginImg = new FileInputStream(System.getProperty(env)+"\\img\\login3.PNG");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
+		Image imgL = new Image(inLoginImg);
+		imgVL = new ImageView(imgL);
+		
+		loginEvent = e-> login();
+		
+		logoutEvent = e-> logout();
 		
 		buttonLogin = new Button("", imgVL);
 		buttonLogin.setBackground(backB1);
 		buttonLogin.setMaxWidth(100);
 		buttonLogin.setMaxHeight(34);
-		
+	
 		final Button button4 = buttonLogin;
 		buttonLogin.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
 			button4.setStyle("-fx-cursor: hand;")
-		);
-
-		buttonLogin.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> 
-			login()
 		);
 		
 		buttonLogin.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
 			button4.setEffect(null)  );
 		
+		buttonLogin.addEventHandler(MouseEvent.MOUSE_CLICKED, loginEvent);		
 		
 		body = new HBox();
 		info = new VBox();
@@ -194,13 +224,43 @@ public abstract class BackgroundPage extends Application{
 		messageBox.getChildren().addAll(iconMessage, labelMessage);
 		body.getChildren().addAll(info, sideInfo);
 		loginBox.getChildren().addAll(buttonLogin);
-		lineButtons.getChildren().addAll(buttonUndo, buttonRedo,space,bPages[0],bPages[1],bPages[2],bPages[3], loginBox);
+		lineButtons.getChildren().addAll(buttonUndo, buttonRedo,space,bPages[0],bPages[1],bPages[2],bPages[3], space2, loginBox);
 		root.getChildren().addAll(labelImg, lineButtons, body);
 		
 		scene = new Scene(root, 1366, 700);
 	}
 	
-	public abstract void login();
+	public void login() {
+		gGC.login(this);
+	}
 	
-	public abstract void showMessage(MessageBean mB);
+	public void logout() {
+		gGC.logout(this);
+	}
+	
+	public void loginOn() {
+	
+		buttonLogin.removeEventHandler(MouseEvent.MOUSE_CLICKED, loginEvent);
+		buttonLogin.addEventHandler(MouseEvent.MOUSE_CLICKED, logoutEvent);
+		buttonLogin.setTranslateY(0);
+		buttonLogin.setTranslateX(0);
+		buttonLogin.setGraphic(null);
+		buttonLogin.setFont(font);
+		buttonLogin.setMinSize(200, 50);
+		buttonLogin.setTextFill(Color.BLACK);
+		buttonLogin.setText("Sign out");	
+	}
+	
+	public void loginOff() {
+		
+		buttonLogin.setMinSize(100, 34);
+		buttonLogin.setMaxWidth(100);
+		buttonLogin.setMaxHeight(34);
+		buttonLogin.setTranslateY(10);
+		buttonLogin.setTranslateX(10);
+		buttonLogin.setGraphic(imgVL);
+		buttonLogin.setText("");
+		buttonLogin.removeEventHandler(MouseEvent.MOUSE_CLICKED, logoutEvent);
+		buttonLogin.addEventHandler(MouseEvent.MOUSE_CLICKED, loginEvent);
+	}
 }

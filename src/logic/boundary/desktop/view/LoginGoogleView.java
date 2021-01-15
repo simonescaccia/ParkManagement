@@ -16,13 +16,14 @@ import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import logic.control.bean.MessageBean;
-import logic.control.controlapplicativo.LoginControl;
+import logic.boundary.desktop.controlgrafico.GenericGuiControl;
+import logic.control.bean.LoginBean;
 
 public class LoginGoogleView {
 
 	private static String googleAuthServer = "https://accounts.google.com/o/oauth2/v2/auth";
 	private static String googleAccessTokenServer = "https://oauth2.googleapis.com/token";
+	private static String googleRevokeTokenServer = "https://oauth2.googleapis.com/revoke";
 	private static String scope = "email%20profile";
 	private static String responseType = "code";
 	private static String state = "security_token%3D138r5719ru3e1%26url%3Dhttps%3A%2F%2Foauth2.example.com%2Ftoken";
@@ -30,7 +31,47 @@ public class LoginGoogleView {
 	private static String clientId = "80408227597-8q6kctaqnd2up2am22u5o517ql90474k.apps.googleusercontent.com";
 	private static String clientSecret = "PwK86HUf4ABIyBa4ZU05X9zb";
 		
-	public void loginDesktop(BackgroundPage bgPage) {
+	
+	public boolean revokeTokenDesktop(String aT) {
+		
+		//revoke token
+		try {
+
+        	String urlParams = "token=" + aT;
+        	
+        	byte[] postData = urlParams.getBytes(StandardCharsets.UTF_8);
+            int postDataLength = postData.length;
+        	
+        	URL url = new URL(googleRevokeTokenServer);
+        	
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Host", "oauth2.googleapis.com");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.setRequestProperty("Content-Length", "" + postDataLength);
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            
+            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+            wr.write(postData);
+            wr.flush();
+            
+            int responseCode = connection.getResponseCode();
+
+            if (responseCode == HttpURLConnection.HTTP_OK) { // success
+            } else {
+                  return false;
+            }
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+		//notify logout completed
+		return true;
+	}
+	
+	public void loginDesktop(GenericGuiControl gGC) {
 		
 		Stage stage = new Stage();
 		stage.setTitle("Google login");
@@ -53,19 +94,22 @@ public class LoginGoogleView {
                     stage.close();
                     String accessCode = location.substring(location.indexOf("code=") + 5);                 
                     
-                    String accessToken = doGetAccessTokenRequest(accessCode, bgPage);
-
-                    String idUser = decodeJWT(accessToken);
+                    JSONObject fullResponse = doGetAccessTokenRequest(accessCode);
                     
-//	                notifyLoginViewCompleted();
+                    String idToken = fullResponse.getString("id_token");
+                    String accessToken = fullResponse.getString("access_token");
+                    String refreshToken = fullResponse.getString("refresh_token");
                     
+                    String idUser = decodeJWT(idToken);
                     
-                    //chiama loginControl.validate per:
-        			//verificare se l'utente è già stato inserito nel database
-        			//aggiungere il Park Visitor se non presente nel database
+                                       
+                    //notificare i valore
+                    LoginBean lB = new LoginBean();
+                    lB.setAccessToken(accessToken);
+                    lB.setRefreshToken(refreshToken);
+                    lB.setUserID(idUser);
                     
-                    LoginControl lC = new LoginControl();
-                    lC.validateOnDB(idUser);
+                    gGC.setLoginState(lB);
                     
                 }
                 
@@ -78,7 +122,7 @@ public class LoginGoogleView {
 		
 	}
 	
-	protected String doGetAccessTokenRequest(String accessCode, BackgroundPage bgPage) {
+	protected JSONObject doGetAccessTokenRequest(String accessCode) {
         
 		try {
 
@@ -105,10 +149,7 @@ public class LoginGoogleView {
 
             if (responseCode == HttpURLConnection.HTTP_OK) { // success
             } else {
-                  MessageBean mB = new MessageBean();
-                  mB.setMessage("Error getting access token for OAuth Login!");
-                  mB.setType(false);
-                  bgPage.showMessage(mB);
+                  return null;
             }
             
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -123,10 +164,8 @@ public class LoginGoogleView {
             connection.disconnect();
             
             String fullResponse = response.toString();
-
-            JSONObject json = new JSONObject(fullResponse);
             
-            return json.getString("id_token");
+            return new JSONObject(fullResponse);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -134,18 +173,18 @@ public class LoginGoogleView {
         return null;
 	}
 	
-    protected String decodeJWT(String accessToken){
+    protected String decodeJWT(String idToken){
 
-    	String[] splitString = accessToken.split("\\.");
+    	String[] splitString = idToken.split("\\.");
         String base64EncodedBody = splitString[1];
     	
         Base64 base64Url = new Base64(true);
-        String accessTokenString = new String(base64Url.decode(base64EncodedBody));
+        String idTokenString = new String(base64Url.decode(base64EncodedBody));
         StringBuilder sub = new StringBuilder();
         
-        int indexStart = accessTokenString.indexOf("\"sub\":\"") + 7;
+        int indexStart = idTokenString.indexOf("\"sub\":\"") + 7;
         char c;
-        while((c = accessTokenString.charAt(indexStart)) != '\"') {
+        while((c = idTokenString.charAt(indexStart)) != '\"') {
         	indexStart++;
         	sub.append(c);
         }

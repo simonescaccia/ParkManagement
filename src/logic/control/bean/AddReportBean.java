@@ -3,11 +3,12 @@ package logic.control.bean;
 
 public class AddReportBean {
 
-	private String queueLen;
+	private int queueLen;
 	private boolean isLast;
 	private String attractionName;
+	private String userID;
 	
-	public void setQueueLen(String s) {
+	public void setQueueLen(int s) {
 		queueLen = s;
 	}
 	
@@ -19,11 +20,19 @@ public class AddReportBean {
 		attractionName = a;
 	}
 	
+	public void setUserID(String s) {
+		userID = s;
+	}
+	
+	public String getUserID() {
+		return userID;
+	}
+	
 	public String getAttractionName() {
 		return attractionName;
 	}
 	
-	public String getQueueLen() {
+	public int getQueueLen() {
 		return queueLen;
 	}
 	

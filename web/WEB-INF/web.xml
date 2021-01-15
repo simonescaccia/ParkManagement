@@ -19,7 +19,7 @@
     	<url-pattern>/addReportGuiControlServlet</url-pattern>
 	</servlet-mapping>
 	
-	  	<servlet>
+	<servlet>
 		<servlet-name>LoginGuiControlServlet</servlet-name>
 		<servlet-class>logic.boundary.web.controlgrafico.LoginGuiControlServlet</servlet-class>
 	</servlet>
@@ -27,5 +27,15 @@
 	<servlet-mapping>
     	<servlet-name>LoginGuiControlServlet</servlet-name>
     	<url-pattern>/loginGuiControlServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>LogoutGuiControlServlet</servlet-name>
+		<servlet-class>logic.boundary.web.controlgrafico.LogoutGuiControlServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+    	<servlet-name>LogoutGuiControlServlet</servlet-name>
+    	<url-pattern>/logoutGuiControlServlet</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -1,14 +1,9 @@
 package logic.boundary.desktop.view;
 
 import logic.boundary.desktop.controlgrafico.AddReportGuiControl;
-import logic.control.bean.MessageBean;
-import logic.control.bean.AddReportBean;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import logic.control.bean.LoginBean;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
@@ -24,59 +19,26 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 
-public final class AddReportView extends BackgroundPage{
+public final class AddReportView extends GenericView{
+	
+	private String nomeAttrazione;
+	
+	private CheckBox cb;
+	private TextField tf;
+	private Label labelAttraction;
+	
+	public AddReportView(String nA, LoginBean lB){
+		super.gGC = new AddReportGuiControl(this);
+		super.gGC.setLoginBean(lB);
+		nomeAttrazione = nA;
+	}
+	
+	public void insertReport() {		
+		((AddReportGuiControl)gGC).insertQueueLenght(labelAttraction.getText(),tf.getText(),cb.isSelected());
+	}
 
-	private AddReportBean beanAddR;
-	
-	
-	public AddReportView() throws FileNotFoundException{
-
-		beanAddR = new AddReportBean();
-	}
-	
-	public void insertReport(String queueLen, boolean isTheLast, String attraction) {
-		beanAddR.setAttractionName(attraction);
-		beanAddR.setQueueLen(queueLen);
-		beanAddR.setIsLast(isTheLast);
-		AddReportGuiControl aRGC = new AddReportGuiControl(beanAddR, this);
-		aRGC.insertQueueLenght();
-	}
-
-	@Override
-	public void showMessage(MessageBean mB) {
-		String env = "user.dir";
-		try {
-			FileInputStream iconM;
-			if(mB.getType()) {
-				iconM = new FileInputStream(System.getProperty(env)+"\\img\\success-icon2.png");
-			} else {
-				iconM = new FileInputStream(System.getProperty(env)+"\\img\\error-flat2.png");
-			}
-			Image imgI = new Image(iconM);
-			ImageView imgIV = new ImageView(imgI);
-			super.iconMessage.setGraphic(imgIV);
-		} catch (FileNotFoundException e) {
-			if(mB.getType()) {
-				super.iconMessage.setText("OK!");
-			} else {
-				super.iconMessage.setText("Err");
-			}
-		}
-		super.labelMessage.setText(mB.getMessage());
-		
-	}
-	
-	@Override
-	public void login() {
-		LoginGoogleView lGW = new LoginGoogleView();
-		lGW.loginDesktop(this);
-	}
-	
-	@Override
-	public void start(Stage stage) throws Exception{
-		
-		stage.setTitle("SpeedyFila");
-		
+	public void showScene(Stage stage){
+				
 		VBox addReport = new VBox();
 		HBox insertReport = new HBox();
 		
@@ -87,7 +49,7 @@ public final class AddReportView extends BackgroundPage{
 		Border blackBorder = new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,null,null));
 		Border greenBorder = new Border(new BorderStroke((darkGreen),BorderStrokeStyle.SOLID,null,null));
 		
-		Label labelAttraction = new Label("Nome dell'attrazione");
+		labelAttraction = new Label(nomeAttrazione);
 		
 		//pageButton background
 		BackgroundFill fill = new BackgroundFill(darkGreen, null, null);
@@ -96,7 +58,6 @@ public final class AddReportView extends BackgroundPage{
 		
 		//sideInfo
 
-		
 		//use case Add Report
 		Label textAddReport = new Label("How many people are there in the queue?");
 		textAddReport.setMinSize(380, 30);
@@ -104,7 +65,7 @@ public final class AddReportView extends BackgroundPage{
 		textAddReport.setTextFill(Color.BLACK);
 		textAddReport.setPadding(new Insets(0,10,0,10));
 		
-		CheckBox cb = new CheckBox("I'm the last of the queue");
+		cb = new CheckBox("I'm the last of the queue");
 		cb.setIndeterminate(false);
 		cb.setFont(fontSide);
 		cb.setTextFill(Color.BLACK);
@@ -112,11 +73,11 @@ public final class AddReportView extends BackgroundPage{
 		
 		insertReport.setPadding(new Insets(5,10,0,10));
 		
-		TextField tf = new TextField();
+		tf = new TextField();
 		Button bAddReport = new Button("Add Report");
 		
 		bAddReport.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> 
-				insertReport(tf.getText(), cb.isSelected(), labelAttraction.getText())  );
+				insertReport());
 		
 		tf.setBorder(greenBorder);
 		tf.setPrefWidth(50);
@@ -128,19 +89,16 @@ public final class AddReportView extends BackgroundPage{
 		bAddReport.setFont(fontSide);
 		bAddReport.setTextFill(Color.BLACK);
 		
-		
+		if(gGC.getLoginBean().getUserID() != null) {
+			super.loginOn();
+		}
 		
 		insertReport.getChildren().addAll(tf,bAddReport);
 		addReport.getChildren().addAll(textAddReport,cb,insertReport);
 		super.sideInfo.getChildren().addAll(super.messageBox,addReport);
 		super.info.getChildren().addAll(labelAttraction);
 		stage.setScene(super.scene);
-		
-		stage.show();
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
+
 	}
 	
 }

@@ -3,6 +3,7 @@ package logic.boundary.web.controlgrafico;
 import logic.control.bean.MessageBean;
 import logic.control.bean.AddReportBean;
 import logic.control.controlapplicativo.AddReportControl;
+import logic.exception.NullLoginException;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -26,35 +27,49 @@ public class AddReportGuiControlServlet extends HttpServlet{
 		MessageBean mB = new MessageBean();
 		AddReportBean aRB = new AddReportBean();
 		
-		Object obj = request.getSession().getAttribute("addReportBean");
-		aRB.setAttractionName(((AddReportBean)obj).getAttractionName());
+		//fill the AddReportBean
+		String queueLenS = request.getParameter("queueLen");
+		boolean isLast = (request.getParameter("isLast") != null);
+		String attractionName = (String)request.getSession().getAttribute("attractionName");
 		
-		//checkbox is null or on
-		aRB.setIsLast(request.getParameter("isLast") != null);
+		aRB.setIsLast(isLast);
+		aRB.setAttractionName(attractionName);
 		
-		aRB.setQueueLen(request.getParameter("queueLen"));
-		
-		//convert String to int
-		int queueLen;
 		try {
-			queueLen= Integer.parseInt(aRB.getQueueLen());
+			//convert queueLen String to int
+			int queueLen;
+			queueLen= Integer.parseInt(queueLenS);
+			aRB.setQueueLen(queueLen);
+			
+			//controll login
+			String userID = (String)request.getSession().getAttribute("userID");
+			if(userID != null) {
+				aRB.setUserID(userID);
+			} else {
+				throw new NullLoginException("Add Report need a not null idUser");
+			}
+			
 			//call the controller
 			AddReportControl aRC = new AddReportControl();
-			MessageBean res = aRC.tryToUpdate(queueLen, aRB.getAttractionName(), aRB.getIsLast());
+			MessageBean res = aRC.tryToUpdate(aRB);
 			
-			//comunico l'esito
+			//comunico l'esito 
 			mB.setMessage(res.getMessage());
 			mB.setType(res.getType());
 		} catch (NumberFormatException e) {
-			//comunico l'errore
+			//comunico l'errore di conversione
 			mB.setMessage("Inserire un numero da 0 a 100");
 			mB.setType(false);
+		} catch (NullLoginException e) {
+			//return failure login
+			mB.setMessage("Login richiesto");
+			mB.setType(false);			
 		}
-		
-		//forward
+
+		//forward e invia la risposta
 	    request.setAttribute("mB", mB);
 	    
-	    RequestDispatcher rd = request.getRequestDispatcher("/jspPages/addReport.jsp?forward=true");
+	    RequestDispatcher rd = request.getRequestDispatcher("/jspPages/addReport.jsp?attractionName="+attractionName);
 	    try {
 	    	rd.forward(request, response);
 	    } catch (ServletException|IOException e) {

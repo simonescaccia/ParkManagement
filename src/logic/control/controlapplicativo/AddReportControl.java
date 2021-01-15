@@ -1,23 +1,18 @@
 package logic.control.controlapplicativo;
 
+import logic.control.bean.AddReportBean;
 import logic.control.bean.MessageBean;
 import logic.entity.model.ParkAttraction;
 import logic.entity.model.ParkVisitor;
 
 public class AddReportControl {
 
-	public MessageBean tryToUpdate(int queueLen, String attraction, boolean isLast) {
+	public MessageBean tryToUpdate(AddReportBean aRB) {
 		
-		MessageBean bm = new MessageBean();
+		MessageBean bm = new MessageBean();	
 		
-		//get utente
-		LoginControl loginControl = new LoginControl();
-		
-		// dummy dummy
-		String username = loginControl.getParkVisitor();
-		
-		ParkVisitor parkVisitor = this.searchParkVisitor(username);
-		ParkAttraction parkAttraction = this.searchParkAttraction(attraction);
+		ParkVisitor parkVisitor = this.searchParkVisitor(aRB.getUserID());
+		ParkAttraction parkAttraction = this.searchParkAttraction(aRB.getAttractionName());
 		
 		//controlli
 		VerifyConditionReportControl vCR = new VerifyConditionReportControl();
@@ -29,7 +24,7 @@ public class AddReportControl {
 		b2 = vCR.verifyCountDown(parkVisitor);
 		
 		if(b1 && b2) {
-			calculateWaitingTime(parkAttraction, queueLen);
+			calculateWaitingTime(parkAttraction, aRB.getQueueLen());
 		} else if(!b1){
 			bm.setMessage("Non sei molto vicino all'attrazione");
 			bm.setType(false);
