@@ -180,18 +180,17 @@ public abstract class GenericView extends Application{
 		
 		try {
 			inLoginImg = new FileInputStream(System.getProperty(env)+"\\img\\login3.PNG");
+			Image imgL = new Image(inLoginImg);
+			imgVL = new ImageView(imgL);
+			buttonLogin = new Button("", imgVL);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			buttonLogin = new Button("Log in");
 		}
-		
-		Image imgL = new Image(inLoginImg);
-		imgVL = new ImageView(imgL);
 		
 		loginEvent = e-> gGC.login();
 		
 		logoutEvent = e-> gGC.logout();
-		
-		buttonLogin = new Button("", imgVL);
+				
 		buttonLogin.setBackground(backB1);
 		buttonLogin.setMaxWidth(100);
 		buttonLogin.setMaxHeight(34);

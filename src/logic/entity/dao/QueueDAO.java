@@ -7,7 +7,7 @@ public class QueueDAO {
 
 	private QueueDAO() {}
 	
-	public static Queue selectQueueByID(int ID) {
+	public static Queue selectQueueByID(int id) {
 		return Factory.getQueue();
 	}
 }

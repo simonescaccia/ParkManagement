@@ -7,7 +7,7 @@ public class PositionDAO {
 
 	private PositionDAO() {}
 	
-	public static Position selectPositionByID(int ID) {
+	public static Position selectPositionByID(int id) {
 		return Factory.getPosition();
 	}
 }

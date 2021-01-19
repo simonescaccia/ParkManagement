@@ -13,7 +13,7 @@ public abstract class GenericGuiControl {
 	protected GenericView gV;
 	protected LoginGuiControl lGC;
 	
-	public GenericGuiControl() {
+	protected GenericGuiControl() {
 		lGC = new LoginGuiControl();
 	}
 	
