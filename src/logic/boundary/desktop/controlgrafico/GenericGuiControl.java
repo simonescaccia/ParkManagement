@@ -6,24 +6,23 @@ import java.io.FileNotFoundException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import logic.boundary.desktop.view.GenericView;
-import logic.control.bean.LoginBean;
 import logic.control.bean.MessageBean;
 
-public class GenericGuiControl {
+public abstract class GenericGuiControl {
 
 	protected GenericView gV;
-	protected LoginBean loginBean;
+	protected LoginGuiControl lGC;
 	
 	public GenericGuiControl() {
-		loginBean = new LoginBean();
+		lGC = new LoginGuiControl();
 	}
 	
-	public void setLoginBean(LoginBean lB) {
-		loginBean = lB;
+	public void setLoginGuiControl(LoginGuiControl lGControl) {
+		lGC = lGControl;
 	}
 	
-	public LoginBean getLoginBean() {
-		return loginBean;
+	public LoginGuiControl getLoginGuiControl() {
+		return lGC;
 	}
 	
 	public void showMessage(MessageBean mB) {
@@ -49,13 +48,11 @@ public class GenericGuiControl {
 	}
 	
 	public void login(){
-		LoginGuiControl lGC = new LoginGuiControl(gV, loginBean);
-		lGC.login();
+		lGC.login(this.gV);
 	}
 	
 	public void logout(){
-		LoginGuiControl lGC = new LoginGuiControl(gV, loginBean);
-		lGC.logout();
+		lGC.logout(this.gV);
 	}
 	
 }

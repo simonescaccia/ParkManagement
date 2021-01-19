@@ -2,17 +2,19 @@ package logic.control.controlapplicativo;
 
 import logic.control.bean.AddReportBean;
 import logic.control.bean.MessageBean;
+import logic.entity.dao.ParkAttractionDAO;
+import logic.entity.dao.ParkVisitorDAO;
 import logic.entity.model.ParkAttraction;
 import logic.entity.model.ParkVisitor;
 
 public class AddReportControl {
 
-	public MessageBean tryToUpdate(AddReportBean aRB) {
+	public MessageBean addQueueReport(AddReportBean aRB) {
 		
 		MessageBean bm = new MessageBean();	
 		
-		ParkVisitor parkVisitor = this.searchParkVisitor(aRB.getUserID());
-		ParkAttraction parkAttraction = this.searchParkAttraction(aRB.getAttractionName());
+		ParkVisitor parkVisitor = ParkVisitorDAO.selectParkVisitor(aRB.getUserID());
+		ParkAttraction parkAttraction = ParkAttractionDAO.selectAttractionByName(aRB.getAttractionName());
 		
 		//controlli
 		VerifyConditionReportControl vCR = new VerifyConditionReportControl();
@@ -44,16 +46,6 @@ public class AddReportControl {
 		bm.setType(true);
 		return bm;
 	}
-	
-	protected ParkAttraction searchParkAttraction(String attraction) {
-		//dummy 
-		return new ParkAttraction();
-	}
-	
-	protected ParkVisitor searchParkVisitor(String username) {
-		//dummy 
-		return new ParkVisitor();
-	}	
 	
 	protected void calculateWaitingTime(ParkAttraction attraction, int queuLEN) {
 		//dummy method

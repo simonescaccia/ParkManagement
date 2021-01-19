@@ -1,9 +1,13 @@
 package logic.boundary.web.controlgrafico;
 
 import logic.control.bean.MessageBean;
+import logic.control.bean.PositionBean;
+import logic.boundary.desktop.view.PositionGoogleMapsView;
 import logic.control.bean.AddReportBean;
 import logic.control.controlapplicativo.AddReportControl;
+import logic.exception.NullAttractionNameException;
 import logic.exception.NullLoginException;
+import logic.exception.PositionNotFoundException;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -33,25 +37,29 @@ public class AddReportGuiControlServlet extends HttpServlet{
 		String attractionName = (String)request.getSession().getAttribute("attractionName");
 		
 		aRB.setIsLast(isLast);
-		aRB.setAttractionName(attractionName);
 		
 		try {
+			
+			//insert park attraction name into the bean
+			aRB.setAttractionName(attractionName);
+			
 			//convert queueLen String to int
 			int queueLen;
 			queueLen= Integer.parseInt(queueLenS);
 			aRB.setQueueLen(queueLen);
 			
-			//controll login
+			//insert userID into the bean
 			String userID = (String)request.getSession().getAttribute("userID");
-			if(userID != null) {
-				aRB.setUserID(userID);
-			} else {
-				throw new NullLoginException("Add Report need a not null idUser");
-			}
+			aRB.setUserID(userID);
+			
+			//control the position bean not null
+			PositionBean pB = new PositionBean();
+			PositionGoogleMapsView pGM = new PositionGoogleMapsView();
+			pGM.sendRequest(pB);
 			
 			//call the controller
 			AddReportControl aRC = new AddReportControl();
-			MessageBean res = aRC.tryToUpdate(aRB);
+			MessageBean res = aRC.addQueueReport(aRB);
 			
 			//comunico l'esito 
 			mB.setMessage(res.getMessage());
@@ -60,9 +68,9 @@ public class AddReportGuiControlServlet extends HttpServlet{
 			//comunico l'errore di conversione
 			mB.setMessage("Inserire un numero da 0 a 100");
 			mB.setType(false);
-		} catch (NullLoginException e) {
+		} catch (NullLoginException | PositionNotFoundException | NullAttractionNameException e) {
 			//return failure login
-			mB.setMessage("Login richiesto");
+			mB.setMessage(e.getMessage());
 			mB.setType(false);			
 		}
 

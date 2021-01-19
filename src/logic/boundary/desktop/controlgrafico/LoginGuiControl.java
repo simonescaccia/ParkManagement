@@ -7,15 +7,19 @@ import logic.control.controlapplicativo.LoginControl;
 
 public class LoginGuiControl {
 	
-	private GenericView gV; 
-	private LoginBean lB;
+	private GenericView gV;
+	private LoginControl lC;
 	
-	public LoginGuiControl(GenericView gView, LoginBean lBean) {
-		gV = gView;
-		lB = lBean;
+	public LoginGuiControl() {
+		lC = new LoginControl();
 	}
 	
-	public void login() {
+	public LoginControl getLoginControl() {
+		return lC;
+	}
+	
+	public void login(GenericView gView) {
+		gV = gView;
 		LoginGoogleView lGV = new LoginGoogleView();
 		lGV.loginDesktop(this);
 	}
@@ -23,19 +27,19 @@ public class LoginGuiControl {
 	public void setLoginState(LoginBean lBean) {
 		//verificare se l'utente è già stato inserito nel database e aggiungere il Park Visitor se non presente nel database 		
 		LoginControl.validateOnDB(lBean.getUserID());	
-		lB.setAccessToken(lBean.getAccessToken());
-		lB.setUserID(lBean.getUserID());
+		lC.getLoginBean().setAccessToken(lBean.getAccessToken());
+		lC.getLoginBean().setUserID(lBean.getUserID());
 		gV.loginOn();
 	}
 	
-	public void logout() {
+	public void logout(GenericView gView) {
 		
-		String aT = lB.getAccessToken();
+		String aT = lC.getLoginBean().getAccessToken();
 		LoginGoogleView lGV = new LoginGoogleView();
 		if(lGV.revokeTokenDesktop(aT)){
-			lB.setAccessToken(null);
-			lB.setUserID(null);
-			gV.loginOff();
+			lC.getLoginBean().setAccessToken(null);
+			lC.getLoginBean().setUserID(null);
+			gView.loginOff();
 		}
 	}
 }

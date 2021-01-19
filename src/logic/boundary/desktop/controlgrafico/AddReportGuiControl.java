@@ -2,9 +2,13 @@ package logic.boundary.desktop.controlgrafico;
 
 import logic.control.bean.AddReportBean;
 import logic.control.bean.MessageBean;
+import logic.control.bean.PositionBean;
 import logic.boundary.desktop.view.AddReportView;
+import logic.boundary.desktop.view.PositionGoogleMapsView;
 import logic.control.controlapplicativo.AddReportControl;
+import logic.exception.NullAttractionNameException;
 import logic.exception.NullLoginException;
+import logic.exception.PositionNotFoundException;
 
 public class AddReportGuiControl extends GenericGuiControl{
 
@@ -20,36 +24,40 @@ public class AddReportGuiControl extends GenericGuiControl{
 		int queueLen;
 		MessageBean mB = new MessageBean();
 		AddReportBean aRB = new AddReportBean();
-		aRB.setAttractionName(attractionName);
 		aRB.setIsLast(isLast);
 		
 			
 		try {
+			
+			//insert park attraction name into the bean
+			aRB.setAttractionName(attractionName);
+			
 			//convert queueLen String to int		
 			queueLen= Integer.parseInt(queueLenS);
 			aRB.setQueueLen(queueLen);
 			
-			//controll login
-			if(super.loginBean.getUserID() != null) {
-				aRB.setUserID(super.loginBean.getUserID());
-			} else {
-				throw new NullLoginException("Add Report need a not null idUser");
-			}
+			//insert userID into the bean
+			aRB.setUserID(super.lGC.getLoginControl().getLoginBean().getUserID());
+			
+			//control the position bean not null
+			PositionBean pB = new PositionBean();
+			PositionGoogleMapsView pGM = new PositionGoogleMapsView();
+			pGM.sendRequest(pB);
 			
 			//call the controller
-			MessageBean res = aRC.tryToUpdate(aRB);
+			MessageBean res = aRC.addQueueReport(aRB);
 			
 			//comunico l'esito
 			mB.setMessage(res.getMessage());
 			mB.setType(res.getType());
 			
 		} catch (NumberFormatException e) {
-			//return failure
+			//return failure convertion
 			mB.setMessage("Inserire un numero da 0 a 100");
 			mB.setType(false);
-		} catch (NullLoginException e) {
-			//return failure
-			mB.setMessage("Login richiesto");
+		} catch (NullLoginException | PositionNotFoundException | NullAttractionNameException e) {
+			//return failure login null
+			mB.setMessage(e.getMessage());
 			mB.setType(false);			
 		}
 		

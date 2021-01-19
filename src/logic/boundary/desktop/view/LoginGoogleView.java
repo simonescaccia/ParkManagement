@@ -52,7 +52,7 @@ public class LoginGoogleView {
             }
             
         } catch (IOException e) {
-            e.printStackTrace();
+            return false;
         }
 		
 		//notify logout completed
@@ -87,7 +87,7 @@ public class LoginGoogleView {
                     String idToken = fullResponse.getString("id_token");
                     String accessToken = fullResponse.getString("access_token");
                     
-                    String idUser = decodeJWT(idToken);
+                    String idUser = getSub(idToken);
                     
                                        
                     //notificare i valore
@@ -142,9 +142,8 @@ public class LoginGoogleView {
             return new JSONObject(fullResponse);
             
         } catch (IOException e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
 	}
 	
 	protected int sendRequest(HttpURLConnection connection, byte[] postData) throws IOException{
@@ -165,13 +164,14 @@ public class LoginGoogleView {
         return connection.getResponseCode();
 	}
 	
-    protected String decodeJWT(String idToken){
+    protected String getSub(String idToken){
 
     	String[] splitString = idToken.split("\\.");
         String base64EncodedBody = splitString[1];
     	
         Base64 base64Url = new Base64(true);
         String idTokenString = new String(base64Url.decode(base64EncodedBody), StandardCharsets.UTF_8);
+        
         StringBuilder sub = new StringBuilder();
         
         int indexStart = idTokenString.indexOf("\"sub\":\"") + 7;

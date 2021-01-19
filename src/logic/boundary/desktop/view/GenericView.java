@@ -7,7 +7,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -87,33 +86,41 @@ public abstract class GenericView extends Application{
 		
 		font = new Font("Comic Sans MS", 20);
 		final String env= "user.dir";
+					
+		labelImg = new Label();
 		
+		//immagine in alto
 		try {
 			inBImg = new FileInputStream(System.getProperty(env)+"\\img\\backgroundImage.jpg");
+			Image imgB = new Image(inBImg);
+	
+			BackgroundSize bSize = new BackgroundSize(1366, 150, false, false, true, true); 
+			BackgroundImage bImg = new BackgroundImage(imgB, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, bSize);
+			Background back = new Background(bImg);
+			labelImg.setBackground(back);
+			labelImg.setMinSize(1366, 150);
+		} catch (FileNotFoundException e){
+			labelImg.setFont(font);
+			labelImg.setText("SpeedyFila");
+		}
+		
+		//immagine button undo e redo
+		try {
 			inUndoImg = new FileInputStream(System.getProperty(env)+"\\img\\undo2.png");
 			inRedoImg = new FileInputStream(System.getProperty(env)+"\\img\\redo2.png");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
 			
-		Image imgB = new Image(inBImg);
-		Image imgU = new Image(inUndoImg);
-		Image imgR = new Image(inRedoImg);
-		
-		ImageView imgVU = new ImageView(imgU);
-		ImageView imgVR = new ImageView(imgR);
-		
-		labelImg = new Label();
-		buttonUndo = new Button("", imgVU);
-		buttonRedo = new Button("", imgVR);
-		
-		DropShadow shadow = new DropShadow();
-		
-		BackgroundSize bSize = new BackgroundSize(1366, 150, false, false, true, true); 
-		BackgroundImage bImg = new BackgroundImage(imgB, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, bSize);
-		Background back = new Background(bImg);
-		labelImg.setBackground(back);
-		labelImg.setMinSize(1366, 150);
+			Image imgU = new Image(inUndoImg);
+			Image imgR = new Image(inRedoImg);
+			
+			ImageView imgVU = new ImageView(imgU);
+			ImageView imgVR = new ImageView(imgR);
+			
+			buttonUndo = new Button("", imgVU);
+			buttonRedo = new Button("", imgVR);
+		} catch (FileNotFoundException e) {
+			buttonUndo = new Button("Undo");
+			buttonRedo = new Button("Redo");
+		}
 		
 		Color c = Color.rgb(142, 231, 199);
 		BackgroundFill fill = new BackgroundFill(c,null,null);
@@ -123,8 +130,10 @@ public abstract class GenericView extends Application{
 		
 		final Button button = buttonUndo; 
 		
+		String styleHandCursor = "-fx-cursor: hand;";
+		
 		buttonUndo.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
-	            button.setEffect(shadow)  );
+	            button.setStyle(styleHandCursor)  );
 		
 		buttonUndo.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
   	  			button.setEffect(null)  );
@@ -134,7 +143,7 @@ public abstract class GenericView extends Application{
 		
 		final Button button2 = buttonRedo;
 		buttonRedo.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
-				button2.setEffect(shadow)  );
+				button2.setStyle(styleHandCursor)  );
 		
 		buttonRedo.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
 				button2.setEffect(null)  );
@@ -158,7 +167,7 @@ public abstract class GenericView extends Application{
 			final Button button3 = bPages[i];
 			
 			bPages[i].addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
-				button3.setEffect(shadow)  );
+				button3.setStyle(styleHandCursor)  );
 
 			bPages[i].addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
 				button3.setEffect(null)  );
@@ -189,7 +198,7 @@ public abstract class GenericView extends Application{
 	
 		final Button button4 = buttonLogin;
 		buttonLogin.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
-			button4.setStyle("-fx-cursor: hand;")
+			button4.setStyle(styleHandCursor)
 		);
 		
 		buttonLogin.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 

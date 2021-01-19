@@ -8,7 +8,7 @@ public class NullLoginException extends Exception{
 	private static final long serialVersionUID = 1L;
 
 	public NullLoginException (String message){
-		super("message :" + message);
+		super("error :" + message);
 	}
 	
 	public NullLoginException (Throwable cause) {

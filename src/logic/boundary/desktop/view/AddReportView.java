@@ -1,7 +1,7 @@
 package logic.boundary.desktop.view;
 
 import logic.boundary.desktop.controlgrafico.AddReportGuiControl;
-import logic.control.bean.LoginBean;
+import logic.boundary.desktop.controlgrafico.LoginGuiControl;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -27,9 +27,9 @@ public final class AddReportView extends GenericView{
 	private TextField tf;
 	private Label labelAttraction;
 	
-	public AddReportView(String nA, LoginBean lB){
+	public AddReportView(String nA, LoginGuiControl lGControl){
 		super.gGC = new AddReportGuiControl(this);
-		super.gGC.setLoginBean(lB);
+		super.gGC.setLoginGuiControl(lGControl);
 		nomeAttrazione = nA;
 	}
 	
@@ -89,7 +89,7 @@ public final class AddReportView extends GenericView{
 		bAddReport.setFont(fontSide);
 		bAddReport.setTextFill(Color.BLACK);
 		
-		if(gGC.getLoginBean().getUserID() != null) {
+		if(super.gGC.getLoginGuiControl().getLoginControl().getLoginBean().getUserID() != null) {
 			super.loginOn();
 		}
 		

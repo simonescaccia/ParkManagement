@@ -3,30 +3,20 @@ package logic.control.controlapplicativo;
 import logic.control.bean.LoginBean;
 
 public class LoginControl {
-	
-	private LoginBean loginBean;
+
+	private LoginBean lB;
 	
 	public LoginControl() {
-		loginBean = new LoginBean();
+		lB = new LoginBean();
+	}
+	
+	public void setLoginBean(LoginBean lBean) {
+		lB = lBean;
 	}
 	
 	public LoginBean getLoginBean() {
-		return loginBean;
-	}
-	
-	public void setLoginBean(LoginBean lB) {
-		loginBean = lB;
-	}
-	
-	
-	protected void addUser() {
-		//this method call ParkVisitorDao to insert a new user
-	}
-	
-	public String getParkVisitor() {
-		//dummy dummy
-		return "ParkVisitor";
-	}
+		return lB;
+	}	
 	
 	public static void validateOnDB(String idUser) {
 		

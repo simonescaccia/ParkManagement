@@ -28,7 +28,7 @@ public final class AttractionsView extends GenericView{
 		//info
 		Button nomeAttrazioneButton = new Button("Nome attrazione");
 		nomeAttrazioneButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
-			AddReportView addReportView = new AddReportView(nomeAttrazioneButton.getText(), gGC.getLoginBean());
+			AddReportView addReportView = new AddReportView(nomeAttrazioneButton.getText(), gGC.getLoginGuiControl());
 			addReportView.showScene(stage);
 		});	
 		

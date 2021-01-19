@@ -1,5 +1,7 @@
 package logic.control.bean;
 
+import logic.exception.NullAttractionNameException;
+import logic.exception.NullLoginException;
 
 public class AddReportBean {
 
@@ -16,11 +18,17 @@ public class AddReportBean {
 		isLast = b;
 	}
 	
-	public void setAttractionName(String a) {
+	public void setAttractionName(String a) throws NullAttractionNameException{
+		if(a == null || a.equals("")) {
+			throw new NullAttractionNameException("Attraction name is null");
+		}
 		attractionName = a;
 	}
 	
-	public void setUserID(String s) {
+	public void setUserID(String s) throws NullLoginException{
+		if(s == null) {
+			throw new NullLoginException("Login richiesto");
+		}
 		userID = s;
 	}
 	
