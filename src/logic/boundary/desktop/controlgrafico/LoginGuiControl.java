@@ -3,7 +3,9 @@ package logic.boundary.desktop.controlgrafico;
 import logic.boundary.desktop.view.GenericView;
 import logic.boundary.desktop.view.LoginGoogleView;
 import logic.control.bean.LoginBean;
+import logic.control.bean.MessageBean;
 import logic.control.controlapplicativo.LoginControl;
+import logic.exception.DBFailureException;
 
 public class LoginGuiControl {
 	
@@ -25,11 +27,16 @@ public class LoginGuiControl {
 	}
 	
 	public void setLoginState(LoginBean lBean) {
-		//verificare se l'utente è già stato inserito nel database e aggiungere il Park Visitor se non presente nel database 		
-		LoginControl.validateOnDB(lBean.getUserID());	
-		lC.getLoginBean().setAccessToken(lBean.getAccessToken());
-		lC.getLoginBean().setUserID(lBean.getUserID());
-		gV.loginOn();
+		//verificare se l'utente è già stato inserito nel database e aggiungere il Park Visitor se non presente nel database 	
+		try {
+			lC.verifyUserOnDB(lBean.getUserID());
+			lC.getLoginBean().setAccessToken(lBean.getAccessToken());
+			lC.getLoginBean().setUserID(lBean.getUserID());
+			gV.loginOn();
+		} catch (DBFailureException e) {
+			MessageBean mB = new MessageBean(e.getMessage(), false);
+			gV.getGenericGuiControl().showMessage(mB);
+		}
 	}
 	
 	public void logout(GenericView gView) {

@@ -55,7 +55,7 @@ public class AddReportGuiControlServlet extends HttpServlet{
 			//control the position bean not null
 			PositionBean pB = new PositionBean();
 			PositionGoogleMapsView pGM = new PositionGoogleMapsView();
-			pGM.sendRequest(pB);
+			pGM.getPosition(pB);
 			
 			//call the controller
 			AddReportControl aRC = new AddReportControl();

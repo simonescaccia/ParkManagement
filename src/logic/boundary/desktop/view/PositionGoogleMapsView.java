@@ -13,11 +13,8 @@ import logic.exception.PositionNotFoundException;
 
 public class PositionGoogleMapsView {
 	
-	public PositionGoogleMapsView() {
-//		dummy
-	}
 	
-	public void sendRequest(PositionBean pB) throws PositionNotFoundException{
+	public void getPosition(PositionBean pB) throws PositionNotFoundException{
 		
 		String key = "AIzaSyB_gV3LAG733x2hfpgz7mxkl9bWRjqvPCo";
 		String googleMapsGeoServer = "https://www.googleapis.com/geolocation/v1/geolocate";

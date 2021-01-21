@@ -6,6 +6,7 @@
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="SpeedyFila">
     <property environment="env"/>
     <property name="ECLIPSE_HOME" value="../../../../../eclipse/java-2020-09/eclipse/"/>
+    <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="14"/>
     <property name="source" value="14"/>
@@ -79,6 +80,7 @@
         <pathelement location="web/WEB-INF/lib/jdo2-api-2.3-eb.jar"/>
         <pathelement location="web/WEB-INF/lib/jsr305-3.0.2.jar"/>
         <pathelement location="web/WEB-INF/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"/>
+        <pathelement location="web/WEB-INF/lib/mysql-connector-java-5.1.46-bin.jar"/>
         <pathelement location="web/WEB-INF/lib/opencensus-api-0.24.0.jar"/>
         <pathelement location="web/WEB-INF/lib/opencensus-contrib-http-util-0.24.0.jar"/>
         <pathelement location="web/WEB-INF/lib/protobuf-java-3.13.0.jar"/>
@@ -165,6 +167,7 @@
         <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
+        <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
     </path>
     <path id="run.AttractionsView.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -176,6 +179,7 @@
         <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
+        <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
     </path>
     <path id="run.Home.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -187,6 +191,7 @@
         <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
+        <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
     </path>
     <path id="run.LoginGoogleView.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -198,11 +203,38 @@
         <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
+        <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
+    </path>
+    <path id="run.ParkVisitorDAO.classpath">
+        <path refid="SpeedyFila.classpath"/>
+        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="JavaFX.userclasspath"/>
+        <path refid="JUnit 5.libraryclasspath"/>
+        <path refid="Google.userclasspath"/>
+        <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
+        <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
+    </path>
+    <path id="run.SpeedyFila (1).classpath">
+        <path refid="SpeedyFila.classpath"/>
+        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="JavaFX.userclasspath"/>
+        <path refid="JUnit 5.libraryclasspath"/>
+        <path refid="Google.userclasspath"/>
+        <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
+        <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
     </path>
     <target name="init">
         <mkdir dir="build/classes"/>
         <copy includeemptydirs="false" todir="build/classes">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -250,5 +282,27 @@
         <java classname="logic.boundary.attoriesterni.view.LoginGoogleView" failonerror="true" fork="yes">
             <classpath refid="run.LoginGoogleView.classpath"/>
         </java>
+    </target>
+    <target name="ParkVisitorDAO">
+        <java classname="logic.entities.dao.ParkVisitorDAO" failonerror="true" fork="yes">
+            <classpath refid="run.ParkVisitorDAO.classpath"/>
+        </java>
+    </target>
+    <target name="SpeedyFila (1)">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.TestVerifyConditionReportControl" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="run.SpeedyFila (1).classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
     </target>
 </project>

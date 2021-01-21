@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import logic.boundary.web.view.LoginGoogleView;
 import logic.control.bean.MessageBean;
+import logic.control.controlapplicativo.LoginControl;
+import logic.exception.DBFailureException;
 
 public class LoginGuiControlServlet extends HttpServlet{
 	
@@ -30,24 +32,35 @@ public class LoginGuiControlServlet extends HttpServlet{
 		
 		//comunico il token da validare alla view LoginGoogleView per la verifica
 		LoginGoogleView lGV = new LoginGoogleView();
+		MessageBean mB = new MessageBean();
+		
 		try {
 			String idUser;
 			idUser = lGV.loginWebVerifyToken(idToken);
+			
+			//verificare se l'utente è già stato inserito nel database
+			//aggiungere il Park Visitor se non presente nel database
+			LoginControl lC = new LoginControl();
+			
+			lC.verifyUserOnDB(idUser);
+			
 			request.getSession().setAttribute("userID", idUser);
 			
+			mB.setMessage("Utente Loggato");
+			mB.setType(true);
+			
 		} catch (GeneralSecurityException| IOException e) {
-			MessageBean mB = new MessageBean();
 			mB.setMessage("Token non sicuro");
 			mB.setType(false);
-		    RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			try {
-		    	rd.forward(request, response);
-		    } catch (ServletException|IOException ev) {
-		    	ev.printStackTrace();
-		    }
+		} catch (DBFailureException exc) {
+			mB.setMessage(exc.getMessage());
+			mB.setType(false);
 		}
-		
-	    RequestDispatcher rd = request.getRequestDispatcher(pageRedirect.substring(11)+"?attractionName="+param);
+			
+		//forward e invia la risposta
+	    request.setAttribute("mB", mB);
+	    
+	    RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 		try {
 	    	rd.forward(request, response);
 	    } catch (ServletException|IOException ev) {

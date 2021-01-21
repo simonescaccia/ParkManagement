@@ -9,7 +9,16 @@ public class AddReportBean {
 	private boolean isLast;
 	private String attractionName;
 	private String userID;
+	private PositionBean positionBean;
 	
+	public PositionBean getPositionBean() {
+		return positionBean;
+	}
+
+	public void setPositionBean(PositionBean positionBean) {
+		this.positionBean = positionBean;
+	}
+
 	public void setQueueLen(int s) {
 		queueLen = s;
 	}

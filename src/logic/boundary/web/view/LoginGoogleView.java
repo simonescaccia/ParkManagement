@@ -6,15 +6,12 @@ import java.util.Collections;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-import logic.control.controlapplicativo.LoginControl;
-
 public class LoginGoogleView {
 
-public String loginWebVerifyToken(String idtoken) throws IOException, GeneralSecurityException {
+	public String loginWebVerifyToken(String idtoken) throws IOException, GeneralSecurityException {
 		
 		//verifica token
 		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new JacksonFactory())
@@ -29,22 +26,10 @@ public String loginWebVerifyToken(String idtoken) throws IOException, GeneralSec
 		GoogleIdToken idToken = verifier.verify(idtoken);
 		
 		if (idToken != null) {
-			
-			Payload payload = idToken.getPayload();
-	
-			// Print user identifier
-			String idUser = payload.getSubject();
-			
-			//verificare se l'utente è già stato inserito nel database
-			//aggiungere il Park Visitor se non presente nel database
-			LoginControl.validateOnDB(idUser);
-			
-			return idUser;
-
+			// return the userID
+			return idToken.getPayload().getSubject();
 		}		
-		
 		return null;
-
 	}
 
 	

@@ -26,7 +26,7 @@ public final class AttractionsView extends GenericView{
 		super.bPages[0].setBackground(backB2);
 		
 		//info
-		Button nomeAttrazioneButton = new Button("Nome attrazione");
+		Button nomeAttrazioneButton = new Button("The Lego Store");
 		nomeAttrazioneButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
 			AddReportView addReportView = new AddReportView(nomeAttrazioneButton.getText(), gGC.getLoginGuiControl());
 			addReportView.showScene(stage);

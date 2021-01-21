@@ -66,6 +66,10 @@ public abstract class GenericView extends Application{
 	
 	protected GenericGuiControl gGC;
 	
+	public GenericGuiControl getGenericGuiControl() {
+		return gGC;
+	}
+	
 	public Label getLabelMessage() {
 		return labelMessage;
 	}

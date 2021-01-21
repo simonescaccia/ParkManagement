@@ -42,7 +42,8 @@ public class AddReportGuiControl extends GenericGuiControl{
 			//control the position bean not null
 			PositionBean pB = new PositionBean();
 			PositionGoogleMapsView pGM = new PositionGoogleMapsView();
-			pGM.sendRequest(pB);
+			pGM.getPosition(pB);
+			aRB.setPositionBean(pB);
 			
 			//call the controller
 			MessageBean res = aRC.addQueueReport(aRB);

@@ -2,19 +2,34 @@ package logic.control.controlapplicativo;
 
 import logic.control.bean.AddReportBean;
 import logic.control.bean.MessageBean;
-import logic.entity.dao.ParkAttractionDAO;
-import logic.entity.dao.ParkVisitorDAO;
-import logic.entity.model.ParkAttraction;
-import logic.entity.model.ParkVisitor;
+import logic.entities.dao.ParkAttractionDAO;
+import logic.entities.dao.ParkVisitorDAO;
+import logic.entities.model.ParkAttraction;
+import logic.entities.model.ParkVisitor;
+import logic.exception.ParkAttractionNotFoundException;
+import logic.exception.ParkVisitorNotFoundException;
 
 public class AddReportControl {
 
 	public MessageBean addQueueReport(AddReportBean aRB) {
 		
-		MessageBean bm = new MessageBean();	
+		MessageBean mB = new MessageBean();	
 		
-		ParkVisitor parkVisitor = ParkVisitorDAO.selectParkVisitor(aRB.getUserID());
-		ParkAttraction parkAttraction = ParkAttractionDAO.selectAttractionByName(aRB.getAttractionName());
+		ParkVisitor parkVisitor;
+		ParkAttraction parkAttraction;
+		
+		try {
+			parkVisitor = ParkVisitorDAO.selectParkVisitor(aRB.getUserID());
+			parkAttraction = ParkAttractionDAO.selectAttractionByName(aRB.getAttractionName());
+		} catch (ParkVisitorNotFoundException e) {
+			mB.setMessage("ParkVisitor not found");
+			mB.setType(false);
+			return mB;
+		} catch (ParkAttractionNotFoundException e) {
+			mB.setMessage("ParkAttraction not found");
+			mB.setType(false);
+			return mB;
+		}
 		
 		//controlli
 		VerifyConditionReportControl vCR = new VerifyConditionReportControl();
@@ -22,17 +37,17 @@ public class AddReportControl {
 		boolean b2;
 		
 		//This should be two threads
-		b1 = vCR.verifyDistance(parkVisitor, parkAttraction);
+		b1 = vCR.verifyDistance(aRB.getPositionBean(), parkAttraction.getPosition());
 		b2 = vCR.verifyCountDown(parkVisitor);
 		
 		if(b1 && b2) {
 			calculateWaitingTime(parkAttraction, aRB.getQueueLen());
 		} else if(!b1){
-			bm.setMessage("Non sei molto vicino all'attrazione");
-			bm.setType(false);
+			mB.setMessage("Non sei molto vicino all'attrazione");
+			mB.setType(false);
 		}  else {
-			bm.setMessage("Aspetta ancora un po'");
-			bm.setType(false);
+			mB.setMessage("Aspetta ancora un po'");
+			mB.setType(false);
 		}
 		
 		//update Attraction
@@ -42,9 +57,9 @@ public class AddReportControl {
 		
 		
 		//ritorno l'esito al GuiController
-		bm.setMessage("Inserimento completato");
-		bm.setType(true);
-		return bm;
+		mB.setMessage("Inserimento completato");
+		mB.setType(true);
+		return mB;
 	}
 	
 	protected void calculateWaitingTime(ParkAttraction attraction, int queuLEN) {

@@ -46,7 +46,7 @@
   		<div class="content">
   			<div class="box2">
 			  	<div class="info">
-					<a href="<%=request.getContextPath()%>/jspPages/addReport.jsp?attractionName=nome%20attrazione">Nome dell'attrazione</a>
+					<a href="<%=request.getContextPath()%>/jspPages/addReport.jsp?attractionName=The%20Lego%20Store">The Lego Store</a>
 			  	</div>
 			 
 			  	<div class="infoside">

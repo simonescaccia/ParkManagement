@@ -5,6 +5,15 @@ public class MessageBean {
 	private String message;
 	private boolean type;
 	
+	public MessageBean() {
+	}
+	
+	
+	public MessageBean(String s, boolean t) {
+		message = s;
+		type = t;
+	}
+	
 	public void setMessage(String s) {
 		message = s;
 	}

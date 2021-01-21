@@ -19,5 +19,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Google"/>
 	<classpathentry kind="lib" path="C:/Eclipse/json-20190722.jar"/>
 	<classpathentry kind="lib" path="C:/Eclipse/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="C:/Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

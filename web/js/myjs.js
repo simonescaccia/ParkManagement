@@ -17,7 +17,7 @@ function onSignIn(googleUser) {
 	var xhr = new XMLHttpRequest();
 	xhr.open('POST', '/SpeedyFila/loginGuiControlServlet');
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send('idtoken=' + id_token + '&page=' + window.location.pathname + '&param=' + attractionName);
+	xhr.send('idtoken=' + id_token + '&page=' + window.location.href);
 	
 }
 
