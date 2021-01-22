@@ -34,17 +34,8 @@ public class ReportDAO {
 		                ResultSet.CONCUR_READ_ONLY);	        
 		        
 		        ResultSet rs = Queries.selectDateOfLastReportPV(stmt, parkVisitor.getUserID(), parkAttraction.getName());
-		        if(!rs.next()) {
-		        	throw new ReportNotFoundException("Report not found");
-		        }
 		        
-		        //fill the park attraction
-		        Timestamp date = rs.getTimestamp("date");
-		        
-		        rs.close();        
-		        stmt.close();
-		        
-		        return date;
+		        return getDate(rs, stmt);
 				
 			} finally {
 				cS.detach();
@@ -116,17 +107,8 @@ public class ReportDAO {
 		                ResultSet.CONCUR_READ_ONLY);	        
 		        
 		        ResultSet rs = Queries.selectDateOfLastReport(stmt, parkAttraction.getName());
-		        if(!rs.next()) {
-		        	throw new ReportNotFoundException("Report not found");
-		        }
-		        
-		        //fill the park attraction
-		        Timestamp date = rs.getTimestamp("date");
-		        
-		        rs.close();        
-		        stmt.close();
-		        
-		        return date;
+
+				return getDate(rs, stmt);
 				
 			} finally {
 				cS.detach();
@@ -146,4 +128,19 @@ public class ReportDAO {
 			}
 		}
 	}
+	
+	protected static Timestamp getDate(ResultSet rs, Statement stmt) throws SQLException, ReportNotFoundException {
+        if(!rs.next()) {
+        	throw new ReportNotFoundException("Report not found");
+        }
+        
+        //fill the park attraction
+        Timestamp date = rs.getTimestamp("date");
+        
+        rs.close();        
+        stmt.close();
+        
+        return date;
+	}
+	
 }
