@@ -32,9 +32,15 @@ public final class AttractionsView extends GenericView{
 			addReportView.showScene(stage);
 		});	
 		
+		Button nomeAttrazioneButton2 = new Button("San Benedetto bar");
+		nomeAttrazioneButton2.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
+			AddReportView addReportView = new AddReportView(nomeAttrazioneButton2.getText(), gGC.getLoginGuiControl());
+			addReportView.showScene(stage);
+		});	
+		
 
 		super.sideInfo.getChildren().addAll(super.messageBox);
-		super.info.getChildren().addAll(nomeAttrazioneButton);
+		super.info.getChildren().addAll(nomeAttrazioneButton, nomeAttrazioneButton2);
 		stage.setScene(super.scene);
 		
 		stage.show();

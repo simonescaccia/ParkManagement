@@ -27,8 +27,6 @@ public class LoginGuiControlServlet extends HttpServlet{
 	{
 		
 		String idToken = request.getParameter("idtoken");
-		String pageRedirect = request.getParameter("page");
-		String param = request.getParameter("param");
 		
 		//comunico il token da validare alla view LoginGoogleView per la verifica
 		LoginGoogleView lGV = new LoginGoogleView();
@@ -57,15 +55,8 @@ public class LoginGuiControlServlet extends HttpServlet{
 			mB.setType(false);
 		}
 			
-		//forward e invia la risposta
+		//risposta
 	    request.setAttribute("mB", mB);
-	    
-	    RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-		try {
-	    	rd.forward(request, response);
-	    } catch (ServletException|IOException ev) {
-	    	ev.printStackTrace();
-	    }
 		
 	}
 	

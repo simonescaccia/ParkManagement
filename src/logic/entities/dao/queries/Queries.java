@@ -27,5 +27,15 @@ public class Queries {
         String sql = "SELECT * FROM position WHERE ID='" + positionID + "';";
         return stmt.executeQuery(sql);
     }
+    
+    public static ResultSet selectDateOfLastReportPV(Statement stmt, String userID, String pAName) throws SQLException  {
+        String sql = "SELECT * FROM report WHERE userID_parkvisitor='"+userID+"' AND name_parkattraction ='"+pAName+"' ORDER BY date DESC;";
+        return stmt.executeQuery(sql);
+    }
+    
+    public static ResultSet selectDateOfLastReport(Statement stmt, String pAName) throws SQLException  {
+        String sql = "SELECT * FROM report WHERE name_parkattraction ='"+pAName+"' ORDER BY date DESC;";
+        return stmt.executeQuery(sql);
+    }
 	
 }

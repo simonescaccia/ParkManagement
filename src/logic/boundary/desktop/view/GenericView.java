@@ -55,14 +55,16 @@ public abstract class GenericView extends Application{
 	protected Label space;
 	protected Label space2;
 	
-	protected int n = 4; 
+	protected int n = 3; 
 	protected Button[] bPages = new Button[n]; 
-	protected String[] bNames = {"Attractions", "Your Reports", "Coupons", "Favourite"};
+	protected String[] bNames = {"Attractions", "Your Reports", "Coupons"};
 	
 	protected Scene scene;
 	
 	protected EventHandler<MouseEvent> loginEvent;
 	protected EventHandler<MouseEvent> logoutEvent;
+	
+	protected static final String ENV= "user.dir";
 	
 	protected GenericGuiControl gGC;
 	
@@ -89,13 +91,12 @@ public abstract class GenericView extends Application{
 		lineButtons = new HBox();
 		
 		font = new Font("Comic Sans MS", 20);
-		final String env= "user.dir";
 					
 		labelImg = new Label();
 		
 		//immagine in alto
 		try {
-			inBImg = new FileInputStream(System.getProperty(env)+"\\img\\backgroundImage.jpg");
+			inBImg = new FileInputStream(System.getProperty(ENV)+"\\img\\backgroundImage.jpg");
 			Image imgB = new Image(inBImg);
 	
 			BackgroundSize bSize = new BackgroundSize(1366, 150, false, false, true, true); 
@@ -110,8 +111,8 @@ public abstract class GenericView extends Application{
 		
 		//immagine button undo e redo
 		try {
-			inUndoImg = new FileInputStream(System.getProperty(env)+"\\img\\undo2.png");
-			inRedoImg = new FileInputStream(System.getProperty(env)+"\\img\\redo2.png");
+			inUndoImg = new FileInputStream(System.getProperty(ENV)+"\\img\\undo2.png");
+			inRedoImg = new FileInputStream(System.getProperty(ENV)+"\\img\\redo2.png");
 			
 			Image imgU = new Image(inUndoImg);
 			Image imgR = new Image(inRedoImg);
@@ -158,7 +159,7 @@ public abstract class GenericView extends Application{
 		
 		space2 = new Label();
 		space2.setBackground(backB1);
-		space2.setMinSize(30, 50);
+		space2.setMinSize(230, 50);
 		
 		int i = 0;
 		for(; i<this.n; i++) {
@@ -183,7 +184,7 @@ public abstract class GenericView extends Application{
 		loginBox.setMinSize(246, 50);
 		
 		try {
-			inLoginImg = new FileInputStream(System.getProperty(env)+"\\img\\login3.PNG");
+			inLoginImg = new FileInputStream(System.getProperty(ENV)+"\\img\\login3.PNG");
 			Image imgL = new Image(inLoginImg);
 			imgVL = new ImageView(imgL);
 			buttonLogin = new Button("", imgVL);
@@ -236,7 +237,7 @@ public abstract class GenericView extends Application{
 		messageBox.getChildren().addAll(iconMessage, labelMessage);
 		body.getChildren().addAll(info, sideInfo);
 		loginBox.getChildren().addAll(buttonLogin);
-		lineButtons.getChildren().addAll(buttonUndo, buttonRedo,space,bPages[0],bPages[1],bPages[2],bPages[3], space2, loginBox);
+		lineButtons.getChildren().addAll(buttonUndo, buttonRedo,space,bPages[0],bPages[1],bPages[2], space2, loginBox);
 		root.getChildren().addAll(labelImg, lineButtons, body);
 		
 		scene = new Scene(root, 1366, 700);

@@ -31,7 +31,6 @@
 		  		<li class="center"><h4 class="font"><a class="active" href="#">Attractions</a></h4></li>
 		  		<li class="left"><h4 class="font"><a href="#">Your reports</a></h4></li>
 		  		<li class="left"><h4 class="font"><a href="#">Coupons</a></h4></li>
-		  		<li class="left"><h4 class="font"><a href="#">Favourites</a></h4></li>
 		  		<li class="right">
 		  			<div class="googleLogin" id="signin-container">
 		  				<div class="g-signin2" data-onsuccess="onSignIn"></div>	

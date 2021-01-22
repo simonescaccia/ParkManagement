@@ -52,8 +52,41 @@ public class ParkVisitorDAO {
 
 	}
 	
-	public static void  incrementCoin(ParkVisitor pV) {
-		//dummy
+	public static void  incrementCoin(ParkVisitor pV) throws ParkVisitorNotFoundException {
+		Statement stmt = null;
+		Connection connection = null;
+		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
+		
+		try {
+			try {
+				//ConnectionSingleton instance and attach
+				connection = cS.attach();
+				
+				//creazione ed esecuzione della query
+		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+		                ResultSet.CONCUR_READ_ONLY);
+
+		        Updates.incrementCoins(stmt, pV.getUserID());
+			        
+			} finally {
+				cS.detach();
+				if(stmt != null) {
+					stmt.close();
+				}
+			}
+		} catch(DBFailureException | SQLException e) {
+			e.printStackTrace();
+			throw new ParkVisitorNotFoundException("Increment coins failure");
+		}finally {
+			if(stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException ex) {
+					stmt = null;
+				}
+			}
+		}
+		
 	}
 	
 	public static boolean searchUserByID(String userID) throws DBFailureException{

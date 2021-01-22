@@ -1,23 +1,19 @@
 $(document).ready(
 	function(){
 			$("#signout-container").hide();
+			$("#videoAds").hide();
 });
 
 function onSignIn(googleUser) {
 	var profile = googleUser.getBasicProfile();
 	$("#signout-container").show();
 	$("#signin-container").hide();
-	console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-	  
-	var url_string = window.location.href
-	var url = new URL(url_string);
-	var attractionName = url.searchParams.get("attractionName");
 
 	var id_token = googleUser.getAuthResponse().id_token;
 	var xhr = new XMLHttpRequest();
 	xhr.open('POST', '/SpeedyFila/loginGuiControlServlet');
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send('idtoken=' + id_token + '&page=' + window.location.href);
+	xhr.send('idtoken=' + id_token );
 	
 }
 
@@ -31,4 +27,19 @@ function signOut() {
 	  $("#signout-container").hide();
 	  $("#signin-container").show();
 	});
+}
+
+function showAds(){
+	$("#attrInfo").hide();
+	$("#videoAds").show();
+	$("#gain1coin").hide();
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', '/SpeedyFila/showVideoAdsGuiControlServlet');
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send();
+}
+
+function closeAds(){
+	$("#attrInfo").show();
+	$("#videoAds").hide();
 }

@@ -3,6 +3,7 @@ package logic.boundary.desktop.controlgrafico;
 import logic.control.bean.AddReportBean;
 import logic.control.bean.MessageBean;
 import logic.control.bean.PositionBean;
+import logic.control.bean.UserBean;
 import logic.boundary.desktop.view.AddReportView;
 import logic.boundary.desktop.view.PositionGoogleMapsView;
 import logic.control.controlapplicativo.AddReportControl;
@@ -19,6 +20,13 @@ public class AddReportGuiControl extends GenericGuiControl{
 		aRC = new AddReportControl(); 
 	}
 
+	public void showVideoAds() {
+		UserBean vAB= new UserBean();
+		vAB.setUserID(super.lGC.getLoginControl().getLoginBean().getUserID());
+		
+		aRC.showVideoAds(vAB);
+	}
+	
 	public void insertQueueLenght(String attractionName, String queueLenS, boolean isLast) {
 		
 		int queueLen;
@@ -54,7 +62,7 @@ public class AddReportGuiControl extends GenericGuiControl{
 			
 		} catch (NumberFormatException e) {
 			//return failure convertion
-			mB.setMessage("Inserire un numero da 0 a 100");
+			mB.setMessage("Inserire un numero da 0 a 150");
 			mB.setType(false);
 		} catch (NullLoginException | PositionNotFoundException | NullAttractionNameException e) {
 			//return failure login null
@@ -63,6 +71,10 @@ public class AddReportGuiControl extends GenericGuiControl{
 		}
 		
 		super.showMessage(mB);
+		
+		if(mB.getType()) {
+			((AddReportView)super.gV).showButtonVideoAds();
+		}
 		
 	}
 	

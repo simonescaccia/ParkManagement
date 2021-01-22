@@ -1,25 +1,27 @@
 package logic.entities.model;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class Report {
 
-	private LocalDateTime date;
+	private Timestamp date;
 	private boolean isLast;
 	private int lengthQueue;
 	private ParkAttraction parkAttraction;
 	private ParkVisitor parkVisitor;
 	
-	public LocalDateTime getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(LocalDateTime date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
-	public boolean isLast() {
+	
+	public boolean getIsLast() {
 		return isLast;
 	}
-	public void setLast(boolean isLast) {
+	
+	public void setIsLast(boolean isLast) {
 		this.isLast = isLast;
 	}
 	public int getLengthQueue() {

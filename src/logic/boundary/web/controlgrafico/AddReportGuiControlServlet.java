@@ -52,10 +52,11 @@ public class AddReportGuiControlServlet extends HttpServlet{
 			String userID = (String)request.getSession().getAttribute("userID");
 			aRB.setUserID(userID);
 			
-			//control the position bean not null
+			//initializate the position bean
 			PositionBean pB = new PositionBean();
 			PositionGoogleMapsView pGM = new PositionGoogleMapsView();
 			pGM.getPosition(pB);
+			aRB.setPositionBean(pB);
 			
 			//call the controller
 			AddReportControl aRC = new AddReportControl();
@@ -66,7 +67,7 @@ public class AddReportGuiControlServlet extends HttpServlet{
 			mB.setType(res.getType());
 		} catch (NumberFormatException e) {
 			//comunico l'errore di conversione
-			mB.setMessage("Inserire un numero da 0 a 100");
+			mB.setMessage("Inserire un numero da 0 a 150");
 			mB.setType(false);
 		} catch (NullLoginException | PositionNotFoundException | NullAttractionNameException e) {
 			//return failure login

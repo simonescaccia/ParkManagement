@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalTime;
+import java.sql.Time;
 
 public class ParkAttractionDAO {
 
@@ -62,7 +62,45 @@ public class ParkAttractionDAO {
 		}
 	}
 	
-	public static void updateParkAttraction(ParkAttraction pA, String lenQueue, LocalTime newWT) {
-		//dummy
+	public static void updateParkAttraction(ParkAttraction pA, int lenQueue, Time newWt) throws ParkAttractionNotFoundException {
+		Statement stmt = null;
+		Connection connection = null;
+		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
+		
+		try {
+			try {
+				//ConnectionSingleton instance and attach
+				connection = cS.attach();
+				
+				//creazione ed esecuzione della query su ParkAttraction
+		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+		                ResultSet.CONCUR_READ_ONLY);	        
+		        
+		        ResultSet rs = Queries.selectAttractionByName(stmt, pA.getName());
+		        if(!rs.next()) {
+		        	throw new ParkAttractionNotFoundException("ParkAttraction not found");
+		        }
+		        
+		        int queueID = (rs.getInt("ID_queue"));
+		        
+		        QueueDAO.updateQueue(queueID, lenQueue, newWt);
+			        
+			} finally {
+				cS.detach();
+				if(stmt != null) {
+					stmt.close();
+				}
+			}
+		} catch(DBFailureException | SQLException e) {
+			throw new ParkAttractionNotFoundException("ParkAttraction update failure");
+		} finally {
+			if(stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException ex) {
+					stmt = null;
+				}
+			}
+		}
 	}
 }

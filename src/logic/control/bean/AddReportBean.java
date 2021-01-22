@@ -19,8 +19,11 @@ public class AddReportBean {
 		this.positionBean = positionBean;
 	}
 
-	public void setQueueLen(int s) {
-		queueLen = s;
+	public void setQueueLen(int i) {
+		if((Integer.signum(i) == -1) || i>150) {
+			throw new NumberFormatException();
+		}
+		queueLen = i;
 	}
 	
 	public void setIsLast(boolean b) {

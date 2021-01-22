@@ -185,6 +185,37 @@ div.container2 {
     height: 50px;
 }
 
+div.container3 {
+    position: absolute;
+    top: 49px;
+    left: 170px;
+    width: 100px;
+    height: 50px;
+}
+
+#hideMe {
+
+    -webkit-animation: cssAnimation 0s ease-in 10s forwards;
+    /* Safari and Chrome */
+
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}
+
 div.icon{
 	display: inline-block;
 	position: relative;

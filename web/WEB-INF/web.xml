@@ -38,4 +38,14 @@
     	<servlet-name>LogoutGuiControlServlet</servlet-name>
     	<url-pattern>/logoutGuiControlServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShowVideoAdsGuiControlServlet</servlet-name>
+		<servlet-class>logic.boundary.web.controlgrafico.ShowVideoAdsGuiControlServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+    	<servlet-name>ShowVideoAdsGuiControlServlet</servlet-name>
+    	<url-pattern>/showVideoAdsGuiControlServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

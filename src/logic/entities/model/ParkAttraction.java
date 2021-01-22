@@ -1,5 +1,7 @@
 package logic.entities.model;
 
+import logic.entities.factory.Factory;
+
 public class ParkAttraction {
 		
 	private String name;
@@ -14,16 +16,30 @@ public class ParkAttraction {
 		this.name = name;
 	}
 	public Queue getQueue() {
-		return queue;
+		Queue q = Factory.getQueue();
+		q.setAvgWaitingTime(this.queue.getAvgWaitingTime());
+		q.setLength(this.queue.getLength());
+		q.setWaitingTime(this.queue.getWaitingTime());
+		return q;
 	}
 	public void setQueue(Queue queue) {
-		this.queue = queue;
+		Queue q = Factory.getQueue();
+		q.setAvgWaitingTime(queue.getAvgWaitingTime());
+		q.setLength(queue.getLength());
+		q.setWaitingTime(queue.getWaitingTime());
+		this.queue = q;
 	}
 	public Position getPosition() {
-		return position;
+		Position p = Factory.getPosition();
+		p.setLatitude(this.position.getLatitude());
+		p.setLongitude(this.position.getLongitude());
+		return p;
 	}
 	public void setPosition(Position position) {
-		this.position = position;
+		Position p = Factory.getPosition();
+		p.setLatitude(position.getLatitude());
+		p.setLongitude(position.getLongitude());
+		this.position = p;
 	}
 	
 	

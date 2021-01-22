@@ -7,18 +7,11 @@ import logic.control.controlapplicativo.VerifyConditionReportControl;
 public class TestVerifyConditionReportControl {
 
 	@Test
-	public void testDistanceInKmBetweenEarthCoordinatesNullDistance() {
-		VerifyConditionReportControl vCRC = new VerifyConditionReportControl();
-		double result = vCRC.distanceInKmBetweenEarthCoordinates(0, 0, 0, 0);
-		
-		assertEquals((double)0, result, 0);
-	}
-
-	@Test
 	public void testDistanceInKmBetweenEarthCoordinatesNearPlaces() {
 		VerifyConditionReportControl vCRC = new VerifyConditionReportControl();
 		double result = vCRC.distanceInKmBetweenEarthCoordinates(41.64369684, 13.3472999999, 41.6428, 13.3465);
 		
 		assertEquals(0.12, result, 0.01);
 	}
+	
 }

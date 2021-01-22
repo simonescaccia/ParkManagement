@@ -30,7 +30,6 @@
 		  		<li class="center"><h4 class="font"><a class="active" href="<%=request.getContextPath()%>/index.jsp">Attractions</a></h4></li>
 		  		<li class="left"><h4 class="font"><a href="#">Your reports</a></h4></li>
 		  		<li class="left"><h4 class="font"><a href="#">Coupons</a></h4></li>
-		  		<li class="left"><h4 class="font"><a href="#">Favourites</a></h4></li>
 		  		<li class="right">
 					<div class="googleLogin" id="signin-container">
 		  				<div class="g-signin2" data-onsuccess="onSignIn"></div>	
@@ -48,8 +47,13 @@
   			
   				<!-- informazioni -->
 			  	<div class="info">
-					<p><%= request.getSession().getAttribute("attractionName") %></p>
-					
+			  		<div id="attrInfo">
+						<p><%= request.getSession().getAttribute("attractionName") %></p>
+					</div>
+					<div id="videoAds">
+						<img src="<%=request.getContextPath()%>/img/videoAds.png" width="400" alt="videoAds"><br>
+						<input class="addreport" type="submit" name="Close" value="Close" onclick="closeAds();">
+					</div>
 			  	</div>
 			 
 			 	<!-- informazioni laterali -->
@@ -86,6 +90,17 @@
 								<input class="addreport" type="submit" name="addReport" value="Add Report">
 							</div>
 						</form>
+						<%if((request.getAttribute("mB") != null)) {
+							MessageBean mB = (MessageBean)request.getAttribute("mB");
+							
+							if(mB.getType()){	%>
+								<div class="container3" id="hideMe">
+									<input id="gain1coin" class="addreport" type="submit" name="Gain1coin" value="Gain1coin" onclick="showAds();">
+								</div>
+							<%
+							}
+						}
+						%>
 					</div>
 			  	</div>
 			

@@ -1,14 +1,20 @@
 package logic.control.controlapplicativo;
 
+import java.sql.Timestamp;
+
 import logic.control.bean.PositionBean;
 import logic.entities.model.ParkVisitor;
+import logic.entities.dao.ReportDAO;
+import logic.entities.model.ParkAttraction;
 import logic.entities.model.Position;
+import logic.exception.DBFailureException;
+import logic.exception.ReportNotFoundException;
 
 public class VerifyConditionReportControl {
 	
 	public boolean verifyDistance(PositionBean pBPV, Position pBPA) {
-		//distanza accettabile <= 100 metri
-		return (distanceInKmBetweenEarthCoordinates(pBPV.getLatitude(),pBPV.getLongitude(),pBPA.getLatitude(),pBPA.getLongitude()) <= 0.1);
+		//distanza accettabile <= 150 metri
+		return (distanceInKmBetweenEarthCoordinates(pBPV.getLatitude(),pBPV.getLongitude(),pBPA.getLatitude(),pBPA.getLongitude()) <= 0.15);
 	}
 	
 	public double degreesToRadiants(double degrees) {
@@ -31,9 +37,25 @@ public class VerifyConditionReportControl {
 		return earthRadiusKm * c;
 	}
 	
-	public boolean verifyCountDown(ParkVisitor user) {
-		//dummy method
-		return true;
+	public boolean verifyCountDown(ParkVisitor pV, ParkAttraction pA) throws DBFailureException {
+		//get the Date of last report of pV for the pA
+		Timestamp result;
+		
+		try {
+			result = ReportDAO.selectDateLastReportPV(pV, pA);
+		} catch (ReportNotFoundException e) {
+			return true;
+		}
+		
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+		
+		//differenza tra le due date in millisecondi
+		long diffMilliseconds = now.getTime() - result.getTime();
+		int diffSeconds = (int) diffMilliseconds / 1000;
+		int diffMinute =  diffSeconds / 60;
+
+		//intervallo accettabile se >= 15 minuti
+		return diffMinute >= 15;
 	}
 	
 }
