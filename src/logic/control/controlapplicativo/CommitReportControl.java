@@ -22,7 +22,7 @@ public class CommitReportControl {
 			//this is a thread
 			//create thread for a sleep method
 			new Thread(() -> 
-				waitToSetNullQueue(report, newWt)	
+				waitToSetNullQueue(report)	
 			).start();
 			
 			ParkVisitorDAO.incrementCoin(report.getParkVisitor());
@@ -38,15 +38,15 @@ public class CommitReportControl {
 		return new Time(millisecondsIt);
 	}
 	
-	protected void waitToSetNullQueue(Report report, Time queueWT) {
+	protected void waitToSetNullQueue(Report report) {
 		
 		//get the waiting time of the attraction for this report and set null to the queue at the end 
 		//of this time if there aren't new report for this attracton
-		double millisecondsGTW = queueWT.getTime();
-		double milliseconds = millisecondsGTW+(60*60*1000);
+		int minuti = 30;
+		long milliseconds = (long)minuti*60*1000;
 		try {
-			//sleep for queueWT
-			Thread.sleep((long)milliseconds);
+			//sleep for 30 minuti 
+			Thread.sleep(milliseconds);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
@@ -56,9 +56,7 @@ public class CommitReportControl {
 			report.getDate().setNanos(0);
 			if(date.equals(report.getDate())) {
 				//no report change, then set queue length and the queue waiting time to his default value
-				long minusOneHour= (long) -60*60*1000;
-				Time nullTime = new Time(minusOneHour);
-				ParkAttractionDAO.updateParkAttraction(report.getParkAttraction(), 0, nullTime);
+				ParkAttractionDAO.updateParkAttraction(report.getParkAttraction(), -1, null);
 			}
 		} catch (ReportNotFoundException | ParkAttractionNotFoundException e) {
 			e.printStackTrace();

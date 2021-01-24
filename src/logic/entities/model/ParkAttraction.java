@@ -1,5 +1,7 @@
 package logic.entities.model;
 
+import java.io.InputStream;
+
 import logic.entities.factory.Factory;
 
 public class ParkAttraction {
@@ -7,8 +9,36 @@ public class ParkAttraction {
 	private String name;
 	private Queue queue;
 	private Position position;
+	private Category category;	
+	private InputStream img;
+	private String description;
 	
-	
+	public Category getCategory() {
+		Category c = Factory.getCategory();
+		c.setId(this.category.getId());
+		c.setName(this.category.getName());
+		c.setImgC(this.category.getImgC());
+		return c;
+	}
+	public void setCategory(Category category) {
+		Category c = Factory.getCategory();
+		c.setId(category.getId());
+		c.setName(category.getName());
+		c.setImgC(category.getImgC());
+		this.category = c;
+	}
+	public InputStream getImg() {
+		return img;
+	}
+	public void setImg(InputStream img) {
+		this.img = img;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public String getName() {
 		return name;
 	}

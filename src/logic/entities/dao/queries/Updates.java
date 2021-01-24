@@ -19,6 +19,11 @@ public class Updates {
         return stmt.executeUpdate(sql);
     }
     
+    public static int setNullToQueue(Statement stmt, int id) throws SQLException  {
+        String sql = "UPDATE queue SET length=NULL, waiting_time=NULL WHERE ID = '"+id+"';";
+        return stmt.executeUpdate(sql);
+    }
+    
     public static int insertReport(Statement stmt, Timestamp date, String pAName, String userID, int isLast, int lenQueue) throws SQLException  {
         String sql = "INSERT INTO report (date, name_parkattraction, userID_parkvisitor, isLast, lengthQueue) VALUES ('"+date+"','"+pAName+"','"+userID+"','"+isLast+"','"+lenQueue+"');";
         return stmt.executeUpdate(sql);

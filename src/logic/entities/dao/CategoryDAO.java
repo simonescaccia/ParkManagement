@@ -4,21 +4,19 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
 
 import logic.entities.connection.ConnectionSingleton;
 import logic.entities.dao.queries.Queries;
-import logic.entities.dao.queries.Updates;
 import logic.entities.factory.Factory;
-import logic.entities.model.Queue;
+import logic.entities.model.Category;
+import logic.exception.CategoryNotFoundException;
 import logic.exception.DBFailureException;
-import logic.exception.QueueNotFoundException;
 
-public class QueueDAO {
-
-	private QueueDAO() {}
+public class CategoryDAO {
 	
-	public static Queue selectQueueByID(int id) throws QueueNotFoundException {
+	private CategoryDAO() {}
+	
+	public static Category selectCategoryByID(int id) throws CategoryNotFoundException {
 		Statement stmt = null;
 		Connection connection = null;
 		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
@@ -31,21 +29,21 @@ public class QueueDAO {
 		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 		                ResultSet.CONCUR_READ_ONLY);	        
 		        
-		        ResultSet rs = Queries.selectQueueByID(stmt, id);
+		        ResultSet rs = Queries.selectCategoryByID(stmt, id);
 		        if(!rs.next()) {
-		        	throw new QueueNotFoundException("Queue not found");
+		        	throw new CategoryNotFoundException("Queue not found");
 		        }
 		        
-		        //fill the Queue
-		        Queue q = Factory.getQueue();
-		        q.setAvgWaitingTime(rs.getDouble("avg_waiting_time"));
-		        q.setLength(rs.getInt("length"));
-		        q.setWaitingTime(rs.getTime("waiting_time"));
+		        //fill the Category
+		        Category c = Factory.getCategory();
+		        c.setId(rs.getInt("ID"));
+		        c.setName(rs.getString("name"));
+		        c.setImgC(rs.getBinaryStream("img"));
 		        
 		        rs.close();
 		        stmt.close();
 		        
-		        return q;
+		        return c;
 		        
 			} finally {
 				cS.detach();
@@ -54,30 +52,39 @@ public class QueueDAO {
 				}
 			}
 		} catch(DBFailureException | SQLException e) {
-			throw new QueueNotFoundException(e.getMessage());
+			throw new CategoryNotFoundException(e.getMessage());
 		}    
 	}
 	
-	public static void updateQueue(int id, int lenQueue, Time newWt) throws DBFailureException {
+	public static Category selectCategoryByName(String name) throws CategoryNotFoundException {
 		Statement stmt = null;
 		Connection connection = null;
 		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
-		
 		try {
 			try {
 				//ConnectionSingleton instance and attach
 				connection = cS.attach();
 				
-				//creazione ed esecuzione della query
+				//creazione ed esecuzione della query su ParkAttraction
 		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-		                ResultSet.CONCUR_READ_ONLY);
+		                ResultSet.CONCUR_READ_ONLY);	        
 		        
-		        if(lenQueue == -1) {
-		        	//set null to queue lenght&waitingtime
-		        	Updates.setNullToQueue(stmt, id);
-		        } else {
-		        	Updates.updateQueue(stmt, id, lenQueue, newWt);
+		        ResultSet rs = Queries.selectCategoryByName(stmt, name);
+		        if(!rs.next()) {
+		        	throw new CategoryNotFoundException("Category not found");
 		        }
+		        
+		        //fill the park attraction
+		        Category c = Factory.getCategory();
+		        c.setId(rs.getInt("ID"));
+		        c.setName(name);
+		        c.setImgC(rs.getBinaryStream("img"));
+		        
+		        rs.close();
+		        stmt.close();        
+		        
+		        return c;
+				
 			} finally {
 				cS.detach();
 				if(stmt != null) {
@@ -85,7 +92,7 @@ public class QueueDAO {
 				}
 			}
 		} catch(DBFailureException | SQLException e) {
-			throw new DBFailureException("DB failure");
+			throw new CategoryNotFoundException(e.getMessage());
 		}
 	}
 }

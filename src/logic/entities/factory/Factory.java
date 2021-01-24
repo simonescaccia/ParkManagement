@@ -1,5 +1,6 @@
 package logic.entities.factory;
 
+import logic.entities.model.Category;
 import logic.entities.model.ParkAttraction;
 import logic.entities.model.ParkVisitor;
 import logic.entities.model.Position;
@@ -33,5 +34,9 @@ public class Factory {
 	
 	public static Position getPosition() {
 		return new Position();
+	}
+	
+	public static Category getCategory() {
+		return new Category();
 	}
 }

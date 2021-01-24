@@ -2,6 +2,7 @@ package logic.boundary.desktop.view;
 
 import logic.boundary.desktop.controlgrafico.AddReportGuiControl;
 import logic.boundary.desktop.controlgrafico.LoginGuiControl;
+import logic.boundary.desktop.controlgrafico.ViewAttractionsGuiControl;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -74,11 +75,8 @@ public final class AddReportView extends GenericView{
 		VBox addReport = new VBox();
 		HBox insertReport = new HBox();
 		
-		Font fontSide = new Font("Comic Sans MS", 16);
 		Font fontSide2 = new Font("Comic Sans MS", 17);
 		
-		Color darkGreen = Color.rgb(0, 170, 109);
-		Border blackBorder = new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,null,null));
 		Border greenBorder = new Border(new BorderStroke((darkGreen),BorderStrokeStyle.SOLID,null,null));
 		
 		
@@ -89,7 +87,8 @@ public final class AddReportView extends GenericView{
 		
 		
 		//info
-		labelAttraction = new Label(nomeAttrazione);
+		ViewAttractionsGuiControl vAGC = new ViewAttractionsGuiControl(this);
+		vAGC.showAttractionInformation(nomeAttrazione);
 		
 		//immagine videoAds
 		lVideoAds = new Label();
@@ -122,6 +121,12 @@ public final class AddReportView extends GenericView{
 		bVideoAds.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> 
 			closeVideoAds()
 		);
+		bVideoAds.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
+			bVideoAds.setStyle(styleHandCursor)
+		);
+		bVideoAds.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
+			bVideoAds.setEffect(null)  
+		);
 		
 		//sideInfo
 
@@ -145,6 +150,12 @@ public final class AddReportView extends GenericView{
 		
 		bAddReport.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> 
 				insertReport());
+		bAddReport.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
+			bAddReport.setStyle(styleHandCursor)
+				);
+		bAddReport.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
+			bAddReport.setEffect(null)  
+				);
 		
 		tf.setBorder(greenBorder);
 		tf.setPrefWidth(50);
@@ -171,6 +182,13 @@ public final class AddReportView extends GenericView{
 			showBVideoAds.setVisible(false);
 			((AddReportGuiControl)super.gGC).showVideoAds();
 		});
+		showBVideoAds.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
+			showBVideoAds.setStyle(styleHandCursor)
+		);
+		showBVideoAds.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
+			showBVideoAds.setEffect(null)  
+		);
+		
 		
 		if(super.gGC.getLoginGuiControl().getLoginControl().getLoginBean().getUserID() != null) {
 			super.loginOn();

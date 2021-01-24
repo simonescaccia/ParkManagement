@@ -5,10 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import logic.entities.connection.ConnectionSingleton;
 import logic.entities.dao.queries.Queries;
 import logic.entities.dao.queries.Updates;
+import logic.entities.factory.Factory;
 import logic.entities.model.ParkAttraction;
 import logic.entities.model.ParkVisitor;
 import logic.entities.model.Report;
@@ -33,7 +36,7 @@ public class ReportDAO {
 		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 		                ResultSet.CONCUR_READ_ONLY);	        
 		        
-		        ResultSet rs = Queries.selectDateOfLastReportPV(stmt, parkVisitor.getUserID(), parkAttraction.getName());
+		        ResultSet rs = Queries.selectLastestReportPV(stmt, parkVisitor.getUserID(), parkAttraction.getName());
 		        
 		        return getDate(rs, stmt);
 				
@@ -106,7 +109,7 @@ public class ReportDAO {
 		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 		                ResultSet.CONCUR_READ_ONLY);	        
 		        
-		        ResultSet rs = Queries.selectDateOfLastReport(stmt, parkAttraction.getName());
+		        ResultSet rs = Queries.selectLastestReportPA(stmt, parkAttraction.getName());
 
 				return getDate(rs, stmt);
 				
@@ -141,6 +144,68 @@ public class ReportDAO {
         stmt.close();
         
         return date;
+	}
+	
+	public static List<Report> selectLastReportPA(ParkAttraction pA) throws ReportNotFoundException{
+		
+		Statement stmt = null;
+		Connection connection = null;
+		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
+		
+		List<Report> listOfReports = new ArrayList<>();
+		
+		try {
+			try {
+				//ConnectionSingleton instance and attach
+				connection = cS.attach();
+				
+				//creazione ed esecuzione della query su Report
+		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+		                ResultSet.CONCUR_READ_ONLY);	        
+		        
+		        ResultSet rs = Queries.selectLastestReportPA(stmt, pA.getName());
+
+		        if(!rs.next()) {
+		        	return listOfReports;
+		        }
+
+		        // riposizionamento del cursore
+	            rs.first();
+	            do{
+	                
+	            	Report r = Factory.getReport();
+	            	r.setDate(rs.getTimestamp("date"));
+			        r.setLengthQueue(rs.getInt("lengthQueue"));	
+	                
+			        listOfReports.add(r);
+
+	            }while(rs.next());
+	            
+	            // STEP 5.1: Clean-up dell'ambiente
+		        
+		        rs.close();        
+		        stmt.close();
+				
+			} finally {
+				cS.detach();
+				if(stmt != null) {
+					stmt.close();
+				}
+			}
+		} catch(DBFailureException | SQLException e) {
+			throw new ReportNotFoundException("Report query failure");
+		} finally {
+			if(stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException ex) {
+					stmt = null;
+				}
+			}
+		}
+		
+		return listOfReports;
+		
 	}
 	
 }

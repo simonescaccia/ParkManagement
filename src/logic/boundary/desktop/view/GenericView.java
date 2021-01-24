@@ -15,6 +15,10 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -44,6 +48,13 @@ public abstract class GenericView extends Application{
 	protected Label labelMessage;
 	
 	protected Font font;
+	protected Font fontSide;
+	protected Border blackBorder;
+	protected Border greenBorder;
+	protected Border greenBorder2;
+	protected Color darkGreen;
+	
+	protected String styleHandCursor = "-fx-cursor: hand;";
 	
 	protected Background backB1;
 	
@@ -91,7 +102,13 @@ public abstract class GenericView extends Application{
 		lineButtons = new HBox();
 		
 		font = new Font("Comic Sans MS", 20);
-					
+		fontSide = new Font("Comic Sans MS", 16);
+		blackBorder = new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,null,null));
+		
+		darkGreen = Color.rgb(0, 170, 109);
+		greenBorder = new Border(new BorderStroke(darkGreen,BorderStrokeStyle.SOLID,null,null));
+		greenBorder2 = new Border(new BorderStroke(darkGreen,BorderStrokeStyle.SOLID,null,BorderWidths.FULL));
+		
 		labelImg = new Label();
 		
 		//immagine in alto
@@ -134,8 +151,6 @@ public abstract class GenericView extends Application{
 		buttonUndo.setMinSize(60, 50);
 		
 		final Button button = buttonUndo; 
-		
-		String styleHandCursor = "-fx-cursor: hand;";
 		
 		buttonUndo.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
 	            button.setStyle(styleHandCursor)  );

@@ -47,7 +47,7 @@ public class AddReportGuiControl extends GenericGuiControl{
 			//insert userID into the bean
 			aRB.setUserID(super.lGC.getLoginControl().getLoginBean().getUserID());
 			
-			//control the position bean not null
+			//get the position of user
 			PositionBean pB = new PositionBean();
 			PositionGoogleMapsView pGM = new PositionGoogleMapsView();
 			pGM.getPosition(pB);
