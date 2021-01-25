@@ -16,7 +16,7 @@ public class CategoryDAO {
 	
 	private CategoryDAO() {}
 	
-	public static Category selectCategoryByID(int id) throws CategoryNotFoundException {
+	public static Category selectCategory(int id, String name) throws CategoryNotFoundException {
 		Statement stmt = null;
 		Connection connection = null;
 		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
@@ -29,9 +29,15 @@ public class CategoryDAO {
 		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 		                ResultSet.CONCUR_READ_ONLY);	        
 		        
-		        ResultSet rs = Queries.selectCategoryByID(stmt, id);
+		        ResultSet rs;
+		        if(name == null) {
+		        	rs = Queries.selectCategoryByID(stmt, id);
+		        } else {
+		        	rs = Queries.selectCategoryByName(stmt, name);
+		        } 
+		        
 		        if(!rs.next()) {
-		        	throw new CategoryNotFoundException("Queue not found");
+		        	throw new CategoryNotFoundException("Category not found");
 		        }
 		        
 		        //fill the Category
@@ -56,43 +62,4 @@ public class CategoryDAO {
 		}    
 	}
 	
-	public static Category selectCategoryByName(String name) throws CategoryNotFoundException {
-		Statement stmt = null;
-		Connection connection = null;
-		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
-		try {
-			try {
-				//ConnectionSingleton instance and attach
-				connection = cS.attach();
-				
-				//creazione ed esecuzione della query su ParkAttraction
-		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-		                ResultSet.CONCUR_READ_ONLY);	        
-		        
-		        ResultSet rs = Queries.selectCategoryByName(stmt, name);
-		        if(!rs.next()) {
-		        	throw new CategoryNotFoundException("Category not found");
-		        }
-		        
-		        //fill the park attraction
-		        Category c = Factory.getCategory();
-		        c.setId(rs.getInt("ID"));
-		        c.setName(name);
-		        c.setImgC(rs.getBinaryStream("img"));
-		        
-		        rs.close();
-		        stmt.close();        
-		        
-		        return c;
-				
-			} finally {
-				cS.detach();
-				if(stmt != null) {
-					stmt.close();
-				}
-			}
-		} catch(DBFailureException | SQLException e) {
-			throw new CategoryNotFoundException(e.getMessage());
-		}
-	}
 }

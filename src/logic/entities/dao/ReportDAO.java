@@ -203,7 +203,7 @@ public class ReportDAO {
 				}
 			}
 		} catch(DBFailureException | SQLException e) {
-			throw new ReportNotFoundException("Report query failure");
+			throw new ReportNotFoundException("Report list query failure");
 		} finally {
 			if(stmt != null) {
 				try {

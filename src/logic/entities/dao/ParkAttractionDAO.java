@@ -57,7 +57,7 @@ public class ParkAttractionDAO {
 		        
 		        pA.setPosition(PositionDAO.selectPositionByID(positionID));
 		        pA.setQueue(QueueDAO.selectQueueByID(queueID));		        
-		        pA.setCategory(CategoryDAO.selectCategoryByID(categoryID));
+		        pA.setCategory(CategoryDAO.selectCategory(categoryID, null));
 		        
 		        return pA;
 				
@@ -138,7 +138,7 @@ public class ParkAttractionDAO {
 			int idCategory = 0;
 			//select categoria solo se noFileter is false
 			if(!noFilter) {
-			c = CategoryDAO.selectCategoryByName(filter);
+			c = CategoryDAO.selectCategory(0, filter);
 			idCategory = c.getId();
 			}
 			
@@ -169,7 +169,7 @@ public class ParkAttractionDAO {
 		        int positionID = (rs.getInt("ID_position"));
 		        int categoryID = (rs.getInt("ID_category"));
 		        
-		        p.setCategory(CategoryDAO.selectCategoryByID(categoryID));	        
+		        p.setCategory(CategoryDAO.selectCategory(categoryID, null));	        
 		        p.setPosition(PositionDAO.selectPositionByID(positionID));
 		        p.setQueue(QueueDAO.selectQueueByID(queueID));	
                 
