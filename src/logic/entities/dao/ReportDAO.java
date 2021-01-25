@@ -122,13 +122,7 @@ public class ReportDAO {
 		} catch(DBFailureException | SQLException e) {
 			throw new ReportNotFoundException("Report query failure");
 		} finally {
-			if(stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException ex) {
-					stmt = null;
-				}
-			}
+			closeStmt(stmt);
 		}
 	}
 	
@@ -205,17 +199,21 @@ public class ReportDAO {
 		} catch(DBFailureException | SQLException e) {
 			throw new ReportNotFoundException("Report list query failure");
 		} finally {
-			if(stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException ex) {
-					stmt = null;
-				}
-			}
+			closeStmt(stmt);
 		}
 		
 		return listOfReports;
 		
+	}
+	
+	public static void closeStmt(Statement stmt) throws ReportNotFoundException {
+		if(stmt != null) {
+			try {
+				stmt.close();
+			} catch (SQLException ex) {
+				throw new ReportNotFoundException("stmt close failure");
+			}
+		}
 	}
 	
 }
