@@ -16,7 +16,7 @@ import logic.entities.model.ParkAttraction;
 import logic.entities.model.ParkVisitor;
 import logic.entities.model.Report;
 import logic.exception.DBFailureException;
-
+import logic.exception.ParkAttractionNotFoundException;
 import logic.exception.ReportNotFoundException;
 
 public class ReportDAO {
@@ -146,7 +146,7 @@ public class ReportDAO {
         return date;
 	}
 	
-	public static List<Report> selectLastReportPA(ParkAttraction pA) throws ReportNotFoundException{
+	public static List<Report> selectLastReport(ParkAttraction pA, String userID) throws ReportNotFoundException, ParkAttractionNotFoundException{
 		
 		Statement stmt = null;
 		Connection connection = null;
@@ -163,8 +163,14 @@ public class ReportDAO {
 		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 		                ResultSet.CONCUR_READ_ONLY);	        
 		        
-		        ResultSet rs = Queries.selectLastestReportPA(stmt, pA.getName());
-
+		        
+		        ResultSet rs;
+		        if(pA != null) {
+		        	rs = Queries.selectLastestReportPA(stmt, pA.getName());
+		        } else {
+		        	rs = Queries.selectLastestReportPV(stmt, userID);
+		        }
+		        
 		        if(!rs.next()) {
 		        	return listOfReports;
 		        }
@@ -175,7 +181,11 @@ public class ReportDAO {
 	                
 	            	Report r = Factory.getReport();
 	            	r.setDate(rs.getTimestamp("date"));
-			        r.setLengthQueue(rs.getInt("lengthQueue"));	
+			        r.setLengthQueue(rs.getInt("lengthQueue"));
+			        
+			        ParkAttraction pAttr = ParkAttractionDAO.selectAttractionByName(rs.getString("name_parkattraction"));
+			        
+			        r.setParkAttraction(pAttr);
 	                
 			        listOfReports.add(r);
 

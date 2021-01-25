@@ -34,7 +34,10 @@ public class ViewAttractionsGuiControl extends GenericGuiControl{
 		
 		ViewAttractionsControl vAC = new ViewAttractionsControl();
 		try {
-			vAC.showAttractionInformation(pAB);
+			ParkAttractionBean pABean = vAC.showAttractionInformation(pAB);
+			
+			((AddReportView)super.gV).showattractionInfo(pABean);
+			
 		} catch (ParkAttractionNotFoundException | ReportNotFoundException e) {
 			mB.setMessage(e.getMessage());
 			mB.setType(false);
@@ -49,27 +52,43 @@ public class ViewAttractionsGuiControl extends GenericGuiControl{
 		MessageBean mB = new MessageBean();
 
 		try {
-			//get the position of user
-			PositionBean pB = new PositionBean();
-			PositionGoogleMapsView pGM = new PositionGoogleMapsView();
-			pGM.getPosition(pB);
-			sAB.setPositionBean(pB);
 			
 			sAB.setFilter(filter);
 			sAB.setOrder(order);
+			
+			fillPositionBean(sAB);
 			
 			ViewAttractionsControl vAC = new ViewAttractionsControl();
 			List<ParkAttractionBean> listOfParkAttractionBean = vAC.showAttractions(sAB);
 
 			((AttractionsView)super.gV).showAttractions(listOfParkAttractionBean);
 			
-		} catch (PositionNotFoundException | OrderValueErrorException | FilterValueErrorException | ParkAttractionNotFoundException e) {
-			//return failure login null
+		} catch (OrderValueErrorException | FilterValueErrorException | ParkAttractionNotFoundException e) {
+			//return failure
 			mB.setMessage(e.getMessage());
 			mB.setType(false);
 			super.showMessage(mB);	
 		}
 		
+	}
+	
+	protected void fillPositionBean(ShowAttractionsBean sAB) {
+		try {
+			//get the position of user
+			PositionBean pB = new PositionBean();
+			PositionGoogleMapsView pGM = new PositionGoogleMapsView();
+			pGM.getPosition(pB);
+			sAB.setPositionBean(pB);
+		} catch (PositionNotFoundException e){
+			//internet connection failure
+			MessageBean mB = new MessageBean();
+			
+			mB.setMessage(e.getMessage());
+			mB.setType(false);
+			new Thread(() -> 
+				super.showMessage(mB)		
+			).start();
+		}
 	}
 	
 }

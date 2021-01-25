@@ -22,7 +22,7 @@ public class ViewAttractionsControl {
 		
 		ParkAttraction pA = ParkAttractionDAO.selectAttractionByName(pAB.getName());
 		
-		List<Report> listOfLastReport = ReportDAO.selectLastReportPA(pA);
+		List<Report> listOfLastReport = ReportDAO.selectLastReport(pA, null);
 		
 		//fill the bean to return
 		ParkAttractionBean pABean = new ParkAttractionBean();
@@ -53,29 +53,12 @@ public class ViewAttractionsControl {
 		//flag order
 		boolean needToOrder = false;
 		
-		//per ogni attrazione devo ritornare il nome, il tempo di attesa, la categoria, e la distanza
-		//se sAB.getOrder() == null per default e' by distance e verrà calcolato dopo
-		//se sAB.getFilter() == null
-		
 		if(sAB.getOrder() == null || sAB.getOrder().equals("distance")) {
 			//devo ordinare
 			needToOrder = true;
-			if(sAB.getFilter() != null){
-				//select only one of the categories
-				listOfParkAttractions = ParkAttractionDAO.selectAttractionsFilterOrder(sAB.getFilter(), false ,false);
-			} else {
-				//select all the categories and don't order
-				listOfParkAttractions = ParkAttractionDAO.selectAttractionsFilterOrder(sAB.getFilter(), true, false);
-			}
-		} else {
-			//order by waitingtime and no null value
-			if(sAB.getFilter() != null){
-				//select all the categories
-				listOfParkAttractions = ParkAttractionDAO.selectAttractionsFilterOrder(sAB.getFilter(), false, true);
-			} else {
-				listOfParkAttractions = ParkAttractionDAO.selectAttractionsFilterOrder(sAB.getFilter(), true, true);
-			}
 		}
+		
+		listOfParkAttractions = getListOfParkAttraction(sAB);
 		
 		//fill the parkAttractionBean
 		VerifyConditionReportControl vCC = new VerifyConditionReportControl();
@@ -103,13 +86,15 @@ public class ViewAttractionsControl {
 			}
 			
 			//fill the distance from ParkVisitor
-			double lat1 = sAB.getPositionBean().getLatitude();
-			double lng1 = sAB.getPositionBean().getLongitude();
-			double lat2 = pA.getPosition().getLatitude();
-			double lng2 = pA.getPosition().getLongitude();
-			double distance = vCC.distanceInKmBetweenEarthCoordinates(lat1, lng1, lat2, lng2);
-			int distanceInMeters = (int)(distance*1000);
-			pABean.setDistanceFromUser(distanceInMeters);
+			if(sAB.getPositionBean()!=null) {
+				double lat1 = sAB.getPositionBean().getLatitude();
+				double lng1 = sAB.getPositionBean().getLongitude();
+				double lat2 = pA.getPosition().getLatitude();
+				double lng2 = pA.getPosition().getLongitude();
+				double distance = vCC.distanceInKmBetweenEarthCoordinates(lat1, lng1, lat2, lng2);
+				int distanceInMeters = (int)(distance*1000);
+				pABean.setDistanceFromUser(distanceInMeters);
+			}
 			
 			listOfParkAttractionBean.add(pABean);
 		}
@@ -131,5 +116,17 @@ public class ViewAttractionsControl {
 		    	return 1;
 		    }
 		});
+	}
+	
+	protected List<ParkAttraction> getListOfParkAttraction(ShowAttractionsBean sAB) throws ParkAttractionNotFoundException {
+		//per ogni attrazione devo ritornare il nome, il tempo di attesa, la categoria, e la distanza
+		//se sAB.getOrder() == null per default e' by distance e verrà calcolato dopo
+		//se sAB.getFilter() == null
+		boolean expression1 = sAB.getFilter() == null;
+		//ordinare
+		boolean expression2 = sAB.getOrder() == null || sAB.getOrder().equals("distance");
+
+		return ParkAttractionDAO.selectAttractionsFilterOrder(sAB.getFilter(), expression1, !expression2);
+
 	}
 }

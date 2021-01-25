@@ -22,7 +22,15 @@ public class AddReportGuiControl extends GenericGuiControl{
 
 	public void showVideoAds() {
 		UserBean vAB= new UserBean();
-		vAB.setUserID(super.lGC.getLoginControl().getLoginBean().getUserID());
+		try {
+			vAB.setUserID(super.lGC.getLoginControl().getLoginBean().getUserID());
+		} catch (NullLoginException e) {
+			MessageBean mB = new MessageBean();
+			mB.setMessage(e.getMessage());
+			mB.setType(false);
+			showMessage(mB);
+			return;
+		}
 		
 		aRC.showVideoAds(vAB);
 	}

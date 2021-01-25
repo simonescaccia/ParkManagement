@@ -73,6 +73,11 @@ public class Queries {
         String sql = "SELECT * FROM report WHERE name_parkattraction ='"+pAName+"' ORDER BY date DESC;";
         return stmt.executeQuery(sql);
     }
+
+	public static ResultSet selectLastestReportPV(Statement stmt, String userID) throws SQLException {
+        String sql = "SELECT * FROM report WHERE userID_parkvisitor='"+userID+"' AND isFeedback ='0' AND isLast = '1' ORDER BY date DESC;";
+        return stmt.executeQuery(sql);
+	}
    
 	
 }

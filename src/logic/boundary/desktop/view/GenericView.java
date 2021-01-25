@@ -1,7 +1,6 @@
 package logic.boundary.desktop.view;
 
 import java.io.*;
-import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -26,7 +25,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import logic.boundary.desktop.controlgrafico.GenericGuiControl;
 
-public abstract class GenericView extends Application{
+public abstract class GenericView{
 
 	protected VBox root;
 	protected HBox lineButtons;
@@ -71,6 +70,7 @@ public abstract class GenericView extends Application{
 	protected String[] bNames = {"Attractions", "Your Reports", "Coupons"};
 	
 	protected Scene scene;
+	protected Stage stage;
 	
 	protected EventHandler<MouseEvent> loginEvent;
 	protected EventHandler<MouseEvent> logoutEvent;
@@ -89,11 +89,6 @@ public abstract class GenericView extends Application{
 	
 	public Label getIconMessage() {
 		return iconMessage;
-	}
-	
-	@Override
-	public void start(Stage stage) throws Exception{
-		
 	}
 	
 	protected GenericView() {
@@ -194,6 +189,16 @@ public abstract class GenericView extends Application{
 			
 		}
 		
+		bPages[0].addEventHandler(MouseEvent.MOUSE_CLICKED, e-> {
+			AttractionsView aV = new AttractionsView(gGC.getLoginGuiControl());
+			aV.showScene(stage);
+		});
+		
+		bPages[1].addEventHandler(MouseEvent.MOUSE_CLICKED, e-> {
+			InsertFeedbackView iRV = new InsertFeedbackView(gGC.getLoginGuiControl());
+			iRV.showScene(stage);
+		});
+		
 		loginBox = new HBox();
 		loginBox.setBackground(backB1);
 		loginBox.setMinSize(246, 50);
@@ -283,4 +288,6 @@ public abstract class GenericView extends Application{
 		buttonLogin.removeEventHandler(MouseEvent.MOUSE_CLICKED, logoutEvent);
 		buttonLogin.addEventHandler(MouseEvent.MOUSE_CLICKED, loginEvent);
 	}
+	
+	public abstract void showScene(Stage stage);
 }

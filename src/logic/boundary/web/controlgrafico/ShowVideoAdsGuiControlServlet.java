@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import logic.control.bean.UserBean;
 import logic.control.controlapplicativo.AddReportControl;
+import logic.exception.NullLoginException;
 
 public class ShowVideoAdsGuiControlServlet extends HttpServlet{
 	
@@ -28,7 +29,12 @@ public class ShowVideoAdsGuiControlServlet extends HttpServlet{
 		//call the controller
 		AddReportControl aRC = new AddReportControl();
 		UserBean vAB= new UserBean();
-		vAB.setUserID(userID);
+		try {
+			vAB.setUserID(userID);
+		} catch (NullLoginException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		aRC.showVideoAds(vAB);
 

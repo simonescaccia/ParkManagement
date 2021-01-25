@@ -4,15 +4,15 @@ import java.sql.Timestamp;
 
 public class ReportBean {
 
-	private String attrName;
+	private ParkAttractionBean parkAttraction;
 	private Timestamp date;
 	private int lenQueue;
 	
-	public String getAttrName() {
-		return attrName;
+	public ParkAttractionBean getParkAttraction() {
+		return parkAttraction;
 	}
-	public void setAttrName(String attrName) {
-		this.attrName = attrName;
+	public void setParkAttraction(ParkAttractionBean pA) {
+		this.parkAttraction = pA;
 	}
 	public Timestamp getDate() {
 		return date;

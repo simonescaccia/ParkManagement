@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import logic.boundary.desktop.controlgrafico.LoginGuiControl;
 import logic.boundary.desktop.controlgrafico.ViewAttractionsGuiControl;
 import logic.control.bean.ParkAttractionBean;
 
@@ -29,21 +30,18 @@ public final class AttractionsView extends GenericView{
 	
 	private String[] checkBoxName = {"Waiting time", "Distance", "Fun", "Restaurant", "Toilet", "Shop", "Photo Store"}; 
 	private CheckBox[] cb = new CheckBox[checkBoxName.length];
-	
-	private Stage stage;
-	
-	public AttractionsView(){
+
+	public AttractionsView(LoginGuiControl lGC){
 		super.gGC = new ViewAttractionsGuiControl(this);
+		super.gGC.setLoginGuiControl(lGC);
 	}
 	
 	@Override
-	public void start(Stage stage) {
+	public void showScene(Stage stage){
 		
-		this.stage = stage;
-		stage.setTitle("SpeedyFila");
+		super.stage = stage;
 		
 		//pageButton background
-		Color darkGreen = Color.rgb(0, 170, 109);
 		BackgroundFill fill = new BackgroundFill(darkGreen, null, null);
 		Background backB2 = new Background(fill);
 		super.bPages[0].setBackground(backB2);
@@ -104,9 +102,11 @@ public final class AttractionsView extends GenericView{
 		search.setPrefHeight(40);
 		search.setFont(fontSide);
 		search.setTextFill(Color.BLACK);
-		search.addEventHandler(MouseEvent.MOUSE_CLICKED, e->
-			((ViewAttractionsGuiControl)gGC).showAttractions(getGroup1(), getGroup2())
-		);	
+		search.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> {
+			super.iconMessage.setText("");
+			super.labelMessage.setText("");
+			((ViewAttractionsGuiControl)gGC).showAttractions(getGroup1(), getGroup2());
+		});	
 		
 		search.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
 			search.setStyle(styleHandCursor)
@@ -123,7 +123,6 @@ public final class AttractionsView extends GenericView{
 		superContainer.getChildren().addAll(space1, container);
 		
 		super.sideInfo.getChildren().addAll(super.messageBox, superContainer);
-		super.info.getChildren().addAll();
 		stage.setScene(super.scene);
 		
 		stage.show();
@@ -229,76 +228,8 @@ public final class AttractionsView extends GenericView{
 			);
 			
 			HBox attractionInfoBottom = new HBox();
-			int j;
-			int n = 6;
-			Label[] listOfInformations = new Label[n];
-			for(j = 0; j<n ;j++) {
-				listOfInformations[j] = new Label();
-				if(j%2 == 1) {
-					listOfInformations[j].setMinWidth(170);
-					listOfInformations[j].setAlignment(Pos.BOTTOM_LEFT);
-				}
-			}
 			
-			//icon clessidra
-			try {
-				FileInputStream fISC = new FileInputStream(System.getProperty(ENV)+"\\img\\clessidra.png");
-				Image imgC = new Image(fISC);
-		
-				BackgroundSize bSizeC = new BackgroundSize(50, 50, false, false, true, true); 
-				BackgroundImage bImgC = new BackgroundImage(imgC, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, bSizeC);
-				Background backC = new Background(bImgC);
-				listOfInformations[0].setBackground(backC);
-				listOfInformations[0].setMinSize(50, 50);
-			} catch (FileNotFoundException e){
-				listOfInformations[0].setFont(font);
-				listOfInformations[0].setText("Icon not found");
-			}
-			
-			//waiting time
-			listOfInformations[1].setFont(font);
-			if(pABean.getWaitingTime() != -1) {
-				listOfInformations[1].setText("" + pABean.getWaitingTime()+ " min");
-			} else {
-				listOfInformations[1].setText("no recent info");
-			}
-			
-			
-			//icona categoria
-			Image imgC = new Image(pABean.getImgC());
-			
-			BackgroundSize bSizeC = new BackgroundSize(50, 50, false, false, true, true); 
-			BackgroundImage bImgC = new BackgroundImage(imgC, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, bSizeC);
-			Background backC = new Background(bImgC);
-			listOfInformations[2].setBackground(backC);
-			listOfInformations[2].setMinSize(50, 50);
-
-			//labelCategoria
-			listOfInformations[3].setFont(font);
-			listOfInformations[3].setText(pABean.getCategoryName());
-			
-			//icon distance
-			try {
-				FileInputStream fISD = new FileInputStream(System.getProperty(ENV)+"\\img\\maps2.png");
-				Image imgD = new Image(fISD);
-		
-				BackgroundSize bSizeD = new BackgroundSize(50, 50, false, false, true, true); 
-				BackgroundImage bImgD = new BackgroundImage(imgD, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, bSizeD);
-				Background backD = new Background(bImgD);
-				listOfInformations[4].setBackground(backD);
-				listOfInformations[4].setMinSize(50, 50);
-			} catch (FileNotFoundException e){
-				listOfInformations[4].setFont(font);
-				listOfInformations[4].setText("Icon not found");
-			}
-			
-			//distance in meters
-			listOfInformations[5].setFont(font);
-			listOfInformations[5].setText("" + pABean.getDistanceFromUser()+ " m");
-			
-			for(j=0; j<n ;j++) {
-				attractionInfoBottom.getChildren().addAll(listOfInformations[j]);
-			}
+			setAttractionInfoBottom(attractionInfoBottom, pABean);
 			
 			attractionInfo.getChildren().addAll(spaceTopA, nameOfAttraction, spaceTopA2, attractionInfoBottom);
 			attraction.getChildren().addAll(labelImg, attractionInfo);
@@ -312,8 +243,81 @@ public final class AttractionsView extends GenericView{
 		super.info.getChildren().addAll(spaceAttractionFull, scrollPane);
 	}
 	
-	public static void main(String[] args) {
-		launch();
+	protected void setAttractionInfoBottom(HBox attractionInfoBottom, ParkAttractionBean pABean) {
+		int j;
+		int n = 6;
+		Label[] listOfInformations = new Label[n];
+		for(j = 0; j<n ;j++) {
+			listOfInformations[j] = new Label();
+			if(j%2 == 1) {
+				listOfInformations[j].setMinWidth(170);
+				listOfInformations[j].setAlignment(Pos.BOTTOM_LEFT);
+			}
+		}
+		
+		//icon clessidra
+		try {
+			FileInputStream fISC = new FileInputStream(System.getProperty(ENV)+"\\img\\clessidra.png");
+			Image imgC = new Image(fISC);
+	
+			BackgroundSize bSizeC = new BackgroundSize(50, 50, false, false, true, true); 
+			BackgroundImage bImgC = new BackgroundImage(imgC, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, bSizeC);
+			Background backC = new Background(bImgC);
+			listOfInformations[0].setBackground(backC);
+			listOfInformations[0].setMinSize(50, 50);
+		} catch (FileNotFoundException e){
+			listOfInformations[0].setFont(font);
+			listOfInformations[0].setText("Icon not found");
+		}
+		
+		//waiting time
+		listOfInformations[1].setFont(font);
+		if(pABean.getWaitingTime() != -1) {
+			listOfInformations[1].setText("" + pABean.getWaitingTime()+ " min");
+		} else {
+			listOfInformations[1].setText("no recent info");
+		}
+		
+		
+		//icona categoria
+		Image imgC = new Image(pABean.getImgC());
+		
+		BackgroundSize bSizeC = new BackgroundSize(50, 50, false, false, true, true); 
+		BackgroundImage bImgC = new BackgroundImage(imgC, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, bSizeC);
+		Background backC = new Background(bImgC);
+		listOfInformations[2].setBackground(backC);
+		listOfInformations[2].setMinSize(50, 50);
+
+		//labelCategoria
+		listOfInformations[3].setFont(font);
+		listOfInformations[3].setText(pABean.getCategoryName());
+		
+		//icon distance
+		try {
+			FileInputStream fISD = new FileInputStream(System.getProperty(ENV)+"\\img\\maps2.png");
+			Image imgD = new Image(fISD);
+	
+			BackgroundSize bSizeD = new BackgroundSize(50, 50, false, false, true, true); 
+			BackgroundImage bImgD = new BackgroundImage(imgD, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, bSizeD);
+			Background backD = new Background(bImgD);
+			listOfInformations[4].setBackground(backD);
+			listOfInformations[4].setMinSize(50, 50);
+		} catch (FileNotFoundException e){
+			listOfInformations[4].setFont(font);
+			listOfInformations[4].setText("Icon not found");
+		}
+		
+		//distance in meters
+		listOfInformations[5].setFont(font);
+		if(pABean.getDistanceFromUser() != 0) {
+			listOfInformations[5].setText("" + pABean.getDistanceFromUser()+ " m");
+		} else {
+			listOfInformations[5].setText("no info");
+		}
+		
+		for(j=0; j<n ;j++) {
+			attractionInfoBottom.getChildren().addAll(listOfInformations[j]);
+		}
 	}
 	
 }

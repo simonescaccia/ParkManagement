@@ -47,14 +47,17 @@ public class ParkAttractionDAO {
 		        //fill the park attraction
 		        ParkAttraction pA = Factory.getParkAttraction();
 		        pA.setName(rs.getString("name"));
+		        pA.setImg(rs.getBinaryStream("img_g"));
 		        int queueID = (rs.getInt(ID_QUEUE));
 		        int positionID = (rs.getInt("ID_position"));
+		        int categoryID = (rs.getInt("ID_category"));
 		        
 		        rs.close();
 		        stmt.close();
 		        
 		        pA.setPosition(PositionDAO.selectPositionByID(positionID));
 		        pA.setQueue(QueueDAO.selectQueueByID(queueID));		        
+		        pA.setCategory(CategoryDAO.selectCategoryByID(categoryID));
 		        
 		        return pA;
 				
@@ -64,7 +67,7 @@ public class ParkAttractionDAO {
 					stmt.close();
 				}
 			}
-		} catch(DBFailureException | SQLException | PositionNotFoundException | QueueNotFoundException e) {
+		} catch(DBFailureException | SQLException | PositionNotFoundException | QueueNotFoundException | CategoryNotFoundException e) {
 			throw new ParkAttractionNotFoundException(e.getMessage());
 		}
 	}

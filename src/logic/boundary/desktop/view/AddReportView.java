@@ -3,11 +3,14 @@ package logic.boundary.desktop.view;
 import logic.boundary.desktop.controlgrafico.AddReportGuiControl;
 import logic.boundary.desktop.controlgrafico.LoginGuiControl;
 import logic.boundary.desktop.controlgrafico.ViewAttractionsGuiControl;
+import logic.control.bean.ParkAttractionBean;
+import logic.control.bean.ReportBean;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.layout.Background;
@@ -25,6 +28,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Iterator;
 
 import javafx.geometry.Insets;
 
@@ -34,13 +38,14 @@ public final class AddReportView extends GenericView{
 	
 	private CheckBox cb;
 	private TextField tf;
-	private Label labelAttraction;
 	
-	private Button showBVideoAds;
-	private Label lVideoAds;
 	private Button bVideoAds;
+	private Label lVideoAds;
+	private Button bCloseVideoAds;
 	
 	private VBox infoContainer;
+	
+	Label labelAttraction;
 	
 	
 	public AddReportView(String nA, LoginGuiControl lGControl){
@@ -55,23 +60,26 @@ public final class AddReportView extends GenericView{
 	}
 
 	public void showButtonVideoAds() {
-		showBVideoAds.setVisible(true);
-	}
-	
-	public void showVideoAds() {
-		infoContainer.setVisible(false);
-		lVideoAds.setVisible(true);
 		bVideoAds.setVisible(true);
 	}
 	
+	public void showVideoAds() {
+		super.info.getChildren().clear();
+		super.info.getChildren().addAll(lVideoAds,bCloseVideoAds);
+		
+		lVideoAds.setVisible(true);
+		bCloseVideoAds.setVisible(true);
+	}
+	
 	public void closeVideoAds() {
-		lVideoAds.setVisible(false);
-		bVideoAds.setVisible(false);
-		super.info.setVisible(true);
+		super.info.getChildren().clear();
+		super.info.getChildren().addAll(infoContainer);		
 	}
 	
 	public void showScene(Stage stage){
 				
+		super.stage = stage;
+		
 		VBox addReport = new VBox();
 		HBox insertReport = new HBox();
 		
@@ -84,11 +92,6 @@ public final class AddReportView extends GenericView{
 		BackgroundFill fill = new BackgroundFill(darkGreen, null, null);
 		Background backB2 = new Background(fill);
 		super.bPages[0].setBackground(backB2);
-		
-		
-		//info
-		ViewAttractionsGuiControl vAGC = new ViewAttractionsGuiControl(this);
-		vAGC.showAttractionInformation(nomeAttrazione);
 		
 		//immagine videoAds
 		lVideoAds = new Label();
@@ -108,24 +111,24 @@ public final class AddReportView extends GenericView{
 		lVideoAds.setVisible(false);
 		
 		//button close videoAds
-		bVideoAds = new Button("Close Video Ads");
-		bVideoAds.setBorder(blackBorder);
-		bVideoAds.setBackground(backB2);
-		bVideoAds.setPrefWidth(200);
-		bVideoAds.setPrefHeight(40);
-		bVideoAds.setFont(fontSide);
-		bVideoAds.setTextFill(Color.BLACK);
+		bCloseVideoAds = new Button("Close Video Ads");
+		bCloseVideoAds.setBorder(blackBorder);
+		bCloseVideoAds.setBackground(backB2);
+		bCloseVideoAds.setPrefWidth(200);
+		bCloseVideoAds.setPrefHeight(40);
+		bCloseVideoAds.setFont(fontSide);
+		bCloseVideoAds.setTextFill(Color.BLACK);
 		
-		bVideoAds.setVisible(false);
+		bCloseVideoAds.setVisible(false);
 		
-		bVideoAds.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> 
+		bCloseVideoAds.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> 
 			closeVideoAds()
 		);
-		bVideoAds.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
-			bVideoAds.setStyle(styleHandCursor)
+		bCloseVideoAds.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
+			bCloseVideoAds.setStyle(styleHandCursor)
 		);
-		bVideoAds.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
-			bVideoAds.setEffect(null)  
+		bCloseVideoAds.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
+			bCloseVideoAds.setEffect(null)  
 		);
 		
 		//sideInfo
@@ -167,40 +170,122 @@ public final class AddReportView extends GenericView{
 		bAddReport.setFont(fontSide);
 		bAddReport.setTextFill(Color.BLACK);
 		
-		showBVideoAds = new Button("Gain 1 coin");
-		showBVideoAds.setBorder(blackBorder);
-		showBVideoAds.setBackground(backB2);
-		showBVideoAds.setPrefWidth(120);
-		showBVideoAds.setPrefHeight(40);
-		showBVideoAds.setFont(fontSide);
-		showBVideoAds.setTextFill(Color.BLACK);
+		bVideoAds = new Button("Gain 1 coin");
+		bVideoAds.setBorder(blackBorder);
+		bVideoAds.setBackground(backB2);
+		bVideoAds.setPrefWidth(120);
+		bVideoAds.setPrefHeight(40);
+		bVideoAds.setFont(fontSide);
+		bVideoAds.setTextFill(Color.BLACK);
 		
-		showBVideoAds.setVisible(false);
+		bVideoAds.setVisible(false);
 		
-		showBVideoAds.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> {
+		bVideoAds.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> {
 			showVideoAds();
-			showBVideoAds.setVisible(false);
+			bVideoAds.setVisible(false);
 			((AddReportGuiControl)super.gGC).showVideoAds();
 		});
-		showBVideoAds.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
-			showBVideoAds.setStyle(styleHandCursor)
+		bVideoAds.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
+			bVideoAds.setStyle(styleHandCursor)
 		);
-		showBVideoAds.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
-			showBVideoAds.setEffect(null)  
+		bVideoAds.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
+			bVideoAds.setEffect(null)  
 		);
 		
 		
 		if(super.gGC.getLoginGuiControl().getLoginControl().getLoginBean().getUserID() != null) {
 			super.loginOn();
 		}
-		
-		insertReport.getChildren().addAll(tf,bAddReport,showBVideoAds);
+				
+		insertReport.getChildren().addAll(tf,bAddReport,bVideoAds);
 		addReport.getChildren().addAll(textAddReport,cb,insertReport);
 		super.sideInfo.getChildren().addAll(super.messageBox,addReport);
-		infoContainer.getChildren().addAll(labelAttraction);
-		super.info.getChildren().addAll(infoContainer,lVideoAds,bVideoAds);
+		
+		//info
+		labelAttraction = new Label();
+		ViewAttractionsGuiControl vAGC = new ViewAttractionsGuiControl(this);
+		vAGC.showAttractionInformation(nomeAttrazione);
+		
 		stage.setScene(super.scene);
 
+	}
+	
+	public void showattractionInfo(ParkAttractionBean pAB) {
+		
+		//info
+		VBox container = new VBox();
+		HBox title = new HBox();
+		HBox superContainer = new HBox();
+		
+		Label space = new Label();
+		space.setMinWidth(20);
+		Label space2 = new Label();
+		space2.setMinHeight(20);
+		
+		Label labelAttraction0 = new Label();
+		labelAttraction0.setText("Attractions >");
+		labelAttraction0.setFont(font);
+		labelAttraction0.setMinWidth(130);
+		
+		labelAttraction.setFont(font);
+		labelAttraction.setMinWidth(520);
+		labelAttraction.setText(pAB.getName());
+		
+		//icona categoria
+		Label icona = new Label();
+		Image imgC = new Image(pAB.getImgC());
+		
+		BackgroundSize bSizeC = new BackgroundSize(50, 50, false, false, true, true); 
+		BackgroundImage bImgC = new BackgroundImage(imgC, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, bSizeC);
+		Background backC = new Background(bImgC);
+		icona.setBackground(backC);
+		icona.setMinSize(50, 50);
+		
+		//immagine attrazione
+		Label img = new Label();
+		Image imgA = new Image(pAB.getImg());
+		
+		BackgroundImage bImgA = new BackgroundImage(imgA, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, BackgroundSize.DEFAULT);
+		Background backA = new Background(bImgA);
+		img.setBackground(backA);
+		img.setMinSize(700,430);
+		
+		title.getChildren().addAll(labelAttraction0, labelAttraction, icona);
+		container.getChildren().addAll(space2, title, img);
+		superContainer.getChildren().addAll(space, container);
+		infoContainer.getChildren().addAll(superContainer);
+		super.info.getChildren().addAll(infoContainer);
+		
+		// last Report
+		Label space3 = new Label();
+		space3.setMinHeight(50);
+		Label lastReport = new Label("Last Report");
+		lastReport.setFont(fontSide);
+		lastReport.setTextFill(Color.BLACK);
+		
+		HBox lastReportsContainer = new HBox();
+		VBox lastReports = new VBox();
+	    ScrollPane scrollPane = new ScrollPane(lastReports);
+	    scrollPane.setFitToWidth(true);
+	    
+	    Label spaceLeft = new Label();
+	    spaceLeft.setMinWidth(10);
+	 
+	    lastReports.getChildren().addAll(lastReport);
+	    lastReportsContainer.getChildren().addAll(spaceLeft, lastReports);
+	    
+	    Iterator<ReportBean> i = pAB.getListOfReports().iterator();
+		while(i.hasNext()) {
+			ReportBean rB = i.next();
+			Label report = new Label();
+			report.setMinWidth(300);
+			report.setFont(fontSide);
+			report.setText(rB.getDate()+", len: "+rB.getLenQueue());
+			
+			lastReports.getChildren().addAll(report);
+		}
+		
+		super.sideInfo.getChildren().addAll(space3, lastReportsContainer);
 	}
 	
 }

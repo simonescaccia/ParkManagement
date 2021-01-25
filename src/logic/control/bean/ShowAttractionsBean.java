@@ -40,7 +40,7 @@ public class ShowAttractionsBean {
 		if(filter == null) {
 			return true;
 		}
-		String[] values = {"Fun", "Photo Store", "Restaurant", "Shop", "Toilette"};
+		String[] values = {"Fun", "Photo Store", "Restaurant", "Shop", "Toilet"};
 		int i;
 		for(i=0; i<values.length; i++) {
 			if(filter.equals(values[i])) {
