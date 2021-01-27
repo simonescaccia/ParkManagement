@@ -35,6 +35,13 @@ public abstract class GenericView{
 	protected VBox sideInfo;
 	protected HBox messageBox;
 	
+	//video ads -----
+	protected VBox infoContainer;
+	protected Button bVideoAds;
+	protected Label lVideoAds;
+	protected Button bCloseVideoAds;
+	//-------
+	
 	protected ImageView imgVL;
 	
 	protected Label labelImg;
@@ -56,6 +63,8 @@ public abstract class GenericView{
 	protected String styleHandCursor = "-fx-cursor: hand;";
 	
 	protected Background backB1;
+	protected Background backB2;
+	protected BackgroundFill fill;
 	
 	protected FileInputStream inBImg;
 	protected FileInputStream inUndoImg;
@@ -79,6 +88,10 @@ public abstract class GenericView{
 	
 	protected GenericGuiControl gGC;
 	
+	public Stage getStage() {
+		return stage;
+	}
+	
 	public GenericGuiControl getGenericGuiControl() {
 		return gGC;
 	}
@@ -96,6 +109,8 @@ public abstract class GenericView{
 		root = new VBox();
 		lineButtons = new HBox();
 		
+		infoContainer = new VBox();
+		
 		font = new Font("Comic Sans MS", 20);
 		fontSide = new Font("Comic Sans MS", 16);
 		blackBorder = new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,null,null));
@@ -106,6 +121,7 @@ public abstract class GenericView{
 		
 		labelImg = new Label();
 		
+		//top page-------------------------
 		//immagine in alto
 		try {
 			inBImg = new FileInputStream(System.getProperty(ENV)+"\\img\\backgroundImage.jpg");
@@ -140,8 +156,10 @@ public abstract class GenericView{
 		}
 		
 		Color c = Color.rgb(142, 231, 199);
-		BackgroundFill fill = new BackgroundFill(c,null,null);
-		backB1 = new Background(fill);
+		BackgroundFill fill2 = new BackgroundFill(c,null,null);
+		this.fill = new BackgroundFill(darkGreen, null, null);
+		backB1 = new Background(fill2);
+		backB2 = new Background(this.fill);
 		buttonUndo.setBackground(backB1);
 		buttonUndo.setMinSize(60, 50);
 		
@@ -255,12 +273,93 @@ public abstract class GenericView{
 		labelMessage.setFont(font);
 		
 		messageBox.getChildren().addAll(iconMessage, labelMessage);
+		sideInfo.getChildren().addAll(messageBox);
 		body.getChildren().addAll(info, sideInfo);
 		loginBox.getChildren().addAll(buttonLogin);
 		lineButtons.getChildren().addAll(buttonUndo, buttonRedo,space,bPages[0],bPages[1],bPages[2], space2, loginBox);
 		root.getChildren().addAll(labelImg, lineButtons, body);
 		
+		
+		//info ----------------------
+		//immagine videoAds
+		lVideoAds = new Label();
+		try {
+			FileInputStream vAds = new FileInputStream(System.getProperty(ENV)+"\\img\\videoAds.png");
+			Image imgVAds = new Image(vAds);
+	
+			BackgroundSize bSize = new BackgroundSize(500, 400, false, false, true, true); 
+			BackgroundImage bImg = new BackgroundImage(imgVAds, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, bSize);
+			Background back = new Background(bImg);
+			lVideoAds.setBackground(back);
+			lVideoAds.setMinSize(700, 400);
+		} catch (FileNotFoundException e){
+			lVideoAds.setFont(font);
+			lVideoAds.setText("VideoAds");
+		}
+		lVideoAds.setVisible(false);
+		
+		//button close videoAds
+		bCloseVideoAds = new Button("Close Video Ads");
+		bCloseVideoAds.setBorder(blackBorder);
+		bCloseVideoAds.setBackground(backB2);
+		bCloseVideoAds.setPrefWidth(200);
+		bCloseVideoAds.setPrefHeight(40);
+		bCloseVideoAds.setFont(fontSide);
+		bCloseVideoAds.setTextFill(Color.BLACK);
+		
+		bCloseVideoAds.setVisible(false);
+		
+		bCloseVideoAds.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> 
+			closeVideoAds()
+		);
+		bCloseVideoAds.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
+			bCloseVideoAds.setStyle(styleHandCursor)
+		);
+		bCloseVideoAds.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
+			bCloseVideoAds.setEffect(null)  
+		);
+		
+		//side info
+		bVideoAds = new Button("Gain 1 coin");
+		bVideoAds.setBorder(blackBorder);
+		bVideoAds.setBackground(backB2);
+		bVideoAds.setPrefWidth(120);
+		bVideoAds.setPrefHeight(40);
+		bVideoAds.setFont(fontSide);
+		bVideoAds.setTextFill(Color.BLACK);
+		
+		bVideoAds.setVisible(false);
+		
+		bVideoAds.addEventHandler(MouseEvent.MOUSE_CLICKED, e-> {
+			showVideoAds();
+			bVideoAds.setVisible(false);
+			gGC.showVideoAds();
+		});
+		bVideoAds.addEventHandler(MouseEvent.MOUSE_ENTERED, e-> 
+			bVideoAds.setStyle(styleHandCursor)
+		);
+		bVideoAds.addEventHandler(MouseEvent.MOUSE_EXITED, e-> 
+			bVideoAds.setEffect(null)  
+		);
+		
 		scene = new Scene(root, 1366, 700);
+	}
+	
+	public void showButtonVideoAds() {
+		bVideoAds.setVisible(true);
+	}
+	
+	public void showVideoAds() {
+		info.getChildren().clear();
+		info.getChildren().addAll(lVideoAds,bCloseVideoAds);
+		
+		lVideoAds.setVisible(true);
+		bCloseVideoAds.setVisible(true);
+	}
+	
+	public void closeVideoAds() {
+		info.getChildren().clear();
+		info.getChildren().addAll(infoContainer);		
 	}
 	
 	public void loginOn() {

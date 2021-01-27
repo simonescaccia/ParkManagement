@@ -7,6 +7,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import logic.boundary.desktop.view.GenericView;
 import logic.control.bean.MessageBean;
+import logic.control.bean.UserBean;
+import logic.control.controlapplicativo.ShowVideoAdsControl;
+import logic.exception.NullLoginException;
 
 public abstract class GenericGuiControl {
 
@@ -45,6 +48,22 @@ public abstract class GenericGuiControl {
 			}
 		}
 		gV.getLabelMessage().setText(mB.getMessage());	
+	}
+	
+	public void showVideoAds() {
+		UserBean vAB= new UserBean();
+		try {
+			vAB.setUserID(lGC.getLoginControl().getLoginBean().getUserID());
+		} catch (NullLoginException e) {
+			MessageBean mB = new MessageBean();
+			mB.setMessage(e.getMessage());
+			mB.setType(false);
+			showMessage(mB);
+			return;
+		}
+		
+		ShowVideoAdsControl sVAC = new ShowVideoAdsControl();
+		sVAC.loadVideoAds(vAB.getUserID());
 	}
 	
 	public void login(){

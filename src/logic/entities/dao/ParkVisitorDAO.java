@@ -32,10 +32,12 @@ public class ParkVisitorDAO {
 		                ResultSet.CONCUR_READ_ONLY);	        
 		        
 		        ResultSet rs = Queries.selectUserByID(stmt, userID);
-	
-		        rs.next();
 		        
 		        ParkVisitor pV = Factory.getParkVisitor();
+		        if(!rs.next()) {
+		        	return pV;
+		        }
+		        
 		        pV.setUserID(rs.getString("userID"));
 		        
 		        return pV;
@@ -52,7 +54,7 @@ public class ParkVisitorDAO {
 
 	}
 	
-	public static void  incrementCoin(ParkVisitor pV) throws ParkVisitorNotFoundException {
+	public static void  incrementCoin(String userID) throws ParkVisitorNotFoundException {
 		Statement stmt = null;
 		Connection connection = null;
 		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
@@ -66,7 +68,7 @@ public class ParkVisitorDAO {
 		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 		                ResultSet.CONCUR_READ_ONLY);
 
-		        Updates.incrementCoins(stmt, pV.getUserID());
+		        Updates.incrementCoins(stmt, userID);
 			        
 			} finally {
 				cS.detach();
@@ -87,47 +89,6 @@ public class ParkVisitorDAO {
 			}
 		}
 		
-	}
-	
-	public static boolean searchUserByID(String userID) throws DBFailureException{
-		
-		Statement stmt = null;
-		Connection connection = null;
-		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
-		
-		try {
-			try {
-				//ConnectionSingleton instance and attach
-				connection = cS.attach();
-				
-				//creazione ed esecuzione della query
-		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-		                ResultSet.CONCUR_READ_ONLY);
-		        
-		        
-		        ResultSet rs = Queries.selectUserByID(stmt, userID);
-	
-		        if(!rs.next()) {
-		        	//l'utente non è registrato
-		        	rs.close();
-		        	return false;
-		        } else {
-		        	//l'utente è registrato
-			        rs.close();
-			        //chiudo la connessione poichè non devo inserire l'utente nel db, quindi il caso d'uso è terminato
-			        return true;
-		        }
-		        
-			} finally {
-				cS.detach();
-				if(stmt != null) {
-					stmt.close();
-				}
-			}
-		} catch(DBFailureException | SQLException e) {
-			throw new DBFailureException(e.getMessage());
-		}
-
 	}
 	
 	public static void insertNewUser(String userID) throws DBFailureException{

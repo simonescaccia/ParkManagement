@@ -3,7 +3,6 @@ package logic.boundary.desktop.controlgrafico;
 import logic.control.bean.AddReportBean;
 import logic.control.bean.MessageBean;
 import logic.control.bean.PositionBean;
-import logic.control.bean.UserBean;
 import logic.boundary.desktop.view.AddReportView;
 import logic.boundary.desktop.view.PositionGoogleMapsView;
 import logic.control.controlapplicativo.AddReportControl;
@@ -19,21 +18,6 @@ public class AddReportGuiControl extends GenericGuiControl{
 		super.gV = aRV;
 		aRC = new AddReportControl(); 
 	}
-
-	public void showVideoAds() {
-		UserBean vAB= new UserBean();
-		try {
-			vAB.setUserID(super.lGC.getLoginControl().getLoginBean().getUserID());
-		} catch (NullLoginException e) {
-			MessageBean mB = new MessageBean();
-			mB.setMessage(e.getMessage());
-			mB.setType(false);
-			showMessage(mB);
-			return;
-		}
-		
-		aRC.showVideoAds(vAB);
-	}
 	
 	public void insertQueueLenght(String attractionName, String queueLenS, boolean isLast) {
 		
@@ -42,7 +26,6 @@ public class AddReportGuiControl extends GenericGuiControl{
 		AddReportBean aRB = new AddReportBean();
 		aRB.setIsLast(isLast);
 		
-			
 		try {
 			
 			//insert park attraction name into the bean

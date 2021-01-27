@@ -1,5 +1,6 @@
 package logic.entities.model;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Report {
@@ -9,18 +10,24 @@ public class Report {
 	private int lengthQueue;
 	private ParkAttraction parkAttraction;
 	private ParkVisitor parkVisitor;
+	private Time waitingTime;
 	
+	
+	public Time getWaitingTime() {
+		return waitingTime;
+	}
+	public void setWaitingTime(Time waitingTime) {
+		this.waitingTime = waitingTime;
+	}
 	public Timestamp getDate() {
 		return date;
 	}
 	public void setDate(Timestamp date) {
 		this.date = date;
 	}
-	
 	public boolean getIsLast() {
 		return isLast;
 	}
-	
 	public void setIsLast(boolean isLast) {
 		this.isLast = isLast;
 	}

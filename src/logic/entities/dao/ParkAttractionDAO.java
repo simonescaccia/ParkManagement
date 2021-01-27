@@ -23,6 +23,7 @@ import java.util.List;
 public class ParkAttractionDAO {
 
 	private static final String ID_QUEUE = "ID_QUEUE";
+	private static final String PARK_ATTRACTION_NOT_FOUND = "ParkAttraction not found";
 	
 	private ParkAttractionDAO() {}
 	
@@ -41,7 +42,7 @@ public class ParkAttractionDAO {
 		        
 		        ResultSet rs = Queries.selectAttractionByName(stmt, attractionName);
 		        if(!rs.next()) {
-		        	throw new ParkAttractionNotFoundException("ParkAttraction not found");
+		        	throw new ParkAttractionNotFoundException(PARK_ATTRACTION_NOT_FOUND);
 		        }
 		        
 		        //fill the park attraction
@@ -88,7 +89,7 @@ public class ParkAttractionDAO {
 		        
 		        ResultSet rs = Queries.selectAttractionByName(stmt, pA.getName());
 		        if(!rs.next()) {
-		        	throw new ParkAttractionNotFoundException("ParkAttraction not found");
+		        	throw new ParkAttractionNotFoundException(PARK_ATTRACTION_NOT_FOUND);
 		        }
 		        
 		        int queueID = (rs.getInt(ID_QUEUE));
@@ -209,4 +210,5 @@ public class ParkAttractionDAO {
         }
 		return rs;
 	}
+	
 }

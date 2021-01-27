@@ -13,7 +13,6 @@ import logic.entities.dao.queries.Queries;
 import logic.entities.dao.queries.Updates;
 import logic.entities.factory.Factory;
 import logic.entities.model.ParkAttraction;
-import logic.entities.model.ParkVisitor;
 import logic.entities.model.Report;
 import logic.exception.DBFailureException;
 import logic.exception.ParkAttractionNotFoundException;
@@ -21,9 +20,11 @@ import logic.exception.ReportNotFoundException;
 
 public class ReportDAO {
 
+	private static final String REPORT_NOT_FOUND = "Report not found";
+	
 	private ReportDAO(){}
 	
-	public static Timestamp selectDateLastReportPV(ParkVisitor parkVisitor, ParkAttraction parkAttraction) throws ReportNotFoundException, DBFailureException {
+	public static Report selectLastReport(String parkVisitor, String parkAttraction) throws ReportNotFoundException, DBFailureException {
 		Statement stmt = null;
 		Connection connection = null;
 		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
@@ -36,9 +37,25 @@ public class ReportDAO {
 		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 		                ResultSet.CONCUR_READ_ONLY);	        
 		        
-		        ResultSet rs = Queries.selectLastestReportPV(stmt, parkVisitor.getUserID(), parkAttraction.getName());
+		        ResultSet rs;
 		        
-		        return getDate(rs, stmt);
+		        if(parkVisitor != null) {
+		        	//ultimi report di un'attrazione inseriti da un visitatore
+		        	rs = Queries.selectLastestReportPvPa(stmt, parkVisitor, parkAttraction);
+		        } else {
+		        	//ultimi report di un'attrazione
+		        	rs = Queries.selectLastestReportPA(stmt, parkAttraction);
+		        }
+		        
+		        Report r = new Report(); 
+                		
+		        if(!rs.next()) {
+                	throw new ReportNotFoundException(REPORT_NOT_FOUND);
+                }
+		        
+		        r.setDate(rs.getTimestamp("date"));
+		        
+		        return r;
 				
 			} finally {
 				cS.detach();
@@ -74,7 +91,7 @@ public class ReportDAO {
 		                ResultSet.CONCUR_READ_ONLY);
 		        
 		        
-		        Updates.insertReport(stmt, report.getDate(), report.getParkAttraction().getName(), report.getParkVisitor().getUserID(), Boolean.compare(report.getIsLast(), false), report.getLengthQueue());
+		        Updates.insertReport(stmt, report.getDate(), report.getParkAttraction().getName(), report.getParkVisitor().getUserID(), Boolean.compare(report.getIsLast(), false), report.getLengthQueue(), report.getWaitingTime());
 			        
 			} finally {
 				cS.detach();
@@ -96,51 +113,7 @@ public class ReportDAO {
 		}
 	}
 	
-	public static Timestamp selectDateLastReport(ParkAttraction parkAttraction) throws ReportNotFoundException {
-		Statement stmt = null;
-		Connection connection = null;
-		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
-		try {
-			try {
-				//ConnectionSingleton instance and attach
-				connection = cS.attach();
-				
-				//creazione ed esecuzione della query su Report
-		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-		                ResultSet.CONCUR_READ_ONLY);	        
-		        
-		        ResultSet rs = Queries.selectLastestReportPA(stmt, parkAttraction.getName());
-
-				return getDate(rs, stmt);
-				
-			} finally {
-				cS.detach();
-				if(stmt != null) {
-					stmt.close();
-				}
-			}
-		} catch(DBFailureException | SQLException e) {
-			throw new ReportNotFoundException("Report query failure");
-		} finally {
-			closeStmt(stmt);
-		}
-	}
-	
-	protected static Timestamp getDate(ResultSet rs, Statement stmt) throws SQLException, ReportNotFoundException {
-        if(!rs.next()) {
-        	throw new ReportNotFoundException("Report not found");
-        }
-        
-        //fill the park attraction
-        Timestamp date = rs.getTimestamp("date");
-        
-        rs.close();        
-        stmt.close();
-        
-        return date;
-	}
-	
-	public static List<Report> selectLastReport(ParkAttraction pA, String userID) throws ReportNotFoundException, ParkAttractionNotFoundException{
+	public static List<Report> selectListOfLastReports(String attractionName, String userID) throws ReportNotFoundException, ParkAttractionNotFoundException{
 		
 		Statement stmt = null;
 		Connection connection = null;
@@ -159,8 +132,8 @@ public class ReportDAO {
 		        
 		        
 		        ResultSet rs;
-		        if(pA != null) {
-		        	rs = Queries.selectLastestReportPA(stmt, pA.getName());
+		        if(attractionName != null) {
+		        	rs = Queries.selectLastestReportPA(stmt, attractionName);
 		        } else {
 		        	rs = Queries.selectLastestReportPV(stmt, userID);
 		        }
@@ -206,7 +179,7 @@ public class ReportDAO {
 		
 	}
 	
-	public static void closeStmt(Statement stmt) throws ReportNotFoundException {
+	protected static void closeStmt(Statement stmt) throws ReportNotFoundException {
 		if(stmt != null) {
 			try {
 				stmt.close();
@@ -214,6 +187,76 @@ public class ReportDAO {
 				throw new ReportNotFoundException("stmt close failure");
 			}
 		}
+	}
+	
+	public static Report selectReport(String userID, String attractionName, Timestamp date) throws ReportNotFoundException {
+		Statement stmt = null;
+		Connection connection = null;
+		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
+		try {
+			try {
+				//ConnectionSingleton instance and attach
+				connection = cS.attach();
+				
+				//creazione ed esecuzione della query
+		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+		                ResultSet.CONCUR_READ_ONLY);	        
+		        
+		        ResultSet rs = Queries.selectReportByPK(stmt, userID, attractionName, date);
+	
+		        if(!rs.next()) {
+		        	throw new ReportNotFoundException(REPORT_NOT_FOUND);
+		        }
+		        
+		        //fill the report
+		        
+		        Report r = Factory.getReport(); 
+		        r.setWaitingTime(rs.getTime("waitingtime"));
+		        r.setLengthQueue(rs.getInt("lengthQueue"));
+		        
+		        rs.close();        
+		        stmt.close();
+		        
+		        return r;
+		        
+			} finally {
+				cS.detach();
+				if(stmt != null) {
+					stmt.close();
+				}
+			}
+		} catch(DBFailureException | SQLException e) {
+			throw new ReportNotFoundException(e.getMessage());
+		}
+	}
+
+	public static void updateReportSetFeedback(String attrName, String userID, Timestamp date) throws DBFailureException {
+		
+		Statement stmt = null;
+		Connection connection = null;
+		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
+		
+		try {
+			try {
+				//ConnectionSingleton instance and attach
+				connection = cS.attach();
+				
+				//creazione ed esecuzione della query
+		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+		                ResultSet.CONCUR_READ_ONLY);
+		        
+		        Updates.updateReportSetIsFeedback(stmt, attrName, userID, date);
+		        
+			} finally {
+				cS.detach();
+				if(stmt != null) {
+					stmt.close();
+				}
+			}
+		} catch(DBFailureException | SQLException e) {
+			throw new DBFailureException("Update feedback DB failure");
+		}
+		
 	}
 	
 }

@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 
 import logic.control.bean.AddReportBean;
 import logic.control.bean.MessageBean;
-import logic.control.bean.UserBean;
 import logic.entities.dao.ParkAttractionDAO;
 import logic.entities.dao.ParkVisitorDAO;
 import logic.entities.factory.Factory;
@@ -88,10 +87,5 @@ public class AddReportControl {
 		mB.setMessage("Inserimento completato");
 		mB.setType(true);
 		return mB;
-	}
-
-	public void showVideoAds(UserBean vAB) {
-		ShowVideoAdsControl sVAC = new ShowVideoAdsControl();
-		sVAC.loadVideoAds(vAB.getUserID());
 	}
 }

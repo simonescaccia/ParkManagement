@@ -41,6 +41,7 @@ public class QueueDAO {
 		        q.setAvgWaitingTime(rs.getDouble("avg_waiting_time"));
 		        q.setLength(rs.getInt("length"));
 		        q.setWaitingTime(rs.getTime("waiting_time"));
+		        q.setIdQueue(rs.getInt("ID"));
 		        
 		        rs.close();
 		        stmt.close();
@@ -87,5 +88,33 @@ public class QueueDAO {
 		} catch(DBFailureException | SQLException e) {
 			throw new DBFailureException("DB failure");
 		}
+	}
+
+	public static void updateAVGWaitingTime(int idQueue, double newAVG) throws DBFailureException {
+		
+		Statement stmt = null;
+		Connection connection = null;
+		ConnectionSingleton cS = ConnectionSingleton.getConnectionSingletonInstance();
+		
+		try {
+			try {
+				//ConnectionSingleton instance and attach
+				connection = cS.attach();
+				
+				//creazione ed esecuzione della query
+		        stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+		                ResultSet.CONCUR_READ_ONLY);
+		        
+	        	Updates.updateQueue(stmt, idQueue, newAVG);
+	        	
+			} finally {
+				cS.detach();
+				if(stmt != null) {
+					stmt.close();
+				}
+			}
+		} catch(DBFailureException | SQLException e) {
+			throw new DBFailureException("Queue DB failure");
+		}	
 	}
 }

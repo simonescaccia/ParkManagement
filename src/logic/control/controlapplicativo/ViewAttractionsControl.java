@@ -22,7 +22,7 @@ public class ViewAttractionsControl {
 		
 		ParkAttraction pA = ParkAttractionDAO.selectAttractionByName(pAB.getName());
 		
-		List<Report> listOfLastReport = ReportDAO.selectLastReport(pA, null);
+		List<Report> listOfLastReport = ReportDAO.selectListOfLastReports(pAB.getName(), null);
 		
 		//fill the bean to return
 		ParkAttractionBean pABean = new ParkAttractionBean();

@@ -2,7 +2,9 @@ package logic.control.controlapplicativo;
 
 import logic.control.bean.LoginBean;
 import logic.entities.dao.ParkVisitorDAO;
+import logic.entities.model.ParkVisitor;
 import logic.exception.DBFailureException;
+import logic.exception.ParkVisitorNotFoundException;
 
 public class LoginControl {
 
@@ -25,12 +27,13 @@ public class LoginControl {
 		//verifica se l'utente è già stato inserito nel database
 		//aggiungi il Park Visitor se non presente nel database		
 		try {
-			boolean b = ParkVisitorDAO.searchUserByID(idUser);
+			ParkVisitor pV = ParkVisitorDAO.selectParkVisitor(idUser);
 			
-			if(!b) {
+			if(pV.getUserID() == null) {
 				ParkVisitorDAO.insertNewUser(idUser);
 			}
-		} catch (DBFailureException e) {
+			
+		} catch (DBFailureException | ParkVisitorNotFoundException e) {
 			e.printStackTrace();
 			throw new DBFailureException(e.getMessage());
 		}

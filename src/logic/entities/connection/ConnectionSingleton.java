@@ -32,6 +32,7 @@ public class ConnectionSingleton {
 		//se nessuna istanza DAO sta usando la connessione ne creo una nuova 
 		synchronized (mutex) {
 			numberOfAttachment++;
+
 			if(numberOfAttachment == 1) {
 				try {
 		            // loading dinamico del driver mysql

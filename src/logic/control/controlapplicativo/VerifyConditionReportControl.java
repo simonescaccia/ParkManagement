@@ -7,6 +7,7 @@ import logic.entities.model.ParkVisitor;
 import logic.entities.dao.ReportDAO;
 import logic.entities.model.ParkAttraction;
 import logic.entities.model.Position;
+import logic.entities.model.Report;
 import logic.exception.DBFailureException;
 import logic.exception.ReportNotFoundException;
 
@@ -42,7 +43,8 @@ public class VerifyConditionReportControl {
 		Timestamp result;
 		
 		try {
-			result = ReportDAO.selectDateLastReportPV(pV, pA);
+			Report r = ReportDAO.selectLastReport(pV.getUserID(), pA.getName());
+			result = r.getDate();
 		} catch (ReportNotFoundException e) {
 			return true;
 		}

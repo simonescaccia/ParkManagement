@@ -13,7 +13,7 @@ public class ShowVideoAdsControl {
 		try {
 			//increment coins to park visitor
 			pV = ParkVisitorDAO.selectParkVisitor(userID);
-			ParkVisitorDAO.incrementCoin(pV);
+			ParkVisitorDAO.incrementCoin(pV.getUserID());
 		} catch (ParkVisitorNotFoundException e) {
 			return false;
 		}

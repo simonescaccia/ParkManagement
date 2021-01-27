@@ -24,8 +24,8 @@ public class Updates {
         return stmt.executeUpdate(sql);
     }
     
-    public static int insertReport(Statement stmt, Timestamp date, String pAName, String userID, int isLast, int lenQueue) throws SQLException  {
-        String sql = "INSERT INTO report (date, name_parkattraction, userID_parkvisitor, isLast, lengthQueue) VALUES ('"+date+"','"+pAName+"','"+userID+"','"+isLast+"','"+lenQueue+"');";
+    public static int insertReport(Statement stmt, Timestamp date, String pAName, String userID, int isLast, int lenQueue, Time waitingTime) throws SQLException  {
+        String sql = "INSERT INTO report (date, name_parkattraction, userID_parkvisitor, isLast, lengthQueue, waitingtime) VALUES ('"+date+"','"+pAName+"','"+userID+"','"+isLast+"','"+lenQueue+"','"+waitingTime+"');";
         return stmt.executeUpdate(sql);
     }
     
@@ -38,5 +38,15 @@ public class Updates {
         String sql = "UPDATE videoads SET visual=visual+1 WHERE ID = '1';";
         return stmt.executeUpdate(sql);
     }
+
+	public static int updateQueue(Statement stmt, int idQueue, double newAVG) throws SQLException {
+        String sql = "UPDATE queue SET avg_waiting_time='"+newAVG+"' WHERE ID ='"+idQueue+"' ;";
+        return stmt.executeUpdate(sql);		
+	}
+
+	public static int updateReportSetIsFeedback(Statement stmt, String attrName, String userID, Timestamp date) throws SQLException {
+        String sql = "UPDATE report SET isFeedback='1' WHERE name_parkattraction='"+attrName+"' AND userID_parkvisitor='"+userID+"' AND date='"+date+"' ;";
+        return stmt.executeUpdate(sql);				
+	}
     
 }

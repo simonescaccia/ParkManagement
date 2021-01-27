@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import logic.control.bean.UserBean;
 import logic.control.controlapplicativo.AddReportControl;
+import logic.control.controlapplicativo.ShowVideoAdsControl;
 import logic.exception.NullLoginException;
 
 public class ShowVideoAdsGuiControlServlet extends HttpServlet{
@@ -36,9 +37,8 @@ public class ShowVideoAdsGuiControlServlet extends HttpServlet{
 			e.printStackTrace();
 		}
 		
-		aRC.showVideoAds(vAB);
-
-		
+		ShowVideoAdsControl sVAC = new ShowVideoAdsControl();
+		sVAC.loadVideoAds(vAB.getUserID());		
 	
 	}
 	

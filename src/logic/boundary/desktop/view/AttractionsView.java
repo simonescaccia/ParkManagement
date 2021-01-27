@@ -41,6 +41,10 @@ public final class AttractionsView extends GenericView{
 		
 		super.stage = stage;
 		
+		if(super.gGC.getLoginGuiControl().getLoginControl().getLoginBean().getUserID() != null) {
+			super.loginOn();
+		}
+		
 		//pageButton background
 		BackgroundFill fill = new BackgroundFill(darkGreen, null, null);
 		Background backB2 = new Background(fill);
@@ -122,7 +126,7 @@ public final class AttractionsView extends GenericView{
 		container.getChildren().addAll(miniContainer, space2, submit);
 		superContainer.getChildren().addAll(space1, container);
 		
-		super.sideInfo.getChildren().addAll(super.messageBox, superContainer);
+		super.sideInfo.getChildren().addAll(superContainer);
 		stage.setScene(super.scene);
 		
 		stage.show();

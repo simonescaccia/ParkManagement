@@ -7,6 +7,7 @@ import logic.entities.dao.ParkAttractionDAO;
 import logic.entities.dao.ParkVisitorDAO;
 import logic.entities.dao.ReportDAO;
 import logic.entities.model.Report;
+import logic.exception.DBFailureException;
 import logic.exception.ParkAttractionNotFoundException;
 import logic.exception.ParkVisitorNotFoundException;
 import logic.exception.ReportNotFoundException;
@@ -17,6 +18,7 @@ public class CommitReportControl {
 			//new waiting time for the attraction
 			Time newWt = calculateWaitingTime(report);
 			
+			report.setWaitingTime(newWt);
 			ParkAttractionDAO.updateParkAttraction(report.getParkAttraction(), report.getLengthQueue(), newWt);
 			ReportDAO.insertReport(report);
 			//this is a thread
@@ -25,7 +27,7 @@ public class CommitReportControl {
 				waitToSetNullQueue(report)	
 			).start();
 			
-			ParkVisitorDAO.incrementCoin(report.getParkVisitor());
+			ParkVisitorDAO.incrementCoin(report.getParkVisitor().getUserID());
 			
 	}
 	
@@ -51,14 +53,15 @@ public class CommitReportControl {
 			Thread.currentThread().interrupt();
 		}
 		try {
-			Timestamp date = ReportDAO.selectDateLastReport(report.getParkAttraction());
+			Report r = ReportDAO.selectLastReport(null, report.getParkAttraction().getName());
+			Timestamp date = r.getDate();
 			//The DB set the milliseconds to 0 to the Timestamp
 			report.getDate().setNanos(0);
 			if(date.equals(report.getDate())) {
 				//no report change, then set queue length and the queue waiting time to his default value
 				ParkAttractionDAO.updateParkAttraction(report.getParkAttraction(), -1, null);
 			}
-		} catch (ReportNotFoundException | ParkAttractionNotFoundException e) {
+		} catch (ReportNotFoundException | ParkAttractionNotFoundException | DBFailureException e) {
 			e.printStackTrace();
 		}
 

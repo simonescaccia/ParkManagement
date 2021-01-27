@@ -3,8 +3,11 @@ package logic.entities.dao.queries;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 public class Queries {
+	
+	private static final String SELECT_STAR_FROM_REPORT_WH_PV = "SELECT * FROM report WHERE userID_parkvisitor='";
 	
 	private Queries() {}
 
@@ -64,8 +67,8 @@ public class Queries {
     }
     
     //report query
-    public static ResultSet selectLastestReportPV(Statement stmt, String userID, String pAName) throws SQLException  {
-        String sql = "SELECT * FROM report WHERE userID_parkvisitor='"+userID+"' AND name_parkattraction ='"+pAName+"' ORDER BY date DESC;";
+    public static ResultSet selectLastestReportPvPa(Statement stmt, String userID, String pAName) throws SQLException  {
+        String sql = SELECT_STAR_FROM_REPORT_WH_PV+userID+"' AND name_parkattraction ='"+pAName+"' ORDER BY date DESC;";
         return stmt.executeQuery(sql);
     }
     
@@ -75,7 +78,12 @@ public class Queries {
     }
 
 	public static ResultSet selectLastestReportPV(Statement stmt, String userID) throws SQLException {
-        String sql = "SELECT * FROM report WHERE userID_parkvisitor='"+userID+"' AND isFeedback ='0' AND isLast = '1' ORDER BY date DESC;";
+        String sql = SELECT_STAR_FROM_REPORT_WH_PV+userID+"' AND isFeedback ='0' AND isLast = '1' ORDER BY date DESC;";
+        return stmt.executeQuery(sql);
+	}
+
+	public static ResultSet selectReportByPK(Statement stmt, String userID, String attractionName, Timestamp date) throws SQLException {
+        String sql =SELECT_STAR_FROM_REPORT_WH_PV+userID+"' AND name_parkattraction ='"+attractionName+"' AND date = '"+date+"';";
         return stmt.executeQuery(sql);
 	}
    

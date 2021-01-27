@@ -253,10 +253,36 @@
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
         <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
     </path>
+    <path id="run.TestInsertFeedbackControl.classpath">
+        <path refid="SpeedyFila.classpath"/>
+        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="JavaFX.userclasspath"/>
+        <path refid="JUnit 5.libraryclasspath"/>
+        <path refid="Google.userclasspath"/>
+        <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
+        <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
+    </path>
+    <path id="run.AllTests (3).classpath">
+        <path refid="SpeedyFila.classpath"/>
+        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="JavaFX.userclasspath"/>
+        <path refid="JUnit 5.libraryclasspath"/>
+        <path refid="Google.userclasspath"/>
+        <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
+        <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
+    </path>
     <target name="init">
         <mkdir dir="build/classes"/>
         <copy includeemptydirs="false" todir="build/classes">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -314,7 +340,9 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
+            <test name="test.AllTests" todir="${junit.output.dir}"/>
             <test name="test.TestAddReportControl" todir="${junit.output.dir}"/>
+            <test name="test.TestInsertFeedbackControl" todir="${junit.output.dir}"/>
             <test name="test.TestVerifyConditionReportControl" todir="${junit.output.dir}"/>
             <jvmarg line="-ea"/>
             <classpath refid="run.SpeedyFila (1).classpath"/>
@@ -333,6 +361,24 @@
             <test name="test.TestAddReportControl" todir="${junit.output.dir}"/>
             <jvmarg line="-ea"/>
             <classpath refid="run.TestAddReportControl.classpath"/>
+        </junit>
+    </target>
+    <target name="TestInsertFeedbackControl">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.TestInsertFeedbackControl" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="run.TestInsertFeedbackControl.classpath"/>
+        </junit>
+    </target>
+    <target name="AllTests (3)">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.AllTests" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="run.AllTests (3).classpath"/>
         </junit>
     </target>
     <target name="junitreport">

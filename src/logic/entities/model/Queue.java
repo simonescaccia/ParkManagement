@@ -7,7 +7,14 @@ public class Queue {
 	private int length;
 	private Time waitingTime;
 	private double avgWaitingTime;
+	private int idQueue;
 	
+	public int getIdQueue() {
+		return idQueue;
+	}
+	public void setIdQueue(int idQueue) {
+		this.idQueue = idQueue;
+	}
 	public int getLength() {
 		return length;
 	}
