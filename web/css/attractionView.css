@@ -1,0 +1,71 @@
+@charset "ISO-8859-1";
+
+#width {
+	width : 650px;
+}
+
+#width2{
+	width : 20px;
+}
+
+#attractionView {
+	margin-top: 20px;
+ 	margin-bottom: 20px;
+  	border: 2px solid #00AA6D;
+}
+
+#imgAttr {
+	height: 120px;
+
+}
+#infoAttr {
+	left: 180px;
+	height: 120px;
+}
+#infoAttrBottom{
+	height: 80px;
+}
+
+#param{
+	width: 170px;
+}
+
+img.attrImg {
+	width: 160px; 
+	height: 120px;
+}
+
+img.icon{
+	width: 50px; 
+	height: 50px;
+}
+
+a.attrName {
+	font-family: "Comic Sans MS", Arial, sans-serif;
+    font-size: 21px;
+    margin: 0px;
+    padding: 0px;
+    font-weight: normal;
+    color: #000;
+    text-decoration: none;
+}
+
+#nounderline {
+	color: black;
+	text-decoration:none;
+}
+
+h4.desc2 {
+	font-family: "Comic Sans MS", Arial, sans-serif;
+    font-size: 17px;
+    margin: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    font-weight: normal;
+    color: #444;
+}
+
+#scroll {
+	height: 400;
+	overflow-y: scroll;
+}

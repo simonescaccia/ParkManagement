@@ -39,6 +39,7 @@ public class ParkVisitorDAO {
 		        }
 		        
 		        pV.setUserID(rs.getString("userID"));
+		        pV.setCoins(rs.getInt("coins"));
 		        
 		        return pV;
 		        

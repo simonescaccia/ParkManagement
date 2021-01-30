@@ -27,7 +27,7 @@ public class LoginGoogleView {
 	private static String scope = "email%20profile";
 	private static String responseType = "code";
 	private static String state = "security_token%3D138r5719ru3e1%26url%3Dhttps%3A%2F%2Foauth2.example.com%2Ftoken";
-	private static String redirectUri = "http://localhost:8080/SpeedyFila/jspPages/CloseThisPage.jsp";
+	private static String redirectUri = "http://localhost:8080/SpeedyFila/jspPages/closeThisPage.jsp";
 	private static String clientId = "80408227597-8q6kctaqnd2up2am22u5o517ql90474k.apps.googleusercontent.com";
 	private static String clientSecret = "PwK86HUf4ABIyBa4ZU05X9zb";
 		

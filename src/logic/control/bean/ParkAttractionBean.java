@@ -6,11 +6,16 @@ import java.util.List;
 public class ParkAttractionBean {
 
 	private int distanceFromUser;
+	private int waitingTime;
+	private InputStream img;
 	private String name;
 	private String categoryName;
 	private InputStream imgC;
 	private List<ReportBean> listOfReports;
 	
+	//for jsp page
+	private String imgAttractionString;
+	private String imgCategoryString;
 	
 	public List<ReportBean> getListOfReports() {
 		return listOfReports;
@@ -23,10 +28,7 @@ public class ParkAttractionBean {
 	}
 	public void setImgC(InputStream imgC) {
 		this.imgC = imgC;
-	}
-	private int waitingTime;
-	private InputStream img;
-	
+	}	
 	public int getDistanceFromUser() {
 		return distanceFromUser;
 	}
@@ -56,6 +58,18 @@ public class ParkAttractionBean {
 	}
 	public void setImg(InputStream img) {
 		this.img = img;
+	}
+	public String getImgAttractionString() {
+		return imgAttractionString;
+	}
+	public void setImgAttractionString(String imgAttractionString) {
+		this.imgAttractionString = imgAttractionString;
+	}
+	public String getImgCategoryString() {
+		return imgCategoryString;
+	}
+	public void setImgCategoryString(String imgCategoryString) {
+		this.imgCategoryString = imgCategoryString;
 	}
 
 	

@@ -160,7 +160,7 @@ public final class AddReportView extends GenericView{
 		Background backA = new Background(bImgA);
 		img.setBackground(backA);
 		img.setMinSize(700,430);
-		
+	
 		title.getChildren().addAll(labelAttraction0, labelAttraction, icona);
 		container.getChildren().addAll(space2, title, img);
 		superContainer.getChildren().addAll(space, container);
@@ -171,7 +171,7 @@ public final class AddReportView extends GenericView{
 		// last Report
 		Label space3 = new Label();
 		space3.setMinHeight(50);
-		Label lastReport = new Label("Last Report");
+		Label lastReport = new Label("Last Reports");
 		lastReport.setFont(fontSide);
 		lastReport.setTextFill(Color.BLACK);
 		

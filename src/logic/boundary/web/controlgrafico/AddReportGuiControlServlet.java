@@ -34,7 +34,7 @@ public class AddReportGuiControlServlet extends HttpServlet{
 		//fill the AddReportBean
 		String queueLenS = request.getParameter("queueLen");
 		boolean isLast = (request.getParameter("isLast") != null);
-		String attractionName = (String)request.getSession().getAttribute("attractionName");
+		String attractionName = request.getParameter("attractionName");
 		
 		aRB.setIsLast(isLast);
 		
@@ -76,12 +76,12 @@ public class AddReportGuiControlServlet extends HttpServlet{
 		}
 
 		//forward e invia la risposta
-	    request.setAttribute("mB", mB);
-	    
-	    RequestDispatcher rd = request.getRequestDispatcher("/jspPages/addReport.jsp?attractionName="+attractionName);
+		request.setAttribute("mB", mB);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/jspPages/addReport.jsp?attractionName="+attractionName);
 	    try {
 	    	rd.forward(request, response);
-	    } catch (ServletException|IOException e) {
+	    } catch (ServletException | IOException e) {
 	    	e.printStackTrace();
 	    }
 	

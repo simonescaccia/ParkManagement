@@ -217,6 +217,11 @@ public abstract class GenericView{
 			iRV.showScene(stage);
 		});
 		
+		bPages[2].addEventHandler(MouseEvent.MOUSE_CLICKED, e-> {
+			ConvertCouponView cCV = new ConvertCouponView(gGC.getLoginGuiControl());
+			cCV.showScene(stage);
+		});
+		
 		loginBox = new HBox();
 		loginBox.setBackground(backB1);
 		loginBox.setMinSize(246, 50);

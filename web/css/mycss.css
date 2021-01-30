@@ -51,14 +51,31 @@ input[type=checkbox].addreport {
 
 input[type=text].addreport {
 	border: 1px solid #00AA6D;
-	height: 30px;
-	width: 40px;
+	height: 34px;
+	width: 50px;
 }
 
 input[type=submit].addreport {
 	background-color: #00AA6D;
 	border: 1px solid #000;
 	width: 120px;
+	height: 34px;
+	cursor: pointer;
+	font-family: "Comic Sans MS", Arial, sans-serif;
+    font-size: 17px;
+    text-align: center;
+}
+
+input[type=text].insertFeedback {
+	border: 1px solid #00AA6D;
+	height: 34px;
+	width: 300px;
+}
+
+input[type=submit].insertFeedback {
+	background-color: #00AA6D;
+	border: 1px solid #000;
+	width: 160px;
 	height: 34px;
 	cursor: pointer;
 	font-family: "Comic Sans MS", Arial, sans-serif;
@@ -94,6 +111,7 @@ li a {
   	text-align: center;
   	padding: 11px 50px;
   	text-decoration: none;
+  	
 }
 
 li.left a.left {
@@ -142,6 +160,10 @@ div.addreport {
   	left: 0px;
   	width: 380px;
   	height: 100px;
+}
+
+#addreport{
+	height: 200;
 }
 
 div.box {

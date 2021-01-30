@@ -48,4 +48,55 @@
     	<servlet-name>ShowVideoAdsGuiControlServlet</servlet-name>
     	<url-pattern>/showVideoAdsGuiControlServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ViewAttractionsGuiControlServlet</servlet-name>
+		<servlet-class>logic.boundary.web.controlgrafico.ViewAttractionsGuiControlServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+    	<servlet-name>ViewAttractionsGuiControlServlet</servlet-name>
+    	<url-pattern>/viewAttractionsGuiControlServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShowAttractionInfoGuiControlServlet</servlet-name>
+		<servlet-class>logic.boundary.web.controlgrafico.ShowAttractionInfoGuiControlServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+    	<servlet-name>ShowAttractionInfoGuiControlServlet</servlet-name>
+    	<url-pattern>/showAttractionInfoGuiControlServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShowYourReportsGuiControlServlet</servlet-name>
+		<servlet-class>logic.boundary.web.controlgrafico.ShowYourReportsGuiControlServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+    	<servlet-name>ShowYourReportsGuiControlServlet</servlet-name>
+    	<url-pattern>/showYourReportsGuiControlServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InsertFeedbackGuiControlServlet</servlet-name>
+		<servlet-class>logic.boundary.web.controlgrafico.InsertFeedbackGuiControlServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+    	<servlet-name>InsertFeedbackGuiControlServlet</servlet-name>
+    	<url-pattern>/insertFeedbackGuiControlServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShowCoinsGuiControlServlet</servlet-name>
+		<servlet-class>logic.boundary.web.controlgrafico.ShowCoinsGuiControlServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+    	<servlet-name>ShowCoinsGuiControlServlet</servlet-name>
+    	<url-pattern>/showCoinsGuiControlServlet</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
