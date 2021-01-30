@@ -28,6 +28,18 @@ public class InsertFeedbackGuiControlServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	@Override
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException
+	{
+		RequestDispatcher rd = request.getRequestDispatcher("/jspPages/yourReports.jsp");
+	    try {
+	    	rd.forward(request, response);
+	    } catch (ServletException|IOException e) {
+	    	e.printStackTrace();
+	    }
+	}
+	
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException
 	{
@@ -79,18 +91,6 @@ public class InsertFeedbackGuiControlServlet extends HttpServlet{
 	    	e.printStackTrace();
 	    }
 	
-	}
-
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException
-	{
-		RequestDispatcher rd = request.getRequestDispatcher("/jspPages/yourReports.jsp");
-	    try {
-	    	rd.forward(request, response);
-	    } catch (ServletException|IOException e) {
-	    	e.printStackTrace();
-	    }
 	}
 
 }
