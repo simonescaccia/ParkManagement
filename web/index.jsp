@@ -119,8 +119,11 @@ if(forward == null){
 													<div class= "col-xs-6">
 														<img class="icon"  src="<%=request.getContextPath()%>/img/maps2.png" alt="imgM"/>
 													</div>
+													<div class= "col-xs-6">
+														<h4 class="desc"><%= distance %></h4>
+													</div>
 													<div id="param" class= "col-xs-6">
-														<h4 class="desc"><%= distance %> m</h4>
+														<h4 class="desc"> m</h4>
 													</div>
 												</div>
 											</div>

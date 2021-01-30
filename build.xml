@@ -45,7 +45,11 @@
         <pathelement location="../../../../../../../Program Files/apache-tomcat-9.0.40/lib/websocket-api.jar"/>
     </path>
     <path id="Web App Libraries.libraryclasspath">
+        <pathelement location="web/WEB-INF/lib/byte-buddy-1.8.15.jar"/>
         <pathelement location="web/WEB-INF/lib/checker-compat-qual-2.5.5.jar"/>
+        <pathelement location="web/WEB-INF/lib/client-combined-3.141.59-sources.jar"/>
+        <pathelement location="web/WEB-INF/lib/client-combined-3.141.59.jar"/>
+        <pathelement location="web/WEB-INF/lib/commons-exec-1.3.jar"/>
         <pathelement location="web/WEB-INF/lib/commons-io-2.8.0-javadoc.jar"/>
         <pathelement location="web/WEB-INF/lib/commons-io-2.8.0-sources.jar"/>
         <pathelement location="web/WEB-INF/lib/commons-io-2.8.0-test-sources.jar"/>
@@ -77,6 +81,7 @@
         <pathelement location="web/WEB-INF/lib/google-oauth-client-servlet-1.31.2.jar"/>
         <pathelement location="web/WEB-INF/lib/grpc-context-1.22.1.jar"/>
         <pathelement location="web/WEB-INF/lib/gson-2.8.6.jar"/>
+        <pathelement location="web/WEB-INF/lib/guava-25.0-jre.jar"/>
         <pathelement location="web/WEB-INF/lib/guava-29.0-android.jar"/>
         <pathelement location="web/WEB-INF/lib/httpclient-4.5.13.jar"/>
         <pathelement location="web/WEB-INF/lib/httpcore-4.4.13.jar"/>
@@ -86,6 +91,8 @@
         <pathelement location="web/WEB-INF/lib/jsr305-3.0.2.jar"/>
         <pathelement location="web/WEB-INF/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"/>
         <pathelement location="web/WEB-INF/lib/mysql-connector-java-5.1.46-bin.jar"/>
+        <pathelement location="web/WEB-INF/lib/okhttp-3.11.0.jar"/>
+        <pathelement location="web/WEB-INF/lib/okio-1.14.0.jar"/>
         <pathelement location="web/WEB-INF/lib/opencensus-api-0.24.0.jar"/>
         <pathelement location="web/WEB-INF/lib/opencensus-contrib-http-util-0.24.0.jar"/>
         <pathelement location="web/WEB-INF/lib/protobuf-java-3.13.0.jar"/>
@@ -118,6 +125,15 @@
         <pathelement location="../../../../../.p2/pool/plugins/org.apiguardian_1.1.0.v20190826-0900.jar"/>
         <pathelement location="../../../../../.p2/pool/plugins/org.junit_4.13.0.v20200204-1500.jar"/>
         <pathelement location="../../../../../.p2/pool/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
+    </path>
+    <path id="Selenium.userclasspath">
+        <pathelement location="../../../../../../../Eclipse/selenium-java-3.141.59/client-combined-3.141.59.jar"/>
+        <pathelement location="../../../../../../../Eclipse/selenium-java-3.141.59/client-combined-3.141.59-sources.jar"/>
+        <pathelement location="../../../../../../../Eclipse/selenium-java-3.141.59/libs/byte-buddy-1.8.15.jar"/>
+        <pathelement location="../../../../../../../Eclipse/selenium-java-3.141.59/libs/commons-exec-1.3.jar"/>
+        <pathelement location="../../../../../../../Eclipse/selenium-java-3.141.59/libs/guava-25.0-jre.jar"/>
+        <pathelement location="../../../../../../../Eclipse/selenium-java-3.141.59/libs/okhttp-3.11.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/selenium-java-3.141.59/libs/okio-1.14.0.jar"/>
     </path>
     <path id="Google.userclasspath">
         <pathelement location="../../../../../../../Eclipse/google-api-java-client/libs/checker-compat-qual-2.5.5.jar"/>
@@ -169,7 +185,6 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
-        <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
         <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
@@ -178,6 +193,8 @@
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-sources.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-tests.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-test-sources.jar"/>
+        <path refid="Selenium.userclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <path id="run.AllTests (3).classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -186,7 +203,6 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
-        <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
         <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
@@ -195,6 +211,8 @@
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-sources.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-tests.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-test-sources.jar"/>
+        <path refid="Selenium.userclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <path id="run.AttractionsView.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -203,7 +221,6 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
-        <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
         <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
@@ -212,6 +229,8 @@
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-sources.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-tests.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-test-sources.jar"/>
+        <path refid="Selenium.userclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <path id="run.Home.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -220,7 +239,6 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
-        <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
         <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
@@ -229,6 +247,8 @@
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-sources.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-tests.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-test-sources.jar"/>
+        <path refid="Selenium.userclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <path id="run.LoginGoogleView.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -237,7 +257,6 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
-        <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
         <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
@@ -246,6 +265,8 @@
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-sources.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-tests.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-test-sources.jar"/>
+        <path refid="Selenium.userclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <path id="run.ParkVisitorDAO.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -254,7 +275,6 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
-        <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
         <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
@@ -263,6 +283,8 @@
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-sources.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-tests.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-test-sources.jar"/>
+        <path refid="Selenium.userclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <path id="run.SpeedyFila (1).classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -271,7 +293,6 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
-        <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
         <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
@@ -280,6 +301,8 @@
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-sources.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-tests.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-test-sources.jar"/>
+        <path refid="Selenium.userclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <path id="run.SpeedyFilaMain.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -288,7 +311,6 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
-        <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
         <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
@@ -297,6 +319,8 @@
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-sources.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-tests.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-test-sources.jar"/>
+        <path refid="Selenium.userclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <path id="run.TestAddReportControl.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -305,7 +329,6 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
-        <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
         <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
@@ -314,6 +337,26 @@
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-sources.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-tests.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-test-sources.jar"/>
+        <path refid="Selenium.userclasspath"/>
+        <path refid="Google.userclasspath"/>
+    </path>
+    <path id="run.TestAttractionsViewSortDistance.classpath">
+        <path refid="SpeedyFila.classpath"/>
+        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="JavaFX.userclasspath"/>
+        <path refid="JUnit 5.libraryclasspath"/>
+        <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
+        <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-javadoc.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-sources.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-tests.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-test-sources.jar"/>
+        <path refid="Selenium.userclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <path id="run.TestInsertFeedbackControl.classpath">
         <path refid="SpeedyFila.classpath"/>
@@ -322,7 +365,6 @@
         <path refid="EAR Libraries.libraryclasspath"/>
         <path refid="JavaFX.userclasspath"/>
         <path refid="JUnit 5.libraryclasspath"/>
-        <path refid="Google.userclasspath"/>
         <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
         <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
@@ -331,11 +373,33 @@
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-sources.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-tests.jar"/>
         <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-test-sources.jar"/>
+        <path refid="Selenium.userclasspath"/>
+        <path refid="Google.userclasspath"/>
+    </path>
+    <path id="run.TestAttractionViewSortByDistance.classpath">
+        <path refid="SpeedyFila.classpath"/>
+        <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="JavaFX.userclasspath"/>
+        <path refid="JUnit 5.libraryclasspath"/>
+        <pathelement location="../../../../../../../Eclipse/json-20190722.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-codec-1.9.jar"/>
+        <pathelement location="../../../../../../../Eclipse/mysql-connector-java-5.1.46-bin.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-javadoc.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-sources.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-tests.jar"/>
+        <pathelement location="../../../../../../../Eclipse/commons-io-2.8.0/commons-io-2.8.0-test-sources.jar"/>
+        <path refid="Selenium.userclasspath"/>
+        <path refid="Google.userclasspath"/>
     </path>
     <target name="init">
         <mkdir dir="build/classes"/>
         <copy includeemptydirs="false" todir="build/classes">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -406,6 +470,7 @@
             <test name="test.TestAddReportControl" todir="${junit.output.dir}"/>
             <test name="test.TestInsertFeedbackControl" todir="${junit.output.dir}"/>
             <test name="test.TestVerifyConditionReportControl" todir="${junit.output.dir}"/>
+            <test name="test.selenium.TestAttractionViewSortByDistance" todir="${junit.output.dir}"/>
             <jvmarg line="-ea"/>
             <classpath refid="run.SpeedyFila (1).classpath"/>
         </junit>
@@ -425,6 +490,15 @@
             <classpath refid="run.TestAddReportControl.classpath"/>
         </junit>
     </target>
+    <target name="TestAttractionsViewSortDistance">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.selenium.TestAttractionsViewSortDistance" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="run.TestAttractionsViewSortDistance.classpath"/>
+        </junit>
+    </target>
     <target name="TestInsertFeedbackControl">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
@@ -432,6 +506,15 @@
             <test name="test.TestInsertFeedbackControl" todir="${junit.output.dir}"/>
             <jvmarg line="-ea"/>
             <classpath refid="run.TestInsertFeedbackControl.classpath"/>
+        </junit>
+    </target>
+    <target name="TestAttractionViewSortByDistance">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.selenium.TestAttractionViewSortByDistance" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="run.TestAttractionViewSortByDistance.classpath"/>
         </junit>
     </target>
     <target name="junitreport">

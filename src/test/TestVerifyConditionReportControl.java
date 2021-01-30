@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import logic.control.controlapplicativo.VerifyConditionReportControl;
 
+//Scaccia Simone
 public class TestVerifyConditionReportControl {
 
 	@Test

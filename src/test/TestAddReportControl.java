@@ -17,6 +17,7 @@ import logic.exception.NullLoginException;
 import logic.exception.ReportNotFoundException;
 import test.cleanup.CleanUP;
 
+//Scaccia Simone
 public class TestAddReportControl {
 
 	@Test
