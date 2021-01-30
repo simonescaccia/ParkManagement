@@ -88,14 +88,8 @@ public class ShowYourReportsGuiControlServlet extends HttpServlet{
 			MessageBean mB = new MessageBean();
 			mB.setMessage(e.getMessage());
 			mB.setType(false);
-			request.setAttribute("mB", mB);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/jspPages/yourReports.jsp?forward=false");
-		    try {
-		    	rd.forward(request, response);
-		    } catch (ServletException | IOException ex) {
-		    	ex.printStackTrace();
-		    }
+			ForwardError.forwardError(mB, request, response);
 			
 		}
 	}
