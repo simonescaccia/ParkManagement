@@ -50,6 +50,7 @@ public class ParkAttraction {
 		q.setAvgWaitingTime(this.queue.getAvgWaitingTime());
 		q.setLength(this.queue.getLength());
 		q.setWaitingTime(this.queue.getWaitingTime());
+		q.setIdQueue(this.queue.getIdQueue());
 		return q;
 	}
 	public void setQueue(Queue queue) {
@@ -57,6 +58,7 @@ public class ParkAttraction {
 		q.setAvgWaitingTime(queue.getAvgWaitingTime());
 		q.setLength(queue.getLength());
 		q.setWaitingTime(queue.getWaitingTime());
+		q.setIdQueue(queue.getIdQueue());
 		this.queue = q;
 	}
 	public Position getPosition() {
