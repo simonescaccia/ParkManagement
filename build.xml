@@ -358,7 +358,7 @@
         <path refid="Selenium.userclasspath"/>
         <path refid="Google.userclasspath"/>
     </path>
-    <path id="run.TestInsertFeedbackControl.classpath">
+    <path id="run.TestAttractionViewSortByDistance.classpath">
         <path refid="SpeedyFila.classpath"/>
         <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
         <path refid="Web App Libraries.libraryclasspath"/>
@@ -376,7 +376,7 @@
         <path refid="Selenium.userclasspath"/>
         <path refid="Google.userclasspath"/>
     </path>
-    <path id="run.TestAttractionViewSortByDistance.classpath">
+    <path id="run.TestInsertFeedbackControl.classpath">
         <path refid="SpeedyFila.classpath"/>
         <path refid="Apache Tomcat v9.0 [Apache Tomcat v9.0].libraryclasspath"/>
         <path refid="Web App Libraries.libraryclasspath"/>
@@ -499,15 +499,6 @@
             <classpath refid="run.TestAttractionsViewSortDistance.classpath"/>
         </junit>
     </target>
-    <target name="TestInsertFeedbackControl">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="test.TestInsertFeedbackControl" todir="${junit.output.dir}"/>
-            <jvmarg line="-ea"/>
-            <classpath refid="run.TestInsertFeedbackControl.classpath"/>
-        </junit>
-    </target>
     <target name="TestAttractionViewSortByDistance">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
@@ -515,6 +506,15 @@
             <test name="test.selenium.TestAttractionViewSortByDistance" todir="${junit.output.dir}"/>
             <jvmarg line="-ea"/>
             <classpath refid="run.TestAttractionViewSortByDistance.classpath"/>
+        </junit>
+    </target>
+    <target name="TestInsertFeedbackControl">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.TestInsertFeedbackControl" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="run.TestInsertFeedbackControl.classpath"/>
         </junit>
     </target>
     <target name="junitreport">

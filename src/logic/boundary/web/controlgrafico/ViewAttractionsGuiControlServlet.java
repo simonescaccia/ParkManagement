@@ -36,6 +36,9 @@ public class ViewAttractionsGuiControlServlet extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException
 	{
+		
+		RequestDispatcher rd = null;
+		
 		//showAttractionsBean
 		ShowAttractionsBean sAB = new ShowAttractionsBean();
 		MessageBean mB = new MessageBean();
@@ -66,16 +69,22 @@ public class ViewAttractionsGuiControlServlet extends HttpServlet{
 			}
 			
 			request.setAttribute("listOfParkAttraction", listOfParkAttractionBean);
+			rd = request.getRequestDispatcher("/index.jsp?forward=true");
 			
 		} catch (OrderValueErrorException | FilterValueErrorException | ParkAttractionNotFoundException e) {
 			//return failure
+			if(mB == null) {
+				mB = new MessageBean();
+			}
 			mB.setMessage(e.getMessage());
 			mB.setType(false);	
+			
+			rd = request.getRequestDispatcher("/index.jsp?forward=false");
+			
 		}
 		
 		request.setAttribute("mB", mB);
 		
-	    RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?forward=true");
 	    try {
 	    	rd.forward(request, response);
 	    } catch (ServletException|IOException e) {
